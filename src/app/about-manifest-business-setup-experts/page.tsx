@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import { User } from "lucide-react";
 import { PageHero } from "@/components/PageHero";
 import { CtaBand } from "@/components/CtaBand";
 import { Reveal } from "@/components/Reveal";
@@ -49,6 +50,16 @@ const values = [
     t: "Confidential by default",
     d: "Your documents and business details are handled with care and shared only where required.",
   },
+];
+
+type TeamMember = { role: string; name?: string; languages?: string; photo?: string };
+
+// Add `name`, `languages` and `photo` (a path in /public/images) to show them on the card.
+const team: TeamMember[] = [
+  { role: "Founder & Managing Director" },
+  { role: "Senior Business Setup Adviser" },
+  { role: "PRO & Visa Specialist" },
+  { role: "Accounts & Tax Manager" },
 ];
 
 export default function AboutPage() {
@@ -121,6 +132,45 @@ export default function AboutPage() {
                   <span className="text-sm font-bold text-champagne-deep">{v.n}</span>
                   <h3 className="mt-3 text-xl leading-snug text-olive-deep">{v.t}</h3>
                   <p className="mt-2 text-[0.95rem] leading-relaxed text-ink-soft/85">{v.d}</p>
+                </article>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-olive-wash py-20 sm:py-28">
+        <div className="container-luxe">
+          <Reveal className="max-w-3xl">
+            <p className="eyebrow">Our team</p>
+            <h2 className="mt-5 text-3xl leading-[1.12] text-olive-deep sm:text-4xl lg:text-[2.5rem]">
+              The people you&apos;ll work with
+            </h2>
+          </Reveal>
+          <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {team.map((member, i) => (
+              <Reveal key={member.role} delay={(i % 4) * 90}>
+                <article className="h-full overflow-hidden bg-white">
+                  <div className="relative aspect-square bg-[#dcddd2]">
+                    {member.photo ? (
+                      <Image
+                        src={member.photo}
+                        alt={member.name ?? member.role}
+                        fill
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                        className="object-cover"
+                      />
+                    ) : (
+                      <User className="absolute top-1/2 left-1/2 size-16 -translate-x-1/2 -translate-y-1/2 text-olive-deep/25" strokeWidth={1.1} aria-hidden="true" />
+                    )}
+                  </div>
+                  <div className="p-5">
+                    {member.name && <h3 className="text-lg leading-snug text-olive-deep">{member.name}</h3>}
+                    <p className={`text-[0.95rem] text-ink-soft ${member.name ? "mt-1.5" : "font-semibold text-olive-deep"}`}>
+                      {member.role}
+                    </p>
+                    {member.languages && <p className="mt-1.5 text-sm text-ink-soft/70">Speaks {member.languages}</p>}
+                  </div>
                 </article>
               </Reveal>
             ))}
