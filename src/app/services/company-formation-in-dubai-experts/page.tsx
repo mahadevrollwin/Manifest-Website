@@ -20,7 +20,7 @@ const page: ServicePageData = {
   facts: [
     { k: "Jurisdictions", v: "Mainland · Free Zone · Offshore" },
     { k: "Ownership", v: "Up to 100% for most activities" },
-    { k: "Registration time", v: "Typically 3–7 working days once documents are ready" },
+    { k: "Typical licence time", v: "3–7 working days" },
   ],
   forTitle: "Built for founders at every stage",
   forItems: [
@@ -118,8 +118,13 @@ const page: ServicePageData = {
     "Business plan, for some activities and free zones",
     "For a corporate shareholder: certificate of incorporation, board resolution and constitutional documents, attested",
   ],
+  costs: [
+    { k: "Free zone licence", v: "From around AED 12,000" },
+    { k: "Mainland licence", v: "Itemised in your quote" },
+    { k: "Per residence visa", v: "Itemised in your quote" },
+  ],
   costNote:
-    "Your quote lists government fees and our service fee separately, so you know exactly what you are paying for. Tell us your activity and we will send an itemised quote.",
+    "Your quote lists government fees and our service fee separately, so you know exactly what you are paying for.",
   faqs: [
     {
       q: "How long does company formation in Dubai take?",

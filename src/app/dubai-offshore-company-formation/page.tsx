@@ -67,6 +67,11 @@ const page: ServicePageData = {
     "CV or professional profile",
     "Short description of the business purpose and source of funds",
   ],
+  costs: [
+    { k: "Offshore incorporation", v: "Itemised in your quote" },
+    { k: "Annual renewal", v: "Itemised in your quote" },
+    { k: "Typical timeline", v: "Confirmed in your quote" },
+  ],
   costNote:
     "Offshore companies have no office or visa costs. Your quote lists registry fees and our service fee separately.",
   faqs: [

@@ -1,13 +1,13 @@
 import type { ReactNode } from "react";
 import { Plus } from "lucide-react";
 
-export type AccordionItem = { question: string; answer: ReactNode };
+export type AccordionItem = { question: string; answer: ReactNode; defaultOpen?: boolean };
 
 export function Accordion({ items, name }: { items: AccordionItem[]; name: string }) {
   return (
     <div className="divide-y divide-olive-deep/10 border-y border-olive-deep/10">
       {items.map((item) => (
-        <details key={item.question} name={name} className="group">
+        <details key={item.question} name={name} open={item.defaultOpen} className="group">
           <summary className="flex cursor-pointer list-none items-start justify-between gap-6 py-6 text-left [&::-webkit-details-marker]:hidden">
             <span className="font-display text-lg leading-snug font-semibold text-olive-deep transition-colors group-hover:text-olive sm:text-xl">
               {item.question}

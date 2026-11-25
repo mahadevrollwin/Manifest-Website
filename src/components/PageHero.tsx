@@ -55,8 +55,8 @@ export function PageHero({ eyebrow, title, intro, image, imageAlt = "", crumbs, 
           <dl className="mt-12 grid animate-fade-up gap-6 border-t border-ivory/15 pt-8 [animation-delay:420ms] sm:grid-cols-2 lg:grid-cols-3">
             {facts.map((fact) => (
               <div key={fact.k}>
-                <dt className="text-xs font-semibold tracking-[0.14em] text-champagne uppercase">{fact.k}</dt>
-                <dd className="mt-2 text-base leading-snug text-ivory/90">{fact.v}</dd>
+                <dt className="text-[0.8rem] text-ivory/55">{fact.k}</dt>
+                <dd className="mt-1.5 text-lg leading-snug font-semibold text-ivory">{fact.v}</dd>
               </div>
             ))}
           </dl>

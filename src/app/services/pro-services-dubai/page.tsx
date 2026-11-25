@@ -71,8 +71,12 @@ const page: ServicePageData = {
     "Signed offer letter or labour contract, for new hires",
     "Company stamp or signatory authorisation, where needed",
   ],
-  costNote:
-    "Pay per task or on a monthly retainer. Government fees are passed through at cost and shown separately from our service fee.",
+  costs: [
+    { k: "Single transaction", v: "Quoted per task" },
+    { k: "Monthly PRO retainer", v: "Quoted monthly" },
+    { k: "Typical turnaround", v: "Confirmed per task" },
+  ],
+  costNote: "Government fees are passed through at cost and shown separately from our service fee.",
   faqs: [
     {
       q: "What does a PRO do in Dubai?",

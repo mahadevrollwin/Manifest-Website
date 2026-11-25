@@ -39,7 +39,6 @@ export type ServicePageData = {
   docsNote: string;
   docs: string[];
 
-  costsTitle?: string;
   costs?: { k: string; v: string }[];
   costNote: string;
 
@@ -74,7 +73,7 @@ export function ServicePage({ page }: { page: ServicePageData }) {
         facts={page.facts}
       >
         <Link href="/contact-us/" className="btn btn-champagne">
-          Get my free setup plan <ArrowRight className="size-4" />
+          Book free consultation <ArrowRight className="size-4" />
         </Link>
         <a href={whatsappLink(wa)} target="_blank" rel="noopener noreferrer" className="btn btn-ghost-light">
           <WhatsappIcon className="size-4" /> Chat on WhatsApp
@@ -223,7 +222,7 @@ export function ServicePage({ page }: { page: ServicePageData }) {
             </ul>
           </Reveal>
           <Reveal delay={120} className="flex flex-col bg-olive-night p-8 text-ivory sm:p-10">
-            <h2 className="text-2xl sm:text-3xl">{page.costsTitle ?? "Costs"}</h2>
+            <h2 className="text-2xl sm:text-3xl">Timeline &amp; cost</h2>
             {page.costs && page.costs.length > 0 && (
               <dl className="mt-7 divide-y divide-ivory/15 border-y border-ivory/15">
                 {page.costs.map((cost) => (
@@ -249,14 +248,14 @@ export function ServicePage({ page }: { page: ServicePageData }) {
             <p className="eyebrow">FAQs</p>
             <h2 className="mt-5 text-3xl leading-[1.15] text-olive-deep sm:text-4xl">Common questions</h2>
             <p className="mt-5 text-[0.98rem] leading-relaxed text-ink-soft/85">
-              Not here? <Link href="/contact-us/" className="font-semibold text-olive underline decoration-champagne underline-offset-4">Ask an adviser</Link>{" "}
+              Can&apos;t find your answer? <Link href="/contact-us/" className="font-semibold text-olive underline decoration-champagne underline-offset-4">Ask an adviser</Link>{" "}
               or see <Link href="/faqs/" className="font-semibold text-olive underline decoration-champagne underline-offset-4">all FAQs</Link>.
             </p>
           </Reveal>
           <Reveal delay={120} className="min-w-0 lg:col-span-8">
             <Accordion
               name={`faq-${page.eyebrow}`}
-              items={page.faqs.map((f) => ({ question: f.q, answer: <p>{f.a}</p> }))}
+              items={page.faqs.map((f, i) => ({ question: f.q, answer: <p>{f.a}</p>, defaultOpen: i === 0 }))}
             />
           </Reveal>
         </div>
@@ -267,8 +266,7 @@ export function ServicePage({ page }: { page: ServicePageData }) {
         <section className="bg-white py-20 sm:py-24">
           <div className="container-luxe">
             <Reveal>
-              <p className="eyebrow">Related services</p>
-              <h2 className="mt-5 text-3xl leading-[1.15] text-olive-deep sm:text-4xl">You may also need</h2>
+              <h2 className="text-2xl text-olive-deep">Related services</h2>
             </Reveal>
             <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
               {page.related.map((r, i) => (

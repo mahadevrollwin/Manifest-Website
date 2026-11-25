@@ -20,7 +20,7 @@ const page: ServicePageData = {
   facts: [
     { k: "Visa types", v: "Investor · Employee · Family · Golden" },
     { k: "Process", v: "Entry permit to Emirates ID" },
-    { k: "Golden Visa", v: "10-year residence for eligible applicants" },
+    { k: "Typical timeline", v: "Confirmed before you start" },
   ],
   forTitle: "A visa for every stage of your move",
   forItems: [
@@ -81,8 +81,13 @@ const page: ServicePageData = {
     "Attested marriage and birth certificates, for family visas",
     "Salary certificate or tenancy contract, for family visas",
   ],
+  costs: [
+    { k: "Investor / partner visa", v: "Itemised in your quote" },
+    { k: "Employee visa", v: "Itemised in your quote" },
+    { k: "Family visa (per person)", v: "Itemised in your quote" },
+  ],
   costNote:
-    "Government fees depend on the visa type and duration. We show them separately from our service fee, and you get an itemised quote before we start.",
+    "Government fees depend on the visa type and duration. We show them separately from our service fee.",
   faqs: [
     {
       q: "How long does a UAE residence visa take?",

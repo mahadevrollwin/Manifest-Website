@@ -70,6 +70,11 @@ const page: ServicePageData = {
     "No-objection letter from your current sponsor, if applicable",
     "Tenancy contract for your office (we help you register Ejari)",
   ],
+  costs: [
+    { k: "Mainland licence", v: "Itemised in your quote" },
+    { k: "Office / Ejari", v: "Depends on your office" },
+    { k: "Typical time to licence", v: "Confirmed in your setup plan" },
+  ],
   costNote:
     "Costs depend on your activity, legal form and office. Your quote shows every government fee separately.",
   faqs: [

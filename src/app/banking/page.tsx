@@ -39,7 +39,7 @@ const page: ServicePageData = {
   facts: [
     { k: "Banks", v: "Local and international UAE banks" },
     { k: "For", v: "Mainland, free zone and offshore companies" },
-    { k: "Accounts", v: "Corporate and personal" },
+    { k: "Typical timeline", v: "Confirmed after profile review" },
   ],
   forTitle: "For new companies that need an account without the back-and-forth",
   forItems: [
@@ -88,9 +88,13 @@ const page: ServicePageData = {
     "Source of funds and personal bank statements",
     "Contracts, invoices or proof of business activity, if available",
   ],
-  costs: [{ k: "Minimum balance", v: "Set by each bank" }],
+  costs: [
+    { k: "Banking assistance fee", v: "Quoted after profile review" },
+    { k: "Minimum balance", v: "Set by each bank" },
+    { k: "Typical timeline", v: "Confirmed after profile review" },
+  ],
   costNote:
-    "Account approval is at the bank’s discretion. We cannot guarantee approval, but a strong file makes a real difference. Ask for an itemised quote for our banking assistance fee.",
+    "Account approval is at the bank’s discretion. We cannot guarantee approval, but a strong file makes a real difference.",
   faqs: [
     {
       q: "Can you guarantee my account will be opened?",

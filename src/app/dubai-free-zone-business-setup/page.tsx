@@ -192,8 +192,13 @@ const page: ServicePageData = {
     "Short business plan, for some free zones",
     "Bank reference letter or CV, for some free zones",
   ],
+  costs: [
+    { k: "Free zone packages", v: "From around AED 12,000" },
+    { k: "Per residence visa", v: "Itemised in your quote" },
+    { k: "Typical time to licence", v: "Confirmed in your setup plan" },
+  ],
   costNote:
-    "*A Qualifying Free Zone Person pays 0% corporate tax on qualifying income; other income is taxed at 9%. We help you understand which applies to you. Package and visa costs vary by free zone, so your quote shows each one separately.",
+    "*A Qualifying Free Zone Person pays 0% corporate tax on qualifying income; other income is taxed at 9%. We help you understand which applies to you.",
   faqs: [
     {
       q: "Which free zones do you work with?",

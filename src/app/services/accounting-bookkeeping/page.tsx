@@ -50,6 +50,7 @@ const page: ServicePageData = {
     "Quarterly or monthly VAT returns",
     "Financial statements and management reports",
     "Payroll and WPS support",
+    "Audit support with approved auditors",
     "Accounting software setup",
   ],
   image: "/images/banking.jpg",
@@ -71,6 +72,11 @@ const page: ServicePageData = {
     "Expense receipts",
     "Payroll records, if you have employees",
     "Previous financial statements and tax registrations, if any",
+  ],
+  costs: [
+    { k: "Bookkeeping", v: "Fixed monthly fee" },
+    { k: "VAT return", v: "Quoted per return" },
+    { k: "Corporate tax filing", v: "Quoted per year" },
   ],
   costNote:
     "Pricing depends on your monthly transaction volume. We quote a fixed monthly fee after reviewing your records.",

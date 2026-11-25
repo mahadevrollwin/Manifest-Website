@@ -24,7 +24,7 @@ const page: ServicePageData = {
   facts: [
     { k: "Documents", v: "Educational, personal, commercial" },
     { k: "Translation", v: "Certified legal translation" },
-    { k: "Timeline", v: "Confirmed per document before we start" },
+    { k: "Typical timeline", v: "Confirmed per document" },
   ],
   forTitle: "When you need documents recognised in the UAE",
   forItems: [
@@ -86,7 +86,11 @@ const page: ServicePageData = {
     "Where the document will be used (e.g. family visa, company setup)",
     "Previous attestations, if any",
   ],
-  costs: [{ k: "Full attestation chain", v: "Quoted per document" }],
+  costs: [
+    { k: "Legal translation", v: "Quoted per page" },
+    { k: "MOFA attestation", v: "Quoted before we start" },
+    { k: "Full attestation chain", v: "Quoted per document" },
+  ],
   costNote: "Costs depend on the issuing country and document type. We quote before we start.",
   faqs: [
     {
