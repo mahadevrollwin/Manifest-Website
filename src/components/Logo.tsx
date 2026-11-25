@@ -5,12 +5,10 @@ export function Logo({ className = "" }: { className?: string }) {
     <Link
       href="/"
       aria-label="Manifest Business Services — home"
-      className={`group inline-flex flex-col items-center leading-none ${className}`}
+      className={`group inline-flex flex-col items-start leading-none ${className}`}
     >
-      <span className="font-display text-[1.65rem] font-medium tracking-[0.28em] sm:text-[1.85rem]">
-        MANIFEST
-      </span>
-      <span className="mt-1 text-[0.5rem] font-normal tracking-[0.58em] opacity-80 sm:text-[0.55rem]">
+      <span className="text-[1.4rem] font-bold tracking-[0.18em] sm:text-[1.55rem]">MANIFEST</span>
+      <span className="mt-1.5 text-[0.55rem] font-medium tracking-[0.3em] text-champagne-deep sm:text-[0.6rem]">
         BUSINESS SERVICES
       </span>
     </Link>

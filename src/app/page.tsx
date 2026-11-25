@@ -3,34 +3,24 @@ import Image from "next/image";
 import Link from "next/link";
 import {
   ArrowRight,
-  ArrowUpRight,
-  Award,
-  BadgeCheck,
   Banknote,
   Building2,
   Calculator,
-  Compass,
-  Globe,
+  Check,
   Landmark,
   Languages,
-  Laptop,
-  Mail,
-  MapPin,
   Phone,
   Plane,
-  Scale,
-  ShieldCheck,
-  SlidersHorizontal,
   Star,
-  Users,
   type LucideIcon,
 } from "lucide-react";
 import { HeroVideo } from "@/components/HeroVideo";
 import { Reveal } from "@/components/Reveal";
 import { SectionHeading } from "@/components/SectionHeading";
 import { Counter } from "@/components/Counter";
-import { AuthoritiesStrip } from "@/components/AuthoritiesStrip";
+import { Accordion } from "@/components/Accordion";
 import { ConsultationForm } from "@/components/ConsultationForm";
+import { WhatsappIcon } from "@/components/SocialIcons";
 import { coreServices, site, whatsappLink, whatsappMessages } from "@/content/site";
 
 export const metadata: Metadata = {
@@ -38,11 +28,11 @@ export const metadata: Metadata = {
   alternates: { canonical: "/" },
 };
 
-const peaceOfMind: { icon: LucideIcon; label: string }[] = [
-  { icon: Scale, label: "Expert legal advice" },
-  { icon: Compass, label: "Personalized and strategic approach" },
-  { icon: Award, label: "Excellent representation" },
-  { icon: Users, label: "Knowledgeable and experienced team" },
+const heroPoints = [
+  "Mainland, free zone & offshore",
+  "Licence, visas, PRO & banking under one roof",
+  "Clear quote before you commit",
+  "Office in Bur Dubai, meet us in person",
 ];
 
 const serviceIcons: Record<(typeof coreServices)[number]["key"], LucideIcon> = {
@@ -54,80 +44,183 @@ const serviceIcons: Record<(typeof coreServices)[number]["key"], LucideIcon> = {
   attestation: Languages,
 };
 
-const stats = [
-  { value: 4.9, decimals: 1, suffix: "", label: "Google Rating" },
-  { value: 98, decimals: 0, suffix: "%", label: "Client Satisfaction" },
-  { value: 92, decimals: 0, suffix: "%", label: "Customer Retention Rate" },
-  { value: 100, decimals: 0, suffix: "%", label: "Client Happiness" },
+const steps = [
+  { title: "Free consultation", text: "Tell us about your business, budget and visa needs. No obligation." },
+  {
+    title: "Your setup plan",
+    text: "We recommend the jurisdiction, licence and office option, with a full written quote.",
+  },
+  {
+    title: "We handle the approvals",
+    text: "Trade name, initial approval, documents and government submissions, with updates at every stage.",
+  },
+  { title: "Visas, bank & launch", text: "Residence visas, Emirates ID and bank account, so you are ready to trade." },
 ];
 
-const whyChooseUs: { icon: LucideIcon; label: string }[] = [
-  { icon: SlidersHorizontal, label: "Complete Business Control" },
-  { icon: Globe, label: "Global Business Access" },
-  { icon: ShieldCheck, label: "Confidentiality & Privacy Assured" },
-  { icon: Laptop, label: "Remote-Friendly Process" },
-  { icon: BadgeCheck, label: "Hassle-Free Setup" },
+const zones = [
+  {
+    title: "Dubai Mainland",
+    href: "/dubai-mainland/",
+    text: "Trade anywhere in the UAE, work directly with government clients and open an office anywhere in Dubai. 100% foreign ownership is available for most activities.",
+    bestFor: "retail, services to UAE customers, contracting",
+  },
+  {
+    title: "Dubai Free Zone",
+    href: "/dubai-free-zone-business-setup/",
+    text: "100% ownership, fast setup and flexible office packages. Trading directly with the UAE mainland usually needs a distributor or an extra permit.",
+    bestFor: "global-facing and online businesses",
+  },
+  {
+    title: "Offshore",
+    href: "/contact-us/",
+    text: "A structure for holding assets and running international business from the UAE. It cannot trade inside the UAE or sponsor residence visas.",
+    bestFor: "holding companies, international trading",
+  },
+];
+
+const stats = [
+  { value: 4.9, decimals: 1, suffix: "", label: "Google rating" },
+  { value: 98, decimals: 0, suffix: "%", label: "Client satisfaction" },
+  { value: 92, decimals: 0, suffix: "%", label: "Customer retention rate" },
+  { value: 100, decimals: 0, suffix: "%", label: "Client happiness" },
+];
+
+const whyManifest = [
+  {
+    title: "One team, end to end",
+    text: "Licence, visas, PRO, banking and accounting under one roof. No handoffs, no chasing three different agents.",
+  },
+  {
+    title: "Advice first, paperwork second",
+    text: "We recommend the structure that suits your plan, not the one that is easiest to sell.",
+  },
+  {
+    title: "Clear, itemised quotes",
+    text: "Government fees and our service fees are listed separately before you start.",
+  },
+  {
+    title: "Start before you land",
+    text: "Most of the process can be done remotely. Sign documents and track progress from anywhere.",
+  },
+  {
+    title: "Still here after setup",
+    text: "Renewals, compliance reminders and support as you hire and grow. Everything you share stays confidential.",
+  },
+];
+
+const authorities = [
+  { src: "/images/authorities/auth-1.png", name: "Dubai Courts" },
+  { src: "/images/authorities/auth-2.png", name: "Salem" },
+  { src: "/images/authorities/auth-3.png", name: "Tasheel" },
+  { src: "/images/authorities/auth-4.png", name: "Amer" },
+];
+
+const faqs = [
+  {
+    question: "How long does company formation in Dubai take?",
+    answer: (
+      <p>
+        It depends on the jurisdiction and activity. The Dubai company registration process typically takes 3–7 working
+        days once your documents are ready. Visas and bank accounts take additional time.
+      </p>
+    ),
+  },
+  {
+    question: "How much does it cost to set up a company in Dubai?",
+    answer: (
+      <p>
+        Costs depend on the jurisdiction, licence type, office option and number of visas. We give you an itemised
+        quote before you commit.
+      </p>
+    ),
+  },
+  {
+    question: "Can I own 100% of a mainland company?",
+    answer: (
+      <p>
+        Yes, for most commercial and professional activities. A small number of activities still have ownership
+        conditions, and we check yours in the consultation.
+      </p>
+    ),
+  },
+  {
+    question: "Do I need to be in the UAE to set up my company?",
+    answer: (
+      <p>
+        Much of the process can start remotely. You will usually need to be in the UAE for the visa medical test and
+        Emirates ID biometrics.
+      </p>
+    ),
+  },
+  {
+    question: "Mainland or free zone: which is better for my business?",
+    answer: (
+      <p>
+        If most of your customers are in the UAE, mainland is usually the better fit. If you sell internationally or
+        online, a free zone is often simpler. We compare both for your plan.
+      </p>
+    ),
+  },
 ];
 
 export default function HomePage() {
   return (
     <>
       {/* Hero */}
-      <section className="relative isolate flex h-[100svh] min-h-[680px] flex-col overflow-hidden bg-olive-night text-ivory">
+      <section className="relative isolate flex min-h-[100svh] flex-col overflow-hidden bg-olive-night text-ivory">
         <HeroVideo />
         <div className="absolute inset-0 bg-[url('/images/hero-poster.jpg')] bg-cover bg-center opacity-0 motion-reduce:opacity-100" />
         <div className="absolute inset-0 bg-olive-deep/40 mix-blend-multiply" />
-        <div className="absolute inset-0 bg-gradient-to-r from-olive-night/95 via-olive-night/55 to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-t from-olive-night via-olive-night/10 to-olive-night/50" />
-        <div className="grain absolute inset-0" />
+        <div className="absolute inset-0 bg-gradient-to-r from-olive-night via-olive-night/80 to-olive-night/20" />
+        <div className="absolute inset-0 bg-gradient-to-t from-olive-night via-olive-night/20 to-olive-night/60" />
 
-        <div className="container-luxe relative flex flex-1 flex-col justify-center pt-28">
-          <p className="eyebrow eyebrow-light animate-fade-up">Dubai Company Formation</p>
-          <h1 className="mt-6 max-w-5xl animate-fade-up text-[clamp(3.6rem,10vw,9rem)] leading-[0.92] font-normal [animation-delay:150ms]">
-            Grow With <em className="bg-gradient-to-r from-champagne-light via-champagne to-champagne-deep bg-clip-text text-transparent">Manifest</em>
+        <div className="container-luxe relative flex flex-1 flex-col justify-center pt-36 pb-20">
+          <p className="eyebrow eyebrow-light animate-fade-up">Business setup in Dubai</p>
+          <h1 className="mt-6 max-w-3xl animate-fade-up text-[clamp(2.4rem,6vw,4rem)] leading-[1.05] [animation-delay:150ms]">
+            Your Dubai company, set up properly from day one
           </h1>
-          <p className="mt-8 max-w-xl animate-fade-up text-lg leading-relaxed text-ivory/80 [animation-delay:300ms] sm:text-xl">
-            Turn your idea into a real business—Dubai Company Formation made simple, clear, and stress-free.
+          <p className="mt-7 max-w-xl animate-fade-up text-lg leading-relaxed text-ivory/85 [animation-delay:300ms] sm:text-xl">
+            Mainland, free zone or offshore. We help you choose the right licence, then handle the paperwork, visas and
+            bank account so you can start trading sooner.
           </p>
-          <div className="mt-11 flex animate-fade-up flex-wrap gap-3 [animation-delay:450ms]">
+          <div className="mt-9 flex animate-fade-up flex-wrap gap-3 [animation-delay:450ms]">
+            <Link href="#form" className="btn btn-champagne">
+              Book free consultation <ArrowRight className="size-4" />
+            </Link>
             <a
               href={whatsappLink(whatsappMessages.general)}
               target="_blank"
               rel="noopener noreferrer"
-              className="btn btn-champagne"
+              className="btn btn-ghost-light"
             >
-              What We Do <ArrowUpRight className="size-4" />
+              <WhatsappIcon className="size-4" /> Chat on WhatsApp
             </a>
-            <Link href="/contact-us/" className="btn btn-ghost-light">
-              Book Free Consultation
-            </Link>
           </div>
-        </div>
-
-        <div className="relative border-t border-ivory/10 bg-olive-night/40 backdrop-blur-md">
-          <div className="container-luxe grid grid-cols-2 gap-x-6 gap-y-5 py-6 lg:grid-cols-[auto_repeat(4,1fr)] lg:items-center lg:gap-10 lg:py-7">
-            <p className="col-span-2 font-display text-xl text-champagne italic lg:col-span-1 lg:max-w-[12rem] lg:leading-tight">
-              Find peace of mind with Manifest
-            </p>
-            {peaceOfMind.map(({ icon: Icon, label }) => (
-              <div key={label} className="flex items-center gap-3">
-                <Icon className="size-5 shrink-0 text-champagne" strokeWidth={1.3} />
-                <span className="text-[0.7rem] leading-snug tracking-[0.14em] text-ivory/85 uppercase sm:text-xs">{label}</span>
-              </div>
+          <ul className="mt-14 grid max-w-4xl animate-fade-up gap-x-8 gap-y-4 [animation-delay:600ms] sm:grid-cols-2 lg:grid-cols-4">
+            {heroPoints.map((point) => (
+              <li key={point} className="flex items-start gap-2.5 text-[0.95rem] leading-snug text-ivory/85">
+                <Check className="mt-0.5 size-4 shrink-0 text-champagne" strokeWidth={2.2} />
+                {point}
+              </li>
             ))}
-          </div>
-        </div>
-
-        <div className="pointer-events-none absolute right-8 bottom-36 hidden flex-col items-center gap-4 lg:flex">
-          <span className="text-[0.6rem] tracking-[0.4em] text-ivory/60 uppercase [writing-mode:vertical-rl]">Scroll</span>
-          <span className="relative h-16 w-px overflow-hidden bg-ivory/20">
-            <span className="absolute inset-x-0 top-0 h-1/2 animate-scroll-cue bg-champagne" />
-          </span>
+          </ul>
         </div>
       </section>
 
-      {/* About intro */}
-      <section className="overflow-hidden bg-ivory py-24 sm:py-32">
+      {/* Proof strip */}
+      <section className="border-b border-olive-deep/10 bg-white">
+        <div className="container-luxe flex items-center justify-center gap-3 py-5 text-[0.95rem] font-semibold text-olive-night">
+          <span className="flex gap-0.5 text-champagne-deep" aria-hidden="true">
+            {Array.from({ length: 5 }, (_, i) => (
+              <Star key={i} className="size-4 fill-current" />
+            ))}
+          </span>
+          <p>Rated 4.9 on Google</p>
+        </div>
+      </section>
+
+      {/* About */}
+      <section className="overflow-hidden bg-ivory py-24 sm:py-28">
         <div className="container-luxe grid items-center gap-16 lg:grid-cols-12 lg:gap-20">
           <Reveal className="relative mb-10 sm:mb-14 lg:col-span-6 lg:mb-0">
             <div className="relative ml-auto aspect-[4/5] w-[78%] overflow-hidden">
@@ -154,33 +247,32 @@ export default function HomePage() {
                   <Star key={i} className="size-3.5 fill-current" />
                 ))}
               </div>
-              <p className="mt-2 font-display text-4xl leading-none">4.9</p>
-              <p className="mt-1 text-[0.6rem] tracking-[0.28em] text-ivory/70 uppercase">Google Rating</p>
+              <p className="mt-2 text-4xl leading-none font-bold">4.9</p>
+              <p className="mt-1.5 text-xs text-ivory/70">Google rating</p>
             </div>
           </Reveal>
 
           <Reveal delay={150} className="lg:col-span-6">
             <p className="eyebrow">About Manifest</p>
-            <h2 className="mt-5 text-4xl leading-[1.06] text-olive-deep sm:text-5xl lg:text-[3.5rem]">
-              Dubai Company Formation That Actually Make Sense—<em className="text-olive">And Make Money</em>
+            <h2 className="mt-5 text-[2rem] leading-[1.12] text-olive-night sm:text-4xl lg:text-[2.75rem]">
+              A business partner in Dubai, not just a paperwork agent
             </h2>
-            <p className="mt-8 text-lg leading-[1.85] text-ink-soft/85">
-              Manifest Business Services makes Dubai Company Formation and Company Setup in Dubai simple, smooth, and
-              stress-free—helping you turn your idea into a future-ready business while we handle the setup, paperwork,
-              and growth support, every step of the way.
+            <p className="mt-7 text-[1.05rem] leading-[1.7] text-ink-soft/90">
+              Manifest Business Services helps founders, freelancers and growing companies set up in Dubai without the
+              guesswork. We start with your plan: what you&apos;ll sell, who you&apos;ll sell to, and how many visas you
+              need. Then we recommend the jurisdiction and licence that fit.
             </p>
-            <div className="mt-10 flex flex-wrap items-center gap-6">
-              <Link href="/about-manifest-business-setup-experts/" className="btn btn-olive">
-                About Manifest <ArrowRight className="size-4" />
+            <p className="mt-4 text-[1.05rem] leading-[1.7] text-ink-soft/90">
+              After that, we handle the rest: trade name, approvals, documents, government submissions, visas, Emirates
+              ID and bank account. One team and one point of contact, from your first call to your first invoice.
+            </p>
+            <div className="mt-9 flex flex-wrap items-center gap-x-8 gap-y-5">
+              <Link href="/about-manifest-business-setup-experts/" className="btn btn-ghost-dark">
+                About Manifest
               </Link>
-              <a href={site.phoneHref} className="flex items-center gap-3 text-sm text-olive-deep">
-                <span className="flex size-11 items-center justify-center rounded-full border border-olive-deep/15">
-                  <Phone className="size-4 text-olive" />
-                </span>
-                <span>
-                  <span className="block text-[0.6rem] tracking-[0.26em] text-ink-soft/60 uppercase">Talk to an expert</span>
-                  {site.phoneDisplay}
-                </span>
+              <a href={site.phoneHref} className="flex items-center gap-2.5 text-[0.95rem] font-semibold text-olive-deep hover:text-olive">
+                <Phone className="size-4 text-champagne-deep" />
+                Talk to an expert: {site.phoneDisplay}
               </a>
             </div>
           </Reveal>
@@ -188,51 +280,40 @@ export default function HomePage() {
       </section>
 
       {/* Services */}
-      <section className="bg-olive-wash py-24 sm:py-32">
+      <section className="bg-olive-wash py-24 sm:py-28">
         <div className="container-luxe">
           <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
             <SectionHeading
-              eyebrow="What we do"
-              title={
-                <>
-                  Our <em className="text-olive">Services</em>
-                </>
-              }
-              intro="From first license to lasting compliance—Manifest handles the setup, paperwork, and growth support, every step of the way."
+              eyebrow="Our services"
+              title="Everything you need to start and run a company in Dubai"
             />
             <Reveal>
-              <Link href="/services/" className="btn btn-ghost-dark">
-                All services <ArrowRight className="size-4" />
+              <Link href="/services/" className="btn btn-olive">
+                View all services
               </Link>
             </Reveal>
           </div>
 
-          <div className="mt-16 grid gap-px bg-olive-deep/10 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {coreServices.map((service, i) => {
               const Icon = serviceIcons[service.key];
               return (
-                <Reveal key={service.key} delay={(i % 3) * 100} className="bg-olive-wash">
+                <Reveal key={service.key} delay={(i % 3) * 100} className="h-full">
                   <Link
                     href={service.href}
-                    className="group relative flex h-full flex-col overflow-hidden bg-white p-9 transition-colors duration-700 ease-luxe hover:bg-olive-deep sm:p-11"
+                    className="group relative flex h-full flex-col border border-olive-deep/10 bg-white p-8 transition-colors duration-500 ease-luxe hover:border-champagne hover:shadow-[0_30px_60px_-35px_rgba(42,50,31,0.4)]"
                   >
                     <div className="flex items-start justify-between">
-                      <span className="flex size-14 items-center justify-center border border-olive-deep/10 text-olive transition-colors duration-700 group-hover:border-champagne/40 group-hover:text-champagne">
-                        <Icon className="size-6" strokeWidth={1.2} />
+                      <span className="flex size-12 items-center justify-center border border-olive-deep/10 text-olive transition-colors duration-500 group-hover:border-champagne group-hover:text-champagne-deep">
+                        <Icon className="size-5" strokeWidth={1.5} />
                       </span>
-                      <span className="font-display text-3xl text-olive-deep/15 transition-colors duration-700 group-hover:text-champagne/50">
-                        {String(i + 1).padStart(2, "0")}
-                      </span>
+                      <span className="text-sm font-semibold text-champagne-deep">{String(i + 1).padStart(2, "0")}</span>
                     </div>
-                    <h3 className="mt-10 text-[1.85rem] leading-tight text-olive-deep transition-colors duration-700 group-hover:text-ivory">
-                      {service.title}
-                    </h3>
-                    <p className="mt-4 flex-1 text-[0.95rem] leading-relaxed text-ink-soft/80 transition-colors duration-700 group-hover:text-ivory/70">
-                      {service.text}
-                    </p>
-                    <span className="mt-8 inline-flex items-center gap-2 text-[0.68rem] font-medium tracking-[0.24em] text-olive uppercase transition-colors duration-700 group-hover:text-champagne">
-                      {service.key === "attestation" ? "Enquire now" : "Explore"}
-                      <ArrowUpRight className="size-4 transition-transform duration-500 group-hover:translate-x-1 group-hover:-translate-y-1" />
+                    <h3 className="mt-8 text-2xl leading-tight text-olive-night">{service.title}</h3>
+                    <p className="mt-3 flex-1 text-base leading-relaxed text-ink-soft/85">{service.text}</p>
+                    <span className="mt-6 inline-flex items-center gap-2 text-[0.95rem] font-semibold text-champagne-deep transition-colors group-hover:text-olive-deep">
+                      {service.key === "attestation" ? "Enquire now" : "Learn more"}
+                      <ArrowRight className="size-4 transition-transform duration-500 group-hover:translate-x-1" />
                     </span>
                   </Link>
                 </Reveal>
@@ -242,109 +323,83 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Track record */}
-      <section className="grain relative isolate overflow-hidden bg-olive-night py-24 text-ivory sm:py-32">
-        <Image
-          src="/images/dubai-aerial-night.jpg"
-          alt=""
-          fill
-          sizes="100vw"
-          className="-z-20 object-cover opacity-30"
-        />
-        <div className="absolute inset-0 -z-10 bg-gradient-to-b from-olive-night via-olive-night/70 to-olive-night" />
+      {/* How it works */}
+      <section className="bg-ivory py-24 sm:py-28">
         <div className="container-luxe">
-          <SectionHeading
-            tone="dark"
-            align="center"
-            eyebrow="Proven results"
-            title={
-              <>
-                Our Track <em className="text-champagne">Record</em>
-              </>
-            }
-            intro="Our results speak for themselves. Discover why businesses trust Manifest Business Services for reliable company formation and long-term support."
-          />
-          <div className="mt-20 grid grid-cols-2 gap-y-14 lg:grid-cols-4">
-            {stats.map((stat, i) => (
-              <Reveal
-                key={stat.label}
-                delay={i * 120}
-                className={`px-4 text-center ${i > 0 ? "lg:border-l lg:border-ivory/10" : ""} ${i % 2 === 1 ? "border-l border-ivory/10 lg:border-l" : ""}`}
-              >
-                <p className="font-display text-6xl leading-none text-champagne-light sm:text-7xl lg:text-8xl">
-                  <Counter value={stat.value} decimals={stat.decimals} suffix={stat.suffix} />
-                </p>
-                <p className="mt-5 text-[0.68rem] tracking-[0.28em] text-ivory/65 uppercase">{stat.label}</p>
+          <SectionHeading eyebrow="How it works" title="From first call to trade licence in four steps" />
+          <ol className="mt-14 grid gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
+            {steps.map((step, i) => (
+              <Reveal as="li" key={step.title} delay={i * 100} className="border-t-2 border-olive-deep pt-6">
+                <span className="text-[2.5rem] leading-none font-bold text-champagne">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <h3 className="mt-4 text-xl text-olive-night">{step.title}</h3>
+                <p className="mt-2 text-base leading-relaxed text-ink-soft/85">{step.text}</p>
               </Reveal>
             ))}
-          </div>
+          </ol>
+          <Reveal className="mt-14">
+            <Link href="#form" className="btn btn-olive">
+              Book free consultation <ArrowRight className="size-4" />
+            </Link>
+          </Reveal>
         </div>
       </section>
 
       {/* Setup options */}
-      <section className="bg-ivory py-24 sm:py-32">
+      <section className="bg-olive-night py-24 text-ivory/85 sm:py-28">
         <div className="container-luxe">
           <SectionHeading
+            tone="dark"
             eyebrow="Business setup"
-            title={
-              <>
-                Mainland or Free Zone—<em className="text-olive">the right foundation</em>
-              </>
-            }
-            intro="Choose between Mainland, Free Zone, or Offshore based on your goals and market reach. We help you pick the right structure and license from day one."
+            title="Mainland, free zone or offshore: which is right for you?"
+            intro="The right choice depends on where your customers are, what you'll sell and how many visas you need. We'll compare them for your exact business in the free consultation."
           />
-          <div className="mt-16 grid gap-6 lg:grid-cols-2">
-            {[
-              {
-                title: "Dubai Mainland",
-                href: "/dubai-mainland/",
-                image: "/images/dubai-skyline-dusk.jpg",
-                text: "Operate freely across Dubai and the wider UAE, with direct access to local customers, government projects, and 100% foreign ownership for over 1,000 activities.",
-              },
-              {
-                title: "Dubai Free Zone",
-                href: "/dubai-free-zone-business-setup/",
-                image: "/images/dubai-marina.jpg",
-                text: "100% ownership, zero import-export duties, and easy paperwork—with Manifest guiding you across 46+ UAE jurisdictions to the zone built for your industry.",
-              },
-            ].map((option, i) => (
-              <Reveal key={option.title} delay={i * 150}>
-                <Link href={option.href} className="group relative isolate flex aspect-[4/3] flex-col justify-end overflow-hidden p-8 text-ivory sm:aspect-[16/11] sm:p-12">
-                  <Image
-                    src={option.image}
-                    alt={`${option.title} business setup`}
-                    fill
-                    sizes="(max-width: 1024px) 100vw, 50vw"
-                    className="-z-20 object-cover transition-transform duration-[2.2s] ease-luxe group-hover:scale-110"
-                  />
-                  <div className="absolute inset-0 -z-10 bg-gradient-to-t from-olive-night via-olive-night/50 to-olive-night/10 transition-opacity duration-700" />
-                  <p className="eyebrow eyebrow-light">0{i + 1}</p>
-                  <h3 className="mt-4 text-4xl sm:text-5xl">{option.title}</h3>
-                  <p className="mt-4 max-w-md text-sm leading-relaxed text-ivory/75 sm:text-base">{option.text}</p>
-                  <span className="mt-8 inline-flex items-center gap-3 text-[0.68rem] font-medium tracking-[0.26em] text-champagne uppercase">
-                    Discover <span className="h-px w-10 bg-champagne transition-all duration-700 group-hover:w-16" />
-                  </span>
-                </Link>
+          <div className="mt-14 grid gap-5 lg:grid-cols-3">
+            {zones.map((zone, i) => (
+              <Reveal key={zone.title} delay={i * 100} className="h-full">
+                <article className="flex h-full flex-col gap-4 bg-olive-deep p-8">
+                  <h3 className="text-2xl text-ivory">{zone.title}</h3>
+                  <p className="flex-1 text-base leading-relaxed">{zone.text}</p>
+                  <p className="text-sm text-champagne">
+                    <strong className="font-semibold">Best for:</strong> {zone.bestFor}
+                  </p>
+                  <Link
+                    href={zone.href}
+                    className="inline-flex items-center gap-2 text-[0.95rem] font-semibold text-champagne hover:text-champagne-light"
+                  >
+                    Learn more <ArrowRight className="size-4" />
+                  </Link>
+                </article>
               </Reveal>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Why choose us */}
-      <section className="bg-white py-24 sm:py-32">
+      {/* Stats */}
+      <section className="bg-white py-24 sm:py-24">
+        <div className="container-luxe">
+          <SectionHeading eyebrow="In numbers" title="Trusted by founders from around the world" />
+          <dl className="mt-12 grid grid-cols-2 gap-x-6 gap-y-10 lg:grid-cols-4 lg:gap-8">
+            {stats.map((stat, i) => (
+              <Reveal key={stat.label} delay={i * 100} className="flex flex-col-reverse border-l border-olive-deep/15 pl-6">
+                <dt className="mt-2 text-[0.95rem] font-medium text-ink-soft/85">{stat.label}</dt>
+                <dd className="text-4xl leading-none font-bold tracking-tight text-olive-night sm:text-5xl">
+                  <Counter value={stat.value} decimals={stat.decimals} suffix={stat.suffix} />
+                </dd>
+              </Reveal>
+            ))}
+          </dl>
+        </div>
+      </section>
+
+      {/* Why Manifest */}
+      <section className="bg-ivory py-24 sm:py-28">
         <div className="container-luxe grid gap-16 lg:grid-cols-12 lg:gap-20">
           <div className="lg:col-span-5">
-            <SectionHeading
-              eyebrow="Why choose us"
-              title={
-                <>
-                  Built for <em className="text-olive">future-ready</em> companies
-                </>
-              }
-              intro="Discover why entrepreneurs and businesses trust us to build strong, future-ready companies."
-            />
-            <Reveal delay={150} className="relative mt-12 aspect-[5/4] overflow-hidden">
+            <SectionHeading eyebrow="Why Manifest" title="Why founders choose Manifest" />
+            <Reveal delay={150} className="relative mt-10 aspect-[4/3] overflow-hidden">
               <Image
                 src="/images/home-handshake.jpg"
                 alt="Business partners greeting one another with a handshake in Dubai"
@@ -354,92 +409,116 @@ export default function HomePage() {
               />
             </Reveal>
           </div>
-          <ul className="self-center lg:col-span-7">
-            {whyChooseUs.map(({ icon: Icon, label }, i) => (
+          <ol className="self-center lg:col-span-7">
+            {whyManifest.map((item, i) => (
               <Reveal
                 as="li"
-                key={label}
-                delay={i * 90}
-                className="group flex items-center gap-6 border-t border-olive-deep/10 py-8 last:border-b sm:gap-10"
+                key={item.title}
+                delay={i * 80}
+                className="flex gap-6 border-b border-olive-deep/15 py-6 first:pt-0"
               >
-                <span className="w-10 font-display text-xl text-champagne-deep">{String(i + 1).padStart(2, "0")}</span>
-                <span className="flex size-14 shrink-0 items-center justify-center rounded-full bg-olive-wash text-olive transition-all duration-700 group-hover:bg-olive-deep group-hover:text-champagne">
-                  <Icon className="size-6" strokeWidth={1.2} />
+                <span className="min-w-8 text-[0.95rem] font-bold text-champagne-deep">
+                  {String(i + 1).padStart(2, "0")}
                 </span>
-                <span className="font-display text-2xl leading-tight text-olive-deep transition-transform duration-700 ease-luxe group-hover:translate-x-2 sm:text-[2.1rem]">
-                  {label}
+                <div>
+                  <h3 className="text-xl text-olive-night">{item.title}</h3>
+                  <p className="mt-1.5 text-base leading-relaxed text-ink-soft/85">{item.text}</p>
+                </div>
+              </Reveal>
+            ))}
+          </ol>
+        </div>
+      </section>
+
+      {/* Authorities */}
+      <section className="border-y border-olive-deep/10 bg-white py-20">
+        <div className="container-luxe text-center">
+          <Reveal>
+            <p className="eyebrow justify-center">We work with</p>
+            <h2 className="mt-4 text-3xl text-olive-night">UAE government authorities</h2>
+            <p className="mt-3 text-base text-ink-soft/85">
+              We prepare and submit your applications through the official channels.
+            </p>
+          </Reveal>
+          <ul className="mx-auto mt-10 grid max-w-4xl grid-cols-2 gap-8 sm:grid-cols-4">
+            {authorities.map((a, i) => (
+              <Reveal as="li" key={a.name} delay={i * 90} className="flex flex-col items-center gap-3">
+                <span className="flex h-[4.5rem] w-full items-center justify-center border border-olive-deep/10 bg-white p-3">
+                  <Image
+                    src={a.src}
+                    alt=""
+                    width={180}
+                    height={80}
+                    className="h-full w-auto object-contain opacity-70 grayscale"
+                  />
                 </span>
+                <span className="text-sm font-semibold text-olive-night">{a.name}</span>
               </Reveal>
             ))}
           </ul>
         </div>
       </section>
 
-      {/* Founder quote */}
-      <section className="grain relative isolate overflow-hidden bg-olive-deep py-28 text-ivory sm:py-36">
-        <Image src="/images/dubai-burj-night.jpg" alt="" fill sizes="100vw" className="-z-20 object-cover opacity-25" />
-        <div className="absolute inset-0 -z-10 bg-gradient-to-r from-olive-night via-olive-deep/85 to-olive-night" />
-        <Reveal className="container-luxe max-w-4xl text-center">
-          <p className="eyebrow eyebrow-light justify-center">Testimonials and reviews from thousands of clients</p>
-          <blockquote className="mt-10 font-display text-3xl leading-[1.25] italic sm:text-5xl sm:leading-[1.2]">
-            “Every business starts as a dream in someone&apos;s mind. Our purpose is to give that dream a real address in
-            Dubai.”
-          </blockquote>
-          <div className="mt-10 flex flex-col items-center gap-3">
-            <div className="flex items-center gap-1 text-champagne">
-              {Array.from({ length: 5 }, (_, i) => (
-                <Star key={i} className="size-4 fill-current" />
-              ))}
-            </div>
-            <p className="text-[0.68rem] tracking-[0.3em] text-ivory/65 uppercase">Rated 4.9 on Google · Manifest Business Services</p>
-          </div>
-        </Reveal>
+      {/* FAQ */}
+      <section className="bg-ivory py-24 sm:py-28">
+        <div className="container-luxe grid gap-14 lg:grid-cols-12 lg:gap-20">
+          <Reveal className="lg:col-span-5">
+            <p className="eyebrow">FAQs</p>
+            <h2 className="mt-5 text-[2rem] leading-[1.12] text-olive-night sm:text-4xl lg:text-[2.75rem]">
+              Questions founders ask us
+            </h2>
+            <Link href="/faqs/" className="btn btn-ghost-dark mt-8">
+              See all FAQs
+            </Link>
+          </Reveal>
+          <Reveal delay={120} className="lg:col-span-7">
+            <Accordion name="home-faq" items={faqs} />
+          </Reveal>
+        </div>
       </section>
 
-      <AuthoritiesStrip />
-
-      {/* Get in touch */}
-      <section className="bg-ivory py-24 sm:py-32">
+      {/* Office + form */}
+      <section id="form" className="scroll-mt-20 bg-olive-night py-24 text-ivory/85 sm:py-28">
         <div className="container-luxe grid gap-14 lg:grid-cols-12 lg:gap-20">
-          <Reveal className="relative isolate flex min-h-[28rem] flex-col justify-end overflow-hidden p-8 text-ivory sm:p-12 lg:col-span-5">
-            <Image
-              src="/images/home-contact.jpg"
-              alt="Two colleagues discussing a business plan at a laptop"
-              fill
-              sizes="(max-width: 1024px) 100vw, 40vw"
-              className="-z-20 object-cover"
-            />
-            <div className="absolute inset-0 -z-10 bg-gradient-to-t from-olive-night via-olive-night/70 to-olive-night/10" />
-            <p className="eyebrow eyebrow-light">Visit our office</p>
-            <ul className="mt-6 space-y-4 text-sm text-ivory/85">
-              <li className="flex gap-3">
-                <MapPin className="mt-0.5 size-4 shrink-0 text-champagne" />
-                {site.address}
-              </li>
-              <li>
-                <a href={site.phoneHref} className="flex gap-3 hover:text-champagne">
-                  <Phone className="mt-0.5 size-4 shrink-0 text-champagne" />
+          <Reveal className="lg:col-span-5">
+            <p className="eyebrow eyebrow-light">Free consultation</p>
+            <h2 className="mt-5 text-[2rem] leading-[1.12] text-ivory sm:text-4xl lg:text-[2.75rem]">
+              Get your free setup plan
+            </h2>
+            <p className="mt-5 text-lg leading-relaxed">
+              Tell us what you plan to do. An adviser will reply within one working day with the setup options and costs
+              that fit.
+            </p>
+            <div className="mt-12 flex flex-col gap-4 text-base">
+              <h3 className="text-xl text-ivory">Visit us in Bur Dubai</h3>
+              <p className="leading-relaxed">
+                Office 1502-A, 15th Floor, Fahidi Heights
+                <br />
+                Bur Dubai, Dubai, UAE (Sharaf DG Metro, Exit 4)
+              </p>
+              <p>
+                <a href={site.phoneHref} className="hover:text-champagne">
                   {site.phoneDisplay}
-                </a>
-              </li>
-              <li>
-                <a href={`mailto:${site.email}`} className="flex gap-3 hover:text-champagne">
-                  <Mail className="mt-0.5 size-4 shrink-0 text-champagne" />
+                </a>{" "}
+                ·{" "}
+                <a href={`mailto:${site.email}`} className="hover:text-champagne">
                   {site.email}
                 </a>
-              </li>
-            </ul>
+              </p>
+              <div className="relative mt-2 h-56 overflow-hidden bg-olive-deep">
+                <iframe
+                  title="Manifest Business Services office location — Fahidi Heights, Bur Dubai"
+                  src={site.mapEmbed}
+                  className="absolute inset-0 size-full border-0 grayscale-[60%] sepia-[15%]"
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                />
+              </div>
+            </div>
           </Reveal>
-          <Reveal delay={150} className="lg:col-span-7">
-            <p className="eyebrow">Begin your consultation</p>
-            <h2 className="mt-5 text-4xl leading-[1.08] text-olive-deep sm:text-5xl lg:text-6xl">
-              Get in <em className="text-olive">touch</em>
-            </h2>
-            <p className="mt-5 max-w-xl text-base leading-relaxed text-ink-soft/80">
-              Share a few details and our Dubai business setup experts will get back to you with clear, honest guidance.
-            </p>
-            <div className="mt-12">
-              <ConsultationForm />
+          <Reveal delay={150} className="self-start lg:col-span-7">
+            <div className="bg-ivory p-8 text-ink-soft sm:p-10">
+              <ConsultationForm variant="plan" />
             </div>
           </Reveal>
         </div>

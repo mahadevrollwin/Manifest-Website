@@ -15,8 +15,8 @@
   --color-champagne-light: #e8dcb8;
   --color-champagne-deep: #a8955f;
 
-  --font-display: var(--font-cormorant), "Cormorant Garamond", Georgia, serif;
-  --font-sans: var(--font-outfit), "Outfit", system-ui, sans-serif;
+  --font-display: var(--font-jakarta), "Plus Jakarta Sans", system-ui, sans-serif;
+  --font-sans: var(--font-jakarta), "Plus Jakarta Sans", system-ui, sans-serif;
 
   --ease-luxe: cubic-bezier(0.22, 1, 0.36, 1);
 
@@ -63,7 +63,7 @@
     background: var(--color-ivory);
     color: var(--color-ink);
     font-family: var(--font-sans);
-    font-weight: 300;
+    font-weight: 400;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
   }
@@ -72,9 +72,20 @@
   h3,
   h4 {
     font-family: var(--font-display);
-    font-weight: 500;
-    letter-spacing: -0.01em;
+    font-weight: 700;
+    letter-spacing: -0.02em;
     text-wrap: balance;
+  }
+  h3,
+  h4 {
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+  h1 em,
+  h2 em,
+  h3 em,
+  h4 em {
+    font-style: normal;
   }
   p {
     text-wrap: pretty;
@@ -112,9 +123,9 @@
     align-items: center;
     gap: 0.85rem;
     font-family: var(--font-sans);
-    font-size: 0.7rem;
-    font-weight: 500;
-    letter-spacing: 0.32em;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
     text-transform: uppercase;
     color: var(--color-olive);
   }
@@ -136,10 +147,9 @@
     justify-content: center;
     gap: 0.75rem;
     padding: 1rem 1.9rem;
-    font-size: 0.72rem;
-    font-weight: 500;
-    letter-spacing: 0.24em;
-    text-transform: uppercase;
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 0.01em;
     transition:
       background-color 0.5s var(--ease-luxe),
       color 0.5s var(--ease-luxe),
@@ -241,8 +251,8 @@
     border: 0;
     border-bottom: 1px solid rgb(42 50 31 / 0.2);
     padding: 0.85rem 0;
-    font-size: 0.95rem;
-    font-weight: 300;
+    font-size: 1rem;
+    font-weight: 400;
     color: var(--color-ink);
     transition: border-color 0.4s var(--ease-luxe);
     border-radius: 0;
@@ -301,7 +311,7 @@
     color: var(--color-olive-deep);
   }
   .prose-luxe strong {
-    font-weight: 500;
+    font-weight: 600;
     color: var(--color-ink);
   }
   .prose-luxe img {

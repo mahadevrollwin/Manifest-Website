@@ -28,7 +28,7 @@ export function SectionHeading({
         </p>
       )}
       <h2
-        className={`mt-5 text-[2.35rem] leading-[1.08] sm:text-5xl lg:text-[3.4rem] ${
+        className={`mt-5 text-[2rem] leading-[1.12] sm:text-4xl lg:text-[2.75rem] ${
           dark ? "text-ivory" : "text-olive-deep"
         }`}
       >

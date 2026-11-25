@@ -58,7 +58,7 @@ export function Header() {
               <div key={item.label} className="group relative">
                 <Link
                   href={item.href}
-                  className={`flex items-center gap-1.5 px-3.5 py-3 text-[0.7rem] font-medium tracking-[0.2em] uppercase transition-colors ${
+                  className={`flex items-center gap-1.5 px-3.5 py-3 text-[0.92rem] font-medium transition-colors ${
                     isActive(item.href, item.children) ? "text-champagne" : "hover:text-champagne"
                   }`}
                 >
@@ -74,7 +74,7 @@ export function Header() {
                         className="group/item flex items-start justify-between gap-4 px-4 py-3.5 transition-colors hover:bg-olive-wash"
                       >
                         <span>
-                          <span className="block font-display text-lg leading-tight">{child.label}</span>
+                          <span className="block text-base leading-tight font-semibold">{child.label}</span>
                           {child.description && (
                             <span className="mt-1 block text-xs leading-relaxed text-ink-soft/70">
                               {child.description}
@@ -91,7 +91,7 @@ export function Header() {
               <Link
                 key={item.label}
                 href={item.href}
-                className={`px-3.5 py-3 text-[0.7rem] font-medium tracking-[0.2em] uppercase transition-colors ${
+                className={`px-3.5 py-3 text-[0.92rem] font-medium transition-colors ${
                   isActive(item.href) ? "text-champagne" : "hover:text-champagne"
                 }`}
               >
@@ -104,13 +104,13 @@ export function Header() {
         <div className="flex items-center gap-3">
           <a
             href={site.phoneHref}
-            className="hidden items-center gap-2 text-[0.72rem] font-medium tracking-[0.14em] lg:flex"
+            className="hidden items-center gap-2 text-[0.92rem] font-medium lg:flex"
           >
-            <Phone className="size-3.5 text-champagne" />
+            <Phone className="size-4 text-champagne" />
             {site.phoneDisplay}
           </a>
           <Link href="/contact-us/" className="btn btn-champagne hidden !px-5 !py-3 sm:inline-flex">
-            Contact Us
+            Book free consultation
           </Link>
           <button
             type="button"
@@ -142,7 +142,7 @@ export function Header() {
                         type="button"
                         onClick={() => setExpanded(expanded === item.label ? null : item.label)}
                         aria-expanded={expanded === item.label}
-                        className="flex w-full items-center justify-between py-5 text-left font-display text-3xl"
+                        className="flex w-full items-center justify-between py-5 text-left font-display text-2xl font-semibold"
                       >
                         {item.label}
                         <ChevronDown
@@ -162,7 +162,7 @@ export function Header() {
                               <Link
                                 href={child.href}
                                 onClick={() => setOpen(false)}
-                                className="flex items-center justify-between py-2.5 pl-4 text-sm tracking-[0.16em] text-ivory/75 uppercase hover:text-champagne"
+                                className="flex items-center justify-between py-2.5 pl-4 text-base text-ivory/75 hover:text-champagne"
                               >
                                 {child.label}
                                 <ArrowUpRight className="size-4" />
@@ -176,7 +176,7 @@ export function Header() {
                     <Link
                       href={item.href}
                       onClick={() => setOpen(false)}
-                      className="block py-5 font-display text-3xl hover:text-champagne"
+                      className="block py-5 font-display text-2xl font-semibold hover:text-champagne"
                     >
                       {item.label}
                     </Link>
@@ -187,7 +187,7 @@ export function Header() {
           </nav>
           <div className="mt-10 space-y-5">
             <Link href="/contact-us/" onClick={() => setOpen(false)} className="btn btn-champagne w-full">
-              Book Free Consultation
+              Book free consultation
             </Link>
             <div className="flex flex-col gap-2 text-sm text-ivory/70">
               <a href={site.phoneHref}>{site.phoneDisplay}</a>

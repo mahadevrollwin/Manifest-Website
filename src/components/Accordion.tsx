@@ -9,7 +9,7 @@ export function Accordion({ items, name }: { items: AccordionItem[]; name: strin
       {items.map((item) => (
         <details key={item.question} name={name} className="group">
           <summary className="flex cursor-pointer list-none items-start justify-between gap-6 py-6 text-left [&::-webkit-details-marker]:hidden">
-            <span className="font-display text-xl leading-snug text-olive-deep transition-colors group-hover:text-olive sm:text-2xl">
+            <span className="font-display text-lg leading-snug font-semibold text-olive-deep transition-colors group-hover:text-olive sm:text-xl">
               {item.question}
             </span>
             <span className="mt-1 flex size-8 shrink-0 items-center justify-center rounded-full border border-olive-deep/15 text-olive transition-all duration-500 group-open:rotate-45 group-open:border-champagne group-open:bg-champagne group-open:text-ink">

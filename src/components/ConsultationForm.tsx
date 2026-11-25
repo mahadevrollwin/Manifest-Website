@@ -7,13 +7,16 @@ import { consultationInterests, site, whatsappLink } from "@/content/site";
 type ConsultationFormProps = {
   tone?: "light" | "dark";
   defaultInterest?: string;
+  /** "plan" uses the homepage "Get my free setup plan" wording and extra fields. */
+  variant?: "default" | "plan";
 };
 
-export function ConsultationForm({ tone = "light", defaultInterest = "" }: ConsultationFormProps) {
+export function ConsultationForm({ tone = "light", defaultInterest = "", variant = "default" }: ConsultationFormProps) {
   const [sent, setSent] = useState(false);
   const dark = tone === "dark";
+  const plan = variant === "plan";
   const field = `field ${dark ? "field-dark" : ""}`;
-  const label = `block text-[0.65rem] font-medium tracking-[0.24em] uppercase ${dark ? "text-champagne" : "text-olive"}`;
+  const label = `block text-sm font-semibold ${dark ? "text-champagne" : "text-olive-deep"}`;
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -23,8 +26,10 @@ export function ConsultationForm({ tone = "light", defaultInterest = "" }: Consu
       `Name: ${data.get("name")}`,
       `Email: ${data.get("email")}`,
       `Phone: ${data.get("phone")}`,
-      `Interested in: ${data.get("interest")}`,
     ];
+    const country = String(data.get("country") ?? "").trim();
+    if (country) lines.push(`Country of residence: ${country}`);
+    lines.push(`Interested in: ${data.get("interest")}`);
     const message = String(data.get("message") ?? "").trim();
     if (message) lines.push(`Message: ${message}`);
     window.open(whatsappLink(lines.join("\n")), "_blank", "noopener,noreferrer");
@@ -34,8 +39,8 @@ export function ConsultationForm({ tone = "light", defaultInterest = "" }: Consu
   if (sent) {
     return (
       <div className={`flex flex-col items-start gap-5 py-6 ${dark ? "text-ivory" : "text-olive-deep"}`}>
-        <CheckCircle2 className="size-10 text-champagne" strokeWidth={1.2} />
-        <h3 className="text-3xl">Thank you — we&apos;ll be in touch shortly.</h3>
+        <CheckCircle2 className="size-10 text-champagne" strokeWidth={1.4} />
+        <h3 className="text-2xl">Thank you — we&apos;ll be in touch shortly.</h3>
         <p className={`max-w-md text-sm leading-relaxed ${dark ? "text-ivory/70" : "text-ink-soft/80"}`}>
           Your request has been prepared in WhatsApp. If it didn&apos;t open, email us at{" "}
           <a href={`mailto:${site.email}`} className="underline decoration-champagne underline-offset-4">
@@ -86,9 +91,23 @@ export function ConsultationForm({ tone = "light", defaultInterest = "" }: Consu
           className={field}
         />
       </div>
-      <div>
+      {plan && (
+        <div>
+          <label htmlFor="cf-country" className={label}>
+            Country of residence (optional)
+          </label>
+          <input
+            id="cf-country"
+            name="country"
+            autoComplete="country-name"
+            placeholder="e.g. India"
+            className={field}
+          />
+        </div>
+      )}
+      <div className={plan ? "sm:col-span-2" : ""}>
         <label htmlFor="cf-interest" className={label}>
-          I&apos;m interested in
+          I&apos;m interested in *
         </label>
         <select id="cf-interest" name="interest" required defaultValue={defaultInterest} className={`${field} cursor-pointer`}>
           <option value="" disabled>
@@ -103,7 +122,7 @@ export function ConsultationForm({ tone = "light", defaultInterest = "" }: Consu
       </div>
       <div className="sm:col-span-2">
         <label htmlFor="cf-message" className={label}>
-          How can we help?
+          {plan ? "Tell us about your business (optional)" : "How can we help?"}
         </label>
         <textarea
           id="cf-message"
@@ -113,12 +132,20 @@ export function ConsultationForm({ tone = "light", defaultInterest = "" }: Consu
           className={`${field} resize-none`}
         />
       </div>
+      {plan && (
+        <label className="flex items-start gap-3 text-sm leading-snug text-ink-soft/85 sm:col-span-2">
+          <input type="checkbox" name="consent" required className="mt-0.5 size-[1.125rem] accent-olive-deep" />
+          I agree to Manifest contacting me about my enquiry.
+        </label>
+      )}
       <div className="flex flex-col gap-4 sm:col-span-2 sm:flex-row sm:items-center sm:justify-between">
-        <p className={`text-xs tracking-[0.12em] ${dark ? "text-ivory/50" : "text-ink-soft/60"}`}>
-          Confidential · No obligation · Dubai-based experts
+        <p className={`text-xs ${dark ? "text-ivory/60" : "text-ink-soft/70"}`}>
+          {plan
+            ? "Confidential · No obligation · Reply within one working day"
+            : "Confidential · No obligation · Dubai-based experts"}
         </p>
         <button type="submit" className={`btn ${dark ? "btn-champagne" : "btn-olive"}`}>
-          Request Consultation <ArrowUpRight className="size-4" />
+          {plan ? "Get my free setup plan" : "Request consultation"} <ArrowUpRight className="size-4" />
         </button>
       </div>
     </form>

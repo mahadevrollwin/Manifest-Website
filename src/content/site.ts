@@ -4,7 +4,7 @@ export const site = {
   tagline: "Building businesses. Refining growth. Creating success.",
   url: "https://manifestbizz.com",
   email: "info@manifestbizz.com",
-  phoneDisplay: "+971-50924-5196",
+  phoneDisplay: "+971 50 924 5196",
   phoneHref: "tel:+971509245196",
   whatsappNumber: "971509245196",
   address:
@@ -74,68 +74,67 @@ export const setupPages: NavLink[] = [
 ];
 
 export const mainNav: NavItem[] = [
-  { label: "Home", href: "/" },
-  { label: "About Manifest", href: "/about-manifest-business-setup-experts/" },
   { label: "Services", href: "/services/", children: servicePages },
-  { label: "Business Setup", href: "/dubai-mainland/", children: setupPages },
+  { label: "Business setup", href: "/dubai-mainland/", children: setupPages },
+  { label: "About", href: "/about-manifest-business-setup-experts/" },
   { label: "FAQs", href: "/faqs/" },
   { label: "Blog", href: "/dubai-business-setup-blog/" },
 ];
 
 export const footerQuickLinks: NavLink[] = [
-  { label: "Home", href: "/" },
-  { label: "About Us", href: "/about-manifest-business-setup-experts/" },
+  { label: "About", href: "/about-manifest-business-setup-experts/" },
   { label: "FAQs", href: "/faqs/" },
   { label: "Dubai Mainland", href: "/dubai-mainland/" },
-  { label: "Dubai FreeZone", href: "/dubai-free-zone-business-setup/" },
+  { label: "Dubai Free Zone", href: "/dubai-free-zone-business-setup/" },
   { label: "Blog", href: "/dubai-business-setup-blog/" },
-  { label: "Contact Us", href: "/contact-us/" },
+  { label: "Contact", href: "/contact-us/" },
 ];
 
 export const footerServiceLinks: NavLink[] = [
-  { label: "Banking", href: "/banking/" },
-  { label: "Company Formation", href: "/services/company-formation-in-dubai-experts/" },
-  { label: "PRO Services", href: "/services/pro-services-dubai/" },
-  { label: "Visa Services", href: "/services/visa-services-dubai/" },
-  { label: "Accounting & Bookkeeping", href: "/services/accounting-bookkeeping/" },
+  { label: "Company formation", href: "/services/company-formation-in-dubai-experts/" },
+  { label: "PRO services", href: "/services/pro-services-dubai/" },
+  { label: "Visa services", href: "/services/visa-services-dubai/" },
+  { label: "Banking assistance", href: "/banking/" },
+  { label: "Accounting & bookkeeping", href: "/services/accounting-bookkeeping/" },
+  { label: "Attestation & translation", href: "/contact-us/" },
 ];
 
 export const coreServices = [
   {
     key: "formation",
-    title: "Company Formation",
+    title: "Company formation",
     href: "/services/company-formation-in-dubai-experts/",
-    text: "Select the right jurisdiction and license based on your business needs. We guide you through every step to ensure a smooth and hassle-free company formation.",
+    text: "Mainland, free zone or offshore. We match your business activity to the right licence and take you from trade name to trade licence.",
   },
   {
     key: "pro",
-    title: "PRO Services",
+    title: "PRO services",
     href: "/services/pro-services-dubai/",
-    text: "Complete government liaison and PRO ensuring compliance, risk reduction, and efficient handling of all regulatory requirements saving you time and cost.",
+    text: "Government work handled for you: licence renewals, labour and immigration files, approvals and document clearing.",
   },
   {
     key: "visa",
-    title: "Visa Services",
+    title: "Visa services",
     href: "/services/visa-services-dubai/",
-    text: "From golden visas to employee and family visas, our experts ensure fast, smooth, and hassle-free processing for all visa service categories.",
+    text: "Investor, partner, employee and family visas, plus Golden Visa eligibility checks and applications.",
   },
   {
     key: "banking",
-    title: "Banking Assistance",
+    title: "Banking assistance",
     href: "/banking/",
-    text: "Simplified bank account opening with major banks, dedicated relationship managers, and seamless multilingual digital banking support.",
+    text: "We prepare your file and introduce you to UAE banks that suit your business profile, for a smoother account opening.",
   },
   {
     key: "accounting",
-    title: "Accounting & Book keeping",
+    title: "Accounting & bookkeeping",
     href: "/services/accounting-bookkeeping/",
-    text: "Accurate financial records, timely reporting, and full compliance to give you clarity, control, and peace of mind.",
+    text: "Monthly bookkeeping, VAT and corporate tax registration and filing, so you stay compliant from year one.",
   },
   {
     key: "attestation",
-    title: "Attestation & Translation",
+    title: "Attestation & translation",
     href: "/contact-us/",
-    text: "Reliable document attestation and certified translation services to ensure authenticity, legal acceptance, and international validity.",
+    text: "Certified legal translation and attestation of degrees, certificates and company documents for use in the UAE.",
   },
 ] as const;
 

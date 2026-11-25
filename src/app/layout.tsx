@@ -1,23 +1,15 @@
 import type { Metadata, Viewport } from "next";
-import { Cormorant_Garamond, Outfit } from "next/font/google";
+import { Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { WhatsAppFloat } from "@/components/WhatsAppFloat";
 import { site } from "@/content/site";
 
-const cormorant = Cormorant_Garamond({
-  variable: "--font-cormorant",
+const jakarta = Plus_Jakarta_Sans({
+  variable: "--font-jakarta",
   subsets: ["latin"],
-  weight: ["400", "500", "600"],
-  style: ["normal", "italic"],
-  display: "swap",
-});
-
-const outfit = Outfit({
-  variable: "--font-outfit",
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600"],
+  weight: ["400", "500", "600", "700"],
   display: "swap",
 });
 
@@ -62,7 +54,7 @@ const organizationJsonLd = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${cormorant.variable} ${outfit.variable} antialiased`}>
+    <html lang="en" className={`${jakarta.variable} antialiased`}>
       <body className="min-h-svh">
         <a
           href="#main"
