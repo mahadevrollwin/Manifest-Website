@@ -104,7 +104,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="bg-olive-deep py-20 text-ivory sm:py-24">
+      <section className="bg-olive-night py-20 text-ivory sm:py-24">
         <div className="container-luxe">
           <dl className="grid grid-cols-2 gap-x-6 gap-y-10 lg:grid-cols-4">
             {stats.map((s, i) => (
@@ -151,7 +151,7 @@ export default function AboutPage() {
             {team.map((member, i) => (
               <Reveal key={member.role} delay={(i % 4) * 90}>
                 <article className="h-full overflow-hidden bg-white">
-                  <div className="relative aspect-square bg-[#ead9ae]">
+                  <div className="relative aspect-square bg-[#dcddd2]">
                     {member.photo ? (
                       <Image
                         src={member.photo}

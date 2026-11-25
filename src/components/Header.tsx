@@ -41,7 +41,7 @@ export function Header() {
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-all duration-700 ease-luxe ${
         solid
-          ? "bg-ivory/85 text-olive-deep shadow-[0_10px_40px_-25px_rgba(46,58,37,0.45)] backdrop-blur-xl"
+          ? "bg-ivory/85 text-olive-deep shadow-[0_10px_40px_-25px_rgba(42,50,31,0.45)] backdrop-blur-xl"
           : "bg-transparent text-ivory"
       }`}
     >
@@ -66,7 +66,7 @@ export function Header() {
                   <ChevronDown className="size-3 transition-transform duration-500 group-hover:rotate-180 group-focus-within:rotate-180" />
                 </Link>
                 <div className="invisible absolute top-full left-1/2 w-[22rem] -translate-x-1/2 translate-y-3 pt-3 opacity-0 transition-all duration-500 ease-luxe group-focus-within:visible group-focus-within:translate-y-0 group-focus-within:opacity-100 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100">
-                  <div className="border border-olive-deep/10 bg-ivory p-3 text-olive-deep shadow-[0_30px_70px_-30px_rgba(25,27,24,0.5)]">
+                  <div className="border border-olive-deep/10 bg-ivory p-3 text-olive-deep shadow-[0_30px_70px_-30px_rgba(20,22,16,0.5)]">
                     {item.children.map((child) => (
                       <Link
                         key={child.href}

@@ -32,7 +32,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#191b18",
+  themeColor: "#1d2316",
 };
 
 const organizationJsonLd = {
