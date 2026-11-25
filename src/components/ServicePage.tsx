@@ -221,7 +221,7 @@ export function ServicePage({ page }: { page: ServicePageData }) {
               ))}
             </ul>
           </Reveal>
-          <Reveal delay={120} className="flex flex-col bg-olive-night p-8 text-ivory sm:p-10">
+          <Reveal delay={120} className="flex flex-col bg-olive-deep p-8 text-ivory sm:p-10">
             <h2 className="text-2xl sm:text-3xl">Timeline &amp; cost</h2>
             {page.costs && page.costs.length > 0 && (
               <dl className="mt-7 divide-y divide-ivory/15 border-y border-ivory/15">

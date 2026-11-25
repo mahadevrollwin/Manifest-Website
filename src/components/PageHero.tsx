@@ -17,10 +17,10 @@ type PageHeroProps = {
 
 export function PageHero({ eyebrow, title, intro, image, imageAlt = "", crumbs, facts, children }: PageHeroProps) {
   return (
-    <section className="grain relative isolate overflow-hidden bg-[#141a0f] pt-36 pb-16 text-ivory sm:pt-44 sm:pb-20">
+    <section className="grain relative isolate overflow-hidden bg-olive-deep pt-36 pb-16 text-ivory sm:pt-44 sm:pb-20">
       <Image src={image} alt={imageAlt} fill priority sizes="100vw" className="-z-20 object-cover opacity-40" />
-      <div className="absolute inset-0 -z-10 bg-gradient-to-r from-[#141a0f] via-[#141a0f]/85 to-[#141a0f]/45" />
-      <div className="absolute inset-0 -z-10 bg-gradient-to-t from-[#141a0f] via-transparent to-transparent" />
+      <div className="absolute inset-0 -z-10 bg-gradient-to-r from-olive-deep via-olive-deep/85 to-olive-deep/40" />
+      <div className="absolute inset-0 -z-10 bg-gradient-to-t from-olive-night/80 via-transparent to-transparent" />
 
       <div className="container-luxe">
         <nav aria-label="Breadcrumb" className="animate-fade-up">

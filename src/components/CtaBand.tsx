@@ -25,7 +25,7 @@ export function CtaBand({
   return (
     <section className="grain relative isolate overflow-hidden bg-olive-deep py-20 text-ivory sm:py-24">
       <Image src={image} alt="" fill sizes="100vw" className="-z-20 object-cover opacity-20" />
-      <div className="absolute inset-0 -z-10 bg-gradient-to-r from-olive-deep via-olive-deep/90 to-olive-deep/60" />
+      <div className="absolute inset-0 -z-10 bg-gradient-to-r from-olive-deep via-olive-deep/90 to-forest/60" />
       <div className="container-luxe flex flex-col gap-10 lg:flex-row lg:items-end lg:justify-between">
         <div className="max-w-2xl">
           <h2 className="text-3xl leading-[1.12] sm:text-4xl lg:text-[2.6rem]">{title}</h2>

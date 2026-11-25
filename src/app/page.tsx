@@ -232,7 +232,7 @@ export default function HomePage() {
                 className="object-cover"
               />
             </div>
-            <div className="absolute bottom-[-8%] left-0 aspect-square w-[48%] overflow-hidden border-[10px] border-ivory shadow-[0_40px_80px_-40px_rgba(20,22,16,0.6)]">
+            <div className="absolute bottom-[-8%] left-0 aspect-square w-[48%] overflow-hidden border-[10px] border-ivory shadow-[0_40px_80px_-40px_rgba(25,27,24,0.6)]">
               <Image
                 src="/images/home-team.jpg"
                 alt="Three business people working together and looking at a laptop"
@@ -301,7 +301,7 @@ export default function HomePage() {
                 <Reveal key={service.key} delay={(i % 3) * 100} className="h-full">
                   <Link
                     href={service.href}
-                    className="group relative flex h-full flex-col border border-olive-deep/10 bg-white p-8 transition-colors duration-500 ease-luxe hover:border-champagne hover:shadow-[0_30px_60px_-35px_rgba(42,50,31,0.4)]"
+                    className="group relative flex h-full flex-col border border-olive-deep/10 bg-white p-8 transition-colors duration-500 ease-luxe hover:border-champagne hover:shadow-[0_30px_60px_-35px_rgba(46,58,37,0.4)]"
                   >
                     <div className="flex items-start justify-between">
                       <span className="flex size-12 items-center justify-center border border-olive-deep/10 text-olive transition-colors duration-500 group-hover:border-champagne group-hover:text-champagne-deep">

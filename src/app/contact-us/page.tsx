@@ -60,7 +60,7 @@ export default function ContactPage() {
           </Reveal>
 
           <div className="flex min-w-0 flex-col gap-6 lg:col-span-5">
-            <Reveal delay={100} className="flex flex-col gap-5 bg-olive-night p-7 text-ivory sm:p-8">
+            <Reveal delay={100} className="flex flex-col gap-5 bg-olive-deep p-7 text-ivory sm:p-8">
               <h2 className="text-xl sm:text-[1.4rem]">Reach us directly</h2>
               <a
                 href={whatsappLink(whatsappMessages.general)}

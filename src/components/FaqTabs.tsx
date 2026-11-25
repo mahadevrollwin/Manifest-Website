@@ -35,7 +35,7 @@ export function FaqTabs({ groups }: { groups: FaqGroup[] }) {
             </button>
           ))}
         </div>
-        <div className="mt-8 hidden bg-olive-night p-6 text-ivory lg:block">
+        <div className="mt-8 hidden bg-olive-deep p-6 text-ivory lg:block">
           <p className="text-[1.05rem] font-semibold">Still have a question?</p>
           <p className="mt-2 text-[0.95rem] leading-relaxed text-ivory/75">
             An adviser will reply within one working day.
@@ -53,7 +53,7 @@ export function FaqTabs({ groups }: { groups: FaqGroup[] }) {
           name={`faq-${group.id}`}
           items={group.items.map((item) => ({ question: item.q, answer: <p>{item.a}</p> }))}
         />
-        <div className="mt-10 bg-olive-night p-6 text-ivory lg:hidden">
+        <div className="mt-10 bg-olive-deep p-6 text-ivory lg:hidden">
           <p className="text-[1.05rem] font-semibold">Still have a question?</p>
           <p className="mt-2 text-[0.95rem] leading-relaxed text-ivory/75">
             An adviser will reply within one working day.
