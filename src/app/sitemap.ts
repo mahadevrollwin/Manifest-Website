@@ -12,6 +12,8 @@ const routes = [
   "/services/accounting-bookkeeping/",
   "/dubai-mainland/",
   "/dubai-free-zone-business-setup/",
+  "/dubai-offshore-company-formation/",
+  "/services/attestation-translation-dubai/",
   "/banking/",
   "/faqs/",
   "/dubai-business-setup-blog/",

@@ -1,12 +1,6 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import { ArrowRight, Globe, Landmark, Percent } from "lucide-react";
-import { PageHero } from "@/components/PageHero";
-import { Reveal } from "@/components/Reveal";
-import { SectionHeading } from "@/components/SectionHeading";
-import { SplitSection } from "@/components/SplitSection";
-import { Steps } from "@/components/Steps";
-import { CTASection } from "@/components/CTASection";
+import { ServicePage, type ServicePageData } from "@/components/ServicePage";
+import { serviceLinks as l } from "@/content/service-links";
 
 export const metadata: Metadata = {
   title: { absolute: "Company Formation in Dubai | Trusted Business Experts" },
@@ -15,133 +9,139 @@ export const metadata: Metadata = {
   alternates: { canonical: "/services/company-formation-in-dubai-experts/" },
 };
 
-const reasons = [
-  {
-    icon: Percent,
-    title: "Minimal taxes, full profits",
-    text: "Support from the Best UAE business setup consultants makes company setup in Dubai a smart and rewarding move for entrepreneurs. The UAE offers a highly business-friendly environment with minimal taxes—no personal income tax, no capital gains tax, and added benefits in many freezones. You also get the freedom to repatriate 100% of your profits, giving you full control over your earnings and the confidence to grow your business without limitations.",
+const page: ServicePageData = {
+  crumbs: [{ label: "Home", href: "/" }, { label: "Services", href: "/services/" }, { label: "Company formation" }],
+  eyebrow: "Company formation in Dubai",
+  h1: "Company formation in Dubai, from trade name to trade licence",
+  intro:
+    "Choosing the wrong licence or jurisdiction costs time and money later. We look at your activity, your customers and your visa needs, recommend the right setup, and handle every step until your licence is issued.",
+  heroImage: "/images/dubai-skyline-night.jpg",
+  heroImageAlt: "Dubai skyline at night",
+  facts: [
+    { k: "Jurisdictions", v: "Mainland · Free Zone · Offshore" },
+    { k: "Ownership", v: "Up to 100% for most activities" },
+    { k: "Registration time", v: "Typically 3–7 working days once documents are ready" },
+  ],
+  forTitle: "Built for founders at every stage",
+  forItems: [
+    {
+      t: "First-time founders",
+      d: "You have the idea and the budget. We turn it into a licensed company, with clear advice on every choice along the way.",
+    },
+    {
+      t: "Freelancers & consultants",
+      d: "Get a licence that matches your services, sponsor your own visa and invoice clients as a registered business.",
+    },
+    {
+      t: "International companies",
+      d: "Open a UAE subsidiary or branch to serve the region, with the right structure for tax, banking and hiring.",
+    },
+  ],
+  incTitle: "Everything needed to get you licensed and trading",
+  included: [
+    "Business activity and licence-type advice",
+    "Jurisdiction comparison for your plan",
+    "Trade name reservation",
+    "Initial approval application",
+    "Memorandum of Association drafting and notarisation",
+    "Office or flexi-desk options, including Ejari where required",
+    "Trade licence issuance",
+    "Establishment card and immigration file",
+    "Investor and employee visa processing",
+    "Corporate bank account introduction",
+  ],
+  image: "/images/home-team.jpg",
+  imageAlt: "The Manifest team working with a client",
+  compare: {
+    title: "Mainland vs Free Zone vs Offshore",
+    cols: ["", "Dubai Mainland", "Dubai Free Zone", "Offshore"],
+    rows: [
+      {
+        label: "Ownership",
+        cells: ["Up to 100% for most activities", "100% foreign ownership", "100% foreign ownership"],
+      },
+      {
+        label: "Where you can trade",
+        cells: [
+          "Anywhere in the UAE and abroad",
+          "Inside the free zone and abroad; the UAE mainland usually via a distributor or extra permit",
+          "Outside the UAE only",
+        ],
+      },
+      {
+        label: "Office",
+        cells: [
+          "Physical office with Ejari required",
+          "Flexi-desk to full office, depending on the free zone",
+          "No office needed; registered agent address",
+        ],
+      },
+      { label: "Residence visas", cells: ["Yes, based on office size", "Yes, based on the package", "No"] },
+      {
+        label: "Corporate tax",
+        cells: [
+          "0% up to AED 375,000 taxable income, 9% above",
+          "0% on qualifying income for a Qualifying Free Zone Person; 9% on other income",
+          "Depends on the structure and where income is earned",
+        ],
+      },
+      {
+        label: "Best for",
+        cells: [
+          "Retail, contracting, services to UAE customers",
+          "Trading, e-commerce, consulting, startups",
+          "Holding companies, international trading",
+        ],
+      },
+    ],
   },
-  {
-    icon: Globe,
-    title: "A world business hub",
-    text: "With Dubai Company Formation, you're not just getting tax benefits—you're stepping into one of the world's biggest business hubs. Perfectly located between Europe, Asia, and Africa, Dubai offers easy access to global markets, backed by world-class infrastructure, modern ports, fast airports, and seamless connectivity for smooth business operations.",
-  },
-  {
-    icon: Landmark,
-    title: "Industry-built free zones",
-    text: "UAE free zones make starting a business super simple—100% ownership, zero import-export duties, and easy paperwork. Plus, each free zone is built for specific industries, so you get the right environment to grow faster.",
-  },
-];
-
-const steps = [
-  { title: "Choose your Activity & Jurisdiction" },
-  { title: "Reserve your Trade Name" },
-  { title: "Apply for Initial Approval" },
-  { title: "Prepare & Submit Documents" },
-  { title: "Finalize Location & Payments" },
-  { title: "Receive Your Business License" },
-  { title: "Complete Visas & Bank Setup" },
-];
+  stepsTitle: "Five steps to your trade licence",
+  steps: [
+    { n: "01", t: "Free consultation", d: "We understand your activity, customers, budget and visa needs." },
+    {
+      n: "02",
+      t: "Setup plan & quote",
+      d: "A written recommendation on jurisdiction, licence and office, with an itemised quote.",
+    },
+    { n: "03", t: "Name & approvals", d: "We reserve your trade name and apply for initial approval." },
+    { n: "04", t: "Documents & licence", d: "We prepare and submit your documents, and your licence is issued." },
+    { n: "05", t: "Visas & bank", d: "Establishment card, residence visas, Emirates ID and bank account." },
+  ],
+  docsTitle: "Documents you will need",
+  docsNote:
+    "Exact requirements depend on the jurisdiction and activity. We confirm the full list in your setup plan.",
+  docs: [
+    "Passport copy for every shareholder and manager",
+    "Passport-size photo",
+    "UAE visa or entry stamp, if you are in the UAE",
+    "No-objection letter from your current sponsor, if you are employed in the UAE",
+    "Business plan, for some activities and free zones",
+    "For a corporate shareholder: certificate of incorporation, board resolution and constitutional documents, attested",
+  ],
+  costNote:
+    "Your quote lists government fees and our service fee separately, so you know exactly what you are paying for. Tell us your activity and we will send an itemised quote.",
+  faqs: [
+    {
+      q: "How long does company formation in Dubai take?",
+      a: "Once your documents are ready, registration typically takes 3–7 working days. Visas and the bank account take additional time; we give you a full timeline in your setup plan.",
+    },
+    {
+      q: "Can I own 100% of a mainland company?",
+      a: "Yes, for most commercial, industrial and professional activities. A small number of strategic activities still carry ownership conditions, and we check yours before you apply.",
+    },
+    {
+      q: "Do I need to be in the UAE to set up?",
+      a: "Much of the process can start remotely. You will usually need to be in the UAE for the visa medical test and Emirates ID biometrics, and some banks ask to meet you in person.",
+    },
+    {
+      q: "Which jurisdiction is right for me?",
+      a: "If most of your customers are in the UAE, mainland is usually the better fit. If you sell internationally or online, a free zone is often simpler. An offshore company suits holding and international structures. We compare all three for your plan.",
+    },
+  ],
+  related: [l.mainland, l.freeZone, l.visa, l.banking],
+  ctaTitle: "Let's find the right setup for your business",
+};
 
 export default function CompanyFormationPage() {
-  return (
-    <>
-      <PageHero
-        eyebrow="Services"
-        title={
-          <>
-            Company <em className="text-champagne">Formation</em>
-          </>
-        }
-        intro="At Manifest, we simplify company formation in Dubai by guiding you through every step—from selecting the right business structure and securing the necessary approvals to obtaining your trade license and launching operations smoothly, efficiently, and hassle-free."
-        image="/images/dubai-skyline-night.jpg"
-        imageAlt="Dubai skyline at night"
-        crumbs={[{ label: "Home", href: "/" }, { label: "Services", href: "/services/" }, { label: "Company Formation" }]}
-      />
-
-      <SplitSection
-        eyebrow="Company formation in Dubai"
-        title={
-          <>
-            Starting a business doesn&apos;t have to be <em className="text-olive">complicated</em>
-          </>
-        }
-        image="/images/home-team.jpg"
-        imageAlt="Business setup consultants working with a client"
-      >
-        <p>
-          With the right guidance for company formation in Dubai, you can choose between{" "}
-          <Link href="/dubai-mainland/" className="text-olive underline decoration-champagne underline-offset-4">
-            Mainland
-          </Link>
-          ,{" "}
-          <Link href="/dubai-free-zone-business-setup/" className="text-olive underline decoration-champagne underline-offset-4">
-            Free Zone
-          </Link>
-          , or Offshore based on your goals and market reach. Whether you&apos;re planning a complete UAE Business Setup or
-          want to open company in Dubai without visiting, picking the right license—commercial, professional, or
-          industrial—makes all the difference for a smooth start.
-        </p>
-        <p>
-          Getting these basics right early makes everything smoother—less confusion, fewer delays, and faster business
-          launch. With expert UAE company formation services in Dubai, Manifest ensures your setup is simple, compliant,
-          and completely stress-free.
-        </p>
-        <div className="pt-4">
-          <Link href="/contact-us/" className="btn btn-olive">
-            Schedule your free consulting session <ArrowRight className="size-4" />
-          </Link>
-        </div>
-      </SplitSection>
-
-      <section className="bg-olive-wash py-24 sm:py-32">
-        <div className="container-luxe">
-          <SectionHeading
-            eyebrow="The Dubai advantage"
-            title={
-              <>
-                Why Company Formation <em className="text-olive">in Dubai?</em>
-              </>
-            }
-          />
-          <div className="mt-16 grid gap-6 lg:grid-cols-3">
-            {reasons.map(({ icon: Icon, title, text }, i) => (
-              <Reveal key={title} delay={i * 120} className="card-luxe flex flex-col p-9 sm:p-11">
-                <span className="flex size-14 items-center justify-center bg-olive-deep text-champagne">
-                  <Icon className="size-6" strokeWidth={1.2} />
-                </span>
-                <h3 className="mt-8 text-[1.9rem] leading-tight text-olive-deep">{title}</h3>
-                <p className="mt-5 text-[0.95rem] leading-[1.85] text-ink-soft/85">{text}</p>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <Steps
-        eyebrow="Step-by-step guide to open a company in Dubai"
-        title={
-          <>
-            How to open a Company <em className="text-champagne">in the UAE?</em>
-          </>
-        }
-        intro="Seven clear steps from idea to licensed, bank-ready business—with Manifest handling the details at every stage."
-        steps={steps}
-        aside={
-          <Link href="/contact-us/" className="btn btn-champagne">
-            Contact Us <ArrowRight className="size-4" />
-          </Link>
-        }
-      />
-
-      <CTASection
-        title={
-          <>
-            To know more about how to <em className="text-champagne">Open a Company in UAE</em>
-          </>
-        }
-        primaryLabel="Contact Us"
-      />
-    </>
-  );
+  return <ServicePage page={page} />;
 }

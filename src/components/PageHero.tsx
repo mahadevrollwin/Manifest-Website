@@ -1,7 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
-import { ChevronRight } from "lucide-react";
 
 type Crumb = { label: string; href?: string };
 
@@ -12,29 +11,23 @@ type PageHeroProps = {
   image: string;
   imageAlt?: string;
   crumbs: Crumb[];
+  facts?: { k: string; v: string }[];
   children?: ReactNode;
 };
 
-export function PageHero({ eyebrow, title, intro, image, imageAlt = "", crumbs, children }: PageHeroProps) {
+export function PageHero({ eyebrow, title, intro, image, imageAlt = "", crumbs, facts, children }: PageHeroProps) {
   return (
-    <section className="grain relative isolate flex min-h-[78svh] items-end overflow-hidden bg-olive-night text-ivory">
-      <Image
-        src={image}
-        alt={imageAlt}
-        fill
-        priority
-        sizes="100vw"
-        className="-z-20 animate-ken-burns object-cover"
-      />
-      <div className="absolute inset-0 -z-10 bg-gradient-to-r from-olive-night via-olive-night/80 to-olive-deep/30" />
-      <div className="absolute inset-0 -z-10 bg-gradient-to-t from-olive-night via-transparent to-olive-night/60" />
+    <section className="grain relative isolate overflow-hidden bg-[#141a0f] pt-36 pb-16 text-ivory sm:pt-44 sm:pb-20">
+      <Image src={image} alt={imageAlt} fill priority sizes="100vw" className="-z-20 object-cover opacity-40" />
+      <div className="absolute inset-0 -z-10 bg-gradient-to-r from-[#141a0f] via-[#141a0f]/85 to-[#141a0f]/45" />
+      <div className="absolute inset-0 -z-10 bg-gradient-to-t from-[#141a0f] via-transparent to-transparent" />
 
-      <div className="container-luxe pt-40 pb-16 sm:pb-20 lg:pb-24">
+      <div className="container-luxe">
         <nav aria-label="Breadcrumb" className="animate-fade-up">
-          <ol className="flex flex-wrap items-center gap-2 text-[0.68rem] tracking-[0.22em] text-ivory/60 uppercase">
+          <ol className="flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-ivory/60">
             {crumbs.map((crumb, i) => (
               <li key={crumb.label} className="flex items-center gap-2">
-                {i > 0 && <ChevronRight className="size-3 text-champagne" />}
+                {i > 0 && <span aria-hidden="true">/</span>}
                 {crumb.href ? (
                   <Link href={crumb.href} className="hover:text-champagne">
                     {crumb.label}
@@ -48,16 +41,26 @@ export function PageHero({ eyebrow, title, intro, image, imageAlt = "", crumbs, 
             ))}
           </ol>
         </nav>
-        <p className="eyebrow eyebrow-light mt-10 animate-fade-up [animation-delay:120ms]">{eyebrow}</p>
-        <h1 className="mt-5 max-w-4xl animate-fade-up text-5xl leading-[1.02] [animation-delay:200ms] sm:text-6xl lg:text-[5.25rem]">
+        <p className="eyebrow eyebrow-light mt-10 animate-fade-up [animation-delay:100ms]">{eyebrow}</p>
+        <h1 className="mt-5 max-w-4xl animate-fade-up text-4xl leading-[1.08] [animation-delay:180ms] sm:text-5xl lg:text-[3.5rem]">
           {title}
         </h1>
         {intro && (
-          <p className="mt-7 max-w-2xl animate-fade-up text-base leading-relaxed text-ivory/75 [animation-delay:320ms] sm:text-lg">
+          <p className="mt-6 max-w-3xl animate-fade-up text-base leading-relaxed text-ivory/75 [animation-delay:260ms] sm:text-lg">
             {intro}
           </p>
         )}
-        {children && <div className="mt-10 animate-fade-up [animation-delay:440ms]">{children}</div>}
+        {children && <div className="mt-9 flex animate-fade-up flex-col gap-3 [animation-delay:340ms] sm:flex-row sm:flex-wrap">{children}</div>}
+        {facts && facts.length > 0 && (
+          <dl className="mt-12 grid animate-fade-up gap-6 border-t border-ivory/15 pt-8 [animation-delay:420ms] sm:grid-cols-2 lg:grid-cols-3">
+            {facts.map((fact) => (
+              <div key={fact.k}>
+                <dt className="text-xs font-semibold tracking-[0.14em] text-champagne uppercase">{fact.k}</dt>
+                <dd className="mt-2 text-base leading-snug text-ivory/90">{fact.v}</dd>
+              </div>
+            ))}
+          </dl>
+        )}
       </div>
     </section>
   );

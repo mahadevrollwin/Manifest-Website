@@ -1,11 +1,6 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import { ArrowLeftRight, ArrowRight, BookOpen, ChartColumn, Receipt, Wallet } from "lucide-react";
-import { PageHero } from "@/components/PageHero";
-import { Reveal } from "@/components/Reveal";
-import { SectionHeading } from "@/components/SectionHeading";
-import { SplitSection } from "@/components/SplitSection";
-import { CTASection } from "@/components/CTASection";
+import { ServicePage, type ServicePageData } from "@/components/ServicePage";
+import { serviceLinks as l } from "@/content/service-links";
 
 export const metadata: Metadata = {
   title: { absolute: "Accounting Services Dubai | Expert Bookkeeping & Tax Solutions" },
@@ -14,120 +9,93 @@ export const metadata: Metadata = {
   alternates: { canonical: "/services/accounting-bookkeeping/" },
 };
 
-const supported = [
-  { icon: BookOpen, label: "Bookkeeping" },
-  { icon: Receipt, label: "Tax Preparation" },
-  { icon: ChartColumn, label: "Financial Reporting" },
-  { icon: Wallet, label: "Payroll Processing" },
-  { icon: ArrowLeftRight, label: "Payable & Receivable" },
-];
+const page: ServicePageData = {
+  crumbs: [
+    { label: "Home", href: "/" },
+    { label: "Services", href: "/services/" },
+    { label: "Accounting & bookkeeping" },
+  ],
+  eyebrow: "Accounting & bookkeeping",
+  h1: "Accounting and bookkeeping in Dubai",
+  intro:
+    "Clean books make everything easier: VAT returns, corporate tax, bank reviews and investor conversations. We keep your records accurate and your filings on time, so compliance never gets in the way of growth.",
+  heroImage: "/images/dubai-skyline-day.jpg",
+  heroImageAlt: "Dubai skyline in daylight",
+  facts: [
+    { k: "Corporate tax", v: "0% up to AED 375,000, then 9%" },
+    { k: "VAT", v: "Registration, returns and records" },
+    { k: "Reporting", v: "Monthly or quarterly" },
+  ],
+  forTitle: "For companies that want compliance handled properly",
+  forItems: [
+    {
+      t: "New companies",
+      d: "Set up your books, chart of accounts and tax registrations correctly from day one.",
+    },
+    {
+      t: "Growing SMEs",
+      d: "Monthly bookkeeping and management reports, without hiring an in-house accountant.",
+    },
+    {
+      t: "Free zone companies",
+      d: "Keep the records you need to support Qualifying Free Zone Person status.",
+    },
+  ],
+  incTitle: "Accounting services we offer",
+  included: [
+    "Monthly bookkeeping and bank reconciliations",
+    "Corporate tax registration",
+    "Corporate tax return preparation and filing",
+    "VAT registration and deregistration",
+    "Quarterly or monthly VAT returns",
+    "Financial statements and management reports",
+    "Payroll and WPS support",
+    "Accounting software setup",
+  ],
+  image: "/images/banking.jpg",
+  imageAlt: "A finance team reviewing company accounts",
+  stepsTitle: "How we work with you",
+  steps: [
+    { n: "01", t: "Review", d: "We look at your current records, registrations and deadlines." },
+    { n: "02", t: "Set up", d: "Chart of accounts, software and a simple document-sharing routine." },
+    { n: "03", t: "Monthly books", d: "You send invoices and statements; we record and reconcile." },
+    { n: "04", t: "File on time", d: "VAT and corporate tax returns prepared, reviewed and filed." },
+    { n: "05", t: "Report", d: "Clear monthly or quarterly reports on how your business is doing." },
+  ],
+  docsTitle: "What we need from you",
+  docsNote: "We set up a simple monthly routine so this takes you minutes, not days.",
+  docs: [
+    "Trade licence and incorporation documents",
+    "Bank statements for all company accounts",
+    "Sales invoices and purchase bills",
+    "Expense receipts",
+    "Payroll records, if you have employees",
+    "Previous financial statements and tax registrations, if any",
+  ],
+  costNote:
+    "Pricing depends on your monthly transaction volume. We quote a fixed monthly fee after reviewing your records.",
+  faqs: [
+    {
+      q: "Do I need to register for corporate tax?",
+      a: "Yes. Most UAE companies, including free zone companies, must register for corporate tax and file an annual return, even if their tax due is 0%. Taxable income up to AED 375,000 is taxed at 0%, and income above that at 9%.",
+    },
+    {
+      q: "When do I need to register for VAT?",
+      a: "VAT registration is mandatory once your taxable supplies exceed AED 375,000 in 12 months, and optional from AED 187,500. We monitor this for you.",
+    },
+    {
+      q: "What is a Qualifying Free Zone Person?",
+      a: "A free zone company that meets set conditions, including substance and record-keeping requirements, can pay 0% corporate tax on qualifying income. Proper books are essential to support this.",
+    },
+    {
+      q: "Can you take over from my current accountant?",
+      a: "Yes. We review your existing records, fix any gaps and take over from the next period.",
+    },
+  ],
+  related: [l.formation, l.banking, l.freeZone],
+  ctaTitle: "Keep your books clean and your filings on time",
+};
 
 export default function AccountingPage() {
-  return (
-    <>
-      <PageHero
-        eyebrow="Services"
-        title={
-          <>
-            Accounting &amp; <em className="text-champagne">Bookkeeping</em>
-          </>
-        }
-        intro="Through professional Accounting Services Dubai, Manifest supports your business with precise bookkeeping, timely insights, and complete compliance, ensuring financial peace of mind."
-        image="/images/dubai-skyline-day.jpg"
-        imageAlt="Dubai skyline"
-        crumbs={[{ label: "Home", href: "/" }, { label: "Services", href: "/services/" }, { label: "Accounting & Bookkeeping" }]}
-      />
-
-      <section className="bg-ivory py-24 sm:py-32">
-        <div className="container-luxe grid gap-14 lg:grid-cols-12 lg:gap-20">
-          <Reveal className="lg:col-span-5">
-            <p className="eyebrow">Financial clarity</p>
-            <h2 className="mt-5 text-4xl leading-[1.08] text-olive-deep sm:text-5xl">
-              Bookkeeping made <em className="text-olive">effortless</em>
-            </h2>
-          </Reveal>
-          <Reveal delay={120} className="space-y-6 text-[1.05rem] leading-[1.85] text-ink-soft/85 lg:col-span-7">
-            <p className="font-display text-2xl leading-snug text-olive-deep sm:text-3xl">
-              Manifest offers trusted Accounting Services Dubai designed to make bookkeeping effortless and efficient.
-            </p>
-            <p>
-              Our team supports startups, small businesses, and growing enterprises with precise reporting and expert
-              guidance for complete financial clarity.
-            </p>
-            <Link href="/contact-us/" className="btn btn-olive">
-              Get in touch <ArrowRight className="size-4" />
-            </Link>
-          </Reveal>
-        </div>
-      </section>
-
-      <SplitSection
-        eyebrow="Why it matters"
-        title={
-          <>
-            Why Choose Bookkeeping &amp; Accounting <em className="text-olive">Services Dubai?</em>
-          </>
-        }
-        image="/images/banking.jpg"
-        imageAlt="Business executives reviewing financial documents"
-        reverse
-        className="bg-white"
-      >
-        <p>
-          Accurate financial records are the foundation of every successful business. With professional Accounting
-          Services Dubai, companies can efficiently monitor expenses, manage payroll, and stay fully prepared for tax
-          requirements. A well-structured accounting system not only supports informed decision-making but also
-          strengthens cash flow and ensures regulatory compliance.
-        </p>
-        <p>
-          At Manifest, a trusted Accounting firm in Dubai, we deliver precise financial management tailored to your
-          business needs. As a reliable Bookkeeping company UAE, our experienced professionals handle your accounts with
-          accuracy and care—so you can focus on what truly matters: scaling, growing, and building a profitable business
-          with confidence.
-        </p>
-      </SplitSection>
-
-      <section className="bg-olive-wash py-24 sm:py-32">
-        <div className="container-luxe">
-          <SectionHeading
-            align="center"
-            eyebrow="Capabilities"
-            title={
-              <>
-                Services We <em className="text-olive">Support</em>
-              </>
-            }
-          />
-          <div className="mt-16 grid grid-cols-2 gap-px bg-olive-deep/10 sm:grid-cols-3 lg:grid-cols-5">
-            {supported.map(({ icon: Icon, label }, i) => (
-              <Reveal
-                key={label}
-                delay={i * 90}
-                className={`group flex flex-col items-center bg-olive-wash px-6 py-12 text-center transition-colors duration-700 hover:bg-olive-deep ${
-                  i === supported.length - 1 ? "col-span-2 sm:col-span-1" : ""
-                }`}
-              >
-                <span className="flex size-16 items-center justify-center rounded-full border border-olive-deep/15 text-olive transition-colors duration-700 group-hover:border-champagne/40 group-hover:text-champagne">
-                  <Icon className="size-7" strokeWidth={1.1} />
-                </span>
-                <p className="mt-7 font-display text-2xl text-olive-deep transition-colors duration-700 group-hover:text-ivory">
-                  {label}
-                </p>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <CTASection
-        title={
-          <>
-            Financial peace of mind, <em className="text-champagne">every month</em>
-          </>
-        }
-        text="Accurate records, timely reporting, and full compliance—handled by experienced professionals."
-        primaryLabel="Get in touch"
-      />
-    </>
-  );
+  return <ServicePage page={page} />;
 }

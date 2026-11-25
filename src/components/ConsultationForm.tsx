@@ -9,9 +9,16 @@ type ConsultationFormProps = {
   defaultInterest?: string;
   /** "plan" uses the homepage "Get my free setup plan" wording and extra fields. */
   variant?: "default" | "plan";
+  /** Override the list of services shown in the "interested in" select. */
+  interests?: readonly string[];
 };
 
-export function ConsultationForm({ tone = "light", defaultInterest = "", variant = "default" }: ConsultationFormProps) {
+export function ConsultationForm({
+  tone = "light",
+  defaultInterest = "",
+  variant = "default",
+  interests = consultationInterests,
+}: ConsultationFormProps) {
   const [sent, setSent] = useState(false);
   const dark = tone === "dark";
   const plan = variant === "plan";
@@ -113,7 +120,7 @@ export function ConsultationForm({ tone = "light", defaultInterest = "", variant
           <option value="" disabled>
             Select a service
           </option>
-          {consultationInterests.map((interest) => (
+          {interests.map((interest) => (
             <option key={interest} value={interest}>
               {interest}
             </option>
