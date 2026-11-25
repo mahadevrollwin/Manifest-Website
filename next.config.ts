@@ -1,9 +1,10 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
   cacheComponents: true,
   partialPrefetching: true,
+  trailingSlash: true,
+  poweredByHeader: false,
   turbopack: {
     rules: {
       "*.css": {
@@ -11,6 +12,23 @@ const nextConfig: NextConfig = {
         as: "*.css",
       },
     },
+  },
+  async redirects() {
+    return [
+      { source: "/about-manifest", destination: "/about-manifest-business-setup-experts/", permanent: true },
+      { source: "/services/company-formation", destination: "/services/company-formation-in-dubai-experts/", permanent: true },
+      { source: "/services/pro-services", destination: "/services/pro-services-dubai/", permanent: true },
+      { source: "/services/visa-services", destination: "/services/visa-services-dubai/", permanent: true },
+      { source: "/dubai-company-formation-services", destination: "/", permanent: true },
+    ];
+  },
+  async headers() {
+    return [
+      {
+        source: "/video/:path*",
+        headers: [{ key: "Cache-Control", value: "public, max-age=31536000, immutable" }],
+      },
+    ];
   },
 };
 
