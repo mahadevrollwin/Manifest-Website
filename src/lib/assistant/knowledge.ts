@@ -168,7 +168,7 @@ export const curated: KbEntry[] = [
     ],
     question: "How much does it cost to set up a company in Dubai?",
     answer:
-      "It depends on the **jurisdiction, licence type, office option and number of visas**. Setup can start from around **AED 12,000**.\n\nYou always get an **itemised quote before you commit**, with every government fee and our service fee listed separately, so there are no hidden fees. Yearly costs after setup are licence renewal, office or flexi-desk renewal, visa renewals when due, and accounting and tax filing.\n\nShare your activity and how many visas you need and an adviser can quote precisely.",
+      "It depends on the **jurisdiction, licence type, office option and number of visas**. Our current homepage packages start from **AED 5,999** for a zero-visa free zone licence (terms and conditions apply), and an all-inclusive free zone package with one visa is **AED 11,999**.\n\nYou always get an **itemised quote before you commit**, with every government fee and our service fee listed separately, so there are no hidden fees. Yearly costs after setup are licence renewal, office or flexi-desk renewal, visa renewals when due, and accounting and tax filing.\n\nShare your activity and how many visas you need and an adviser can quote precisely.",
     links: [L.contact, L.faqs],
     followUps: ["How long does it take?", "Mainland or free zone: which is better?", "Talk to an adviser"],
   },

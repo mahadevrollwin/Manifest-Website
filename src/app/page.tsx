@@ -20,6 +20,7 @@ import { SectionHeading } from "@/components/SectionHeading";
 import { Counter } from "@/components/Counter";
 import { Accordion } from "@/components/Accordion";
 import { ConsultationForm } from "@/components/ConsultationForm";
+import { FormationPackages } from "@/components/FormationPackages";
 import { LatestInsights } from "@/components/LatestInsights";
 import { WhatsappIcon } from "@/components/SocialIcons";
 import { coreServices, site, whatsappLink, whatsappMessages } from "@/content/site";
@@ -367,6 +368,8 @@ export default function HomePage() {
           </Reveal>
         </div>
       </section>
+
+      <FormationPackages />
 
       {/* Setup options */}
       <section className="bg-olive-night py-24 text-ivory/85 sm:py-28">
