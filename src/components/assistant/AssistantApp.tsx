@@ -26,6 +26,7 @@ import {
   Trash2,
   X,
 } from "lucide-react";
+import { Logo } from "@/components/Logo";
 import { Markdown } from "./Markdown";
 import { ACCEPT, formatSize, readAttachment, type PendingAttachment } from "./files";
 import { MicMeter } from "./MicMeter";
@@ -454,10 +455,10 @@ export function AssistantApp() {
         }`}
       >
         <div className="flex items-center justify-between px-5 pt-5 pb-4">
-          <Link href="/" className="inline-flex flex-col leading-none text-ivory" aria-label="Manifest Business Services — website">
-            <span className="text-[1.25rem] font-bold tracking-[0.18em]">MANIFEST</span>
-            <span className="mt-1.5 text-[0.55rem] font-medium tracking-[0.3em] text-champagne">AI ASSISTANT</span>
-          </Link>
+          <div className="flex flex-col items-start gap-3 text-ivory">
+            <Logo className="h-9" />
+            <span className="text-[0.6rem] font-semibold leading-none tracking-[0.3em] text-champagne">AI ASSISTANT</span>
+          </div>
           <button
             type="button"
             onClick={() => setSidebarOpen(false)}

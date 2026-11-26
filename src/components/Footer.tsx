@@ -16,7 +16,7 @@ export function Footer() {
       <div className="container-luxe relative">
         <div className="grid gap-12 pt-20 pb-16 sm:grid-cols-2 lg:grid-cols-12 lg:gap-8 lg:pt-24">
           <div className="lg:col-span-4">
-            <Logo />
+            <Logo className="h-12" />
             <p className="mt-6 max-w-xs text-[0.95rem] leading-relaxed text-ivory/75">
               Business setup in Dubai, handled end to end.
             </p>
