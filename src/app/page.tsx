@@ -193,9 +193,9 @@ export default function HomePage() {
       <section className="relative isolate flex min-h-[100svh] flex-col overflow-hidden bg-olive-night text-ivory">
         <HeroVideo />
         <div className="absolute inset-0 bg-[url('/images/hero-poster.jpg')] bg-cover bg-center opacity-0 motion-reduce:opacity-100" />
-        <div className="absolute inset-0 bg-olive-deep/40 mix-blend-multiply" />
-        <div className="absolute inset-0 bg-gradient-to-r from-olive-night via-olive-night/80 to-olive-night/20" />
-        <div className="absolute inset-0 bg-gradient-to-t from-olive-night via-olive-night/20 to-olive-night/60" />
+        <div className="absolute inset-0 bg-olive-deep/15 mix-blend-multiply" />
+        <div className="absolute inset-0 bg-gradient-to-r from-olive-night/90 via-olive-night/55 to-olive-night/5" />
+        <div className="absolute inset-0 bg-gradient-to-t from-olive-night via-olive-night/10 to-olive-night/30" />
 
         <div className="container-luxe relative flex flex-1 flex-col justify-center pt-36 pb-20">
           <p className="eyebrow eyebrow-light animate-fade-up">Business setup in Dubai</p>
