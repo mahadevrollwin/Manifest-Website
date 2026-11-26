@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ArrowRight, Check, Phone } from "lucide-react";
+import { MobileCarousel } from "./MobileCarousel";
 import { Reveal } from "./Reveal";
 import { SectionHeading } from "./SectionHeading";
 import { WhatsappIcon } from "./SocialIcons";
@@ -19,9 +20,14 @@ export function FormationPackages() {
           intro="Take advantage of these limited-time offers and launch your UAE business for less."
         />
 
-        <ul className="mt-14 grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
+        <MobileCarousel count={formationPackages.length} label="Company formation packages" gridClassName="sm:grid-cols-2 xl:grid-cols-4">
           {formationPackages.map((pkg, i) => (
-            <Reveal as="li" key={pkg.name} delay={(i % 4) * 100} className="flex">
+            <Reveal
+              as="li"
+              key={pkg.name}
+              delay={(i % 4) * 100}
+              className="flex w-[82%] shrink-0 snap-center max-sm:transform-none! max-sm:opacity-100! sm:w-auto"
+            >
               <article
                 className={`relative flex w-full flex-col border bg-white px-6 pt-9 pb-6 shadow-[0_1px_2px_rgba(42,50,31,0.05)] transition-[translate,border-color,box-shadow] duration-500 ease-out hover:-translate-y-1.5 hover:shadow-[0_2px_4px_rgba(42,50,31,0.05),0_22px_36px_-16px_rgba(42,50,31,0.28)] motion-reduce:transition-none motion-reduce:hover:translate-y-0 sm:px-7 ${
                   pkg.badge ? "border-champagne" : "border-olive-deep/10 hover:border-champagne"
@@ -91,7 +97,7 @@ export function FormationPackages() {
               </article>
             </Reveal>
           ))}
-        </ul>
+        </MobileCarousel>
       </div>
     </section>
   );
