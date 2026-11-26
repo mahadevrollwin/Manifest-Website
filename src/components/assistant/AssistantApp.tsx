@@ -17,6 +17,8 @@ import {
   Paperclip,
   Phone,
   Plus,
+  Volume2,
+  VolumeX,
   RefreshCw,
   Scale,
   Sparkles,
@@ -26,7 +28,9 @@ import {
 } from "lucide-react";
 import { Markdown } from "./Markdown";
 import { ACCEPT, formatSize, readAttachment, type PendingAttachment } from "./files";
+import { MicMeter } from "./MicMeter";
 import { useSpeechInput } from "./useSpeechInput";
+import { useSpeechOutput } from "./useSpeechOutput";
 import { site } from "@/content/site";
 import { starterPrompts } from "@/lib/assistant/starters";
 import { ATTACHMENT_LIMITS, type Attachment } from "@/lib/assistant/types";
@@ -57,6 +61,7 @@ type Convo = { id: string; title: string; updatedAt: number; messages: Msg[] };
 const STORAGE_KEY = "manifest-ai-chats-v1";
 const MAX_LENGTH = 2000;
 const MAX_CONVOS = 30;
+const AUTO_SEND_MS = 1700; // pause after the last spoken word before a voice message is sent
 const starterIcons = [Building2, Scale, Coins, BadgeCheck];
 
 const uid = () => Math.random().toString(36).slice(2, 10) + Date.now().toString(36);
@@ -78,8 +83,23 @@ export function AssistantApp() {
   const [attachments, setAttachments] = useState<PendingAttachment[]>([]);
   const [reading, setReading] = useState(false);
   const [notice, setNotice] = useState<string | null>(null);
+  const [voiceMode, setVoiceModeState] = useState(false);
   const speech = useSpeechInput();
-  const { stop: stopSpeech } = speech;
+  const tts = useSpeechOutput();
+  const { stop: stopListening } = speech;
+  const { speak, cancel: cancelSpeech, unlock: unlockSpeech, whenIdle } = tts;
+
+  // Hands-free voice conversation: listen, auto-send after a pause, speak the reply, listen again.
+  const voiceModeRef = useRef(false);
+  const dictationRef = useRef("");
+  const inputRef = useRef("");
+  const autoSendTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+  const sendRef = useRef<(text: string, withFiles?: boolean) => Promise<void>>(async () => {});
+  const startListeningRef = useRef<() => void>(() => {});
+  const setVoiceMode = useCallback((value: boolean) => {
+    voiceModeRef.current = value;
+    setVoiceModeState(value);
+  }, []);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
   const abortRef = useRef<AbortController | null>(null);
@@ -145,6 +165,20 @@ export function AssistantApp() {
       setBusy(true);
       stickRef.current = true;
       let raw = "";
+      let spoken = 0; // how much of the visible answer has already been queued for speech
+      const speakNewSentences = (visible: string, final: boolean) => {
+        if (final) {
+          speak(visible.slice(spoken));
+          spoken = visible.length;
+          return;
+        }
+        let end = -1;
+        for (const m of visible.matchAll(/[.!?:]["')\]]?(\s)|\n/g)) end = m.index + m[0].length;
+        if (end > spoken) {
+          speak(visible.slice(spoken, end));
+          spoken = end;
+        }
+      };
       try {
         const res = await fetch("/api/chat/", {
           method: "POST",
@@ -177,7 +211,9 @@ export function AssistantApp() {
           const { done, value } = await reader.read();
           if (done) break;
           raw += decoder.decode(value, { stream: true });
-          patchMessage(convoId, botId, { content: visibleText(raw) });
+          const visible = visibleText(raw);
+          patchMessage(convoId, botId, { content: visible });
+          speakNewSentences(visible, false);
         }
         raw += decoder.decode();
         let followUps: string[] = [];
@@ -191,6 +227,13 @@ export function AssistantApp() {
           }
         }
         patchMessage(convoId, botId, { content: visibleText(raw), followUps });
+        speakNewSentences(visibleText(raw), true);
+        // Hands-free mode: once the reply has been spoken, start listening again.
+        if (voiceModeRef.current) {
+          whenIdle(() => {
+            if (voiceModeRef.current) startListeningRef.current();
+          });
+        }
       } catch (error) {
         const aborted = error instanceof DOMException && error.name === "AbortError";
         if (aborted) {
@@ -201,12 +244,14 @@ export function AssistantApp() {
             error: error instanceof Error ? error.message : "Something went wrong. Please try again.",
           });
         }
+        cancelSpeech();
+        setVoiceMode(false);
       } finally {
         abortRef.current = null;
         setBusy(false);
       }
     },
-    [patchMessage],
+    [patchMessage, speak, whenIdle, cancelSpeech, setVoiceMode],
   );
 
   const send = useCallback(
@@ -214,7 +259,10 @@ export function AssistantApp() {
       const text = raw.trim().slice(0, MAX_LENGTH);
       const files = withFiles ? attachments : [];
       if ((!text && files.length === 0) || busy || reading) return;
-      stopSpeech();
+      clearTimeout(autoSendTimer.current);
+      stopListening(true);
+      unlockSpeech();
+      cancelSpeech();
       setInput("");
       setAttachments([]);
       setNotice(null);
@@ -245,8 +293,13 @@ export function AssistantApp() {
       setActiveId(convoId);
       await stream(convoId, history, botMsg.id);
     },
-    [active, activeId, attachments, busy, reading, stopSpeech, stream],
+    [active, activeId, attachments, busy, reading, stopListening, unlockSpeech, cancelSpeech, stream],
   );
+
+  useEffect(() => {
+    sendRef.current = send;
+    inputRef.current = input;
+  });
 
   const addFiles = async (list: FileList | null) => {
     if (!list || list.length === 0) return;
@@ -273,20 +326,61 @@ export function AssistantApp() {
 
   const removeAttachment = (id: string) => setAttachments((prev) => prev.filter((a) => a.id !== id));
 
+  const startListening = () => {
+    cancelSpeech(); // never listen while the bot is talking, or it would hear itself through the speakers
+    clearTimeout(autoSendTimer.current);
+    setNotice(null);
+    const base = inputRef.current.trim();
+    speech.start(
+      (transcript) => {
+        const text = (base ? `${base} ${transcript}` : transcript).slice(0, MAX_LENGTH);
+        dictationRef.current = text;
+        setInput(text);
+        // Hands-free: send automatically once the speaker pauses.
+        clearTimeout(autoSendTimer.current);
+        if (voiceModeRef.current && transcript) {
+          autoSendTimer.current = setTimeout(() => sendRef.current(dictationRef.current, true), AUTO_SEND_MS);
+        }
+      },
+      (reason) => {
+        if (reason !== "stopped") setVoiceMode(false);
+      },
+    );
+  };
+
+  const endVoice = () => {
+    setVoiceMode(false);
+    clearTimeout(autoSendTimer.current);
+    cancelSpeech();
+    stopListening(true);
+  };
+
+  useEffect(() => {
+    startListeningRef.current = startListening;
+  });
+
   const toggleVoice = () => {
-    if (speech.listening) {
-      speech.stop();
+    unlockSpeech();
+    if (voiceMode || speech.listening) {
+      // Turn off: keep whatever was dictated so far in the box for editing.
+      setVoiceMode(false);
+      clearTimeout(autoSendTimer.current);
+      cancelSpeech();
+      stopListening();
       return;
     }
-    setNotice(null);
-    const base = input.trim();
-    speech.start((transcript) => {
-      setInput((base ? `${base} ${transcript}` : transcript).slice(0, MAX_LENGTH));
-    });
+    if (!speech.supported) {
+      speech.start(() => {}); // reports that this browser has no speech recognition
+      return;
+    }
+    setVoiceMode(true);
+    startListening();
   };
 
   const regenerate = useCallback(async () => {
     if (!active || busy) return;
+    cancelSpeech();
+    unlockSpeech();
     const lastUser = active.messages.map((m) => m.role).lastIndexOf("user");
     if (lastUser < 0) return;
     const history = active.messages.slice(0, lastUser + 1);
@@ -295,13 +389,13 @@ export function AssistantApp() {
       prev.map((c) => (c.id === active.id ? { ...c, updatedAt: Date.now(), messages: [...history, botMsg] } : c)),
     );
     await stream(active.id, history, botMsg.id);
-  }, [active, busy, stream]);
+  }, [active, busy, stream, cancelSpeech, unlockSpeech]);
 
   const stop = () => abortRef.current?.abort();
 
   const newChat = () => {
     if (busy) abortRef.current?.abort();
-    stopSpeech();
+    endVoice();
     setActiveId(null);
     setInput("");
     setAttachments([]);
@@ -312,6 +406,7 @@ export function AssistantApp() {
 
   const openChat = (id: string) => {
     if (busy) abortRef.current?.abort();
+    endVoice();
     setActiveId(id);
     setSidebarOpen(false);
     stickRef.current = true;
@@ -319,6 +414,7 @@ export function AssistantApp() {
 
   const removeChat = (id: string) => {
     if (id === activeId && busy) abortRef.current?.abort();
+    if (id === activeId) endVoice();
     setConvos((prev) => prev.filter((c) => c.id !== id));
     if (id === activeId) setActiveId(null);
   };
@@ -464,6 +560,25 @@ export function AssistantApp() {
             </div>
           </div>
           <div className="flex items-center gap-2">
+            {tts.supported && (
+              <button
+                type="button"
+                onClick={() => {
+                  unlockSpeech();
+                  tts.setEnabled(!tts.enabled);
+                }}
+                aria-pressed={tts.enabled}
+                aria-label={tts.enabled ? "Turn off spoken replies" : "Turn on spoken replies"}
+                title={tts.enabled ? "Spoken replies are on" : "Spoken replies are off"}
+                className={`flex size-10 items-center justify-center border transition-colors ${
+                  tts.enabled
+                    ? "border-champagne/50 text-champagne hover:bg-champagne/10"
+                    : "border-white/15 text-ivory/60 hover:border-champagne hover:text-champagne"
+                }`}
+              >
+                {tts.enabled ? <Volume2 className="size-[1.1rem]" /> : <VolumeX className="size-[1.1rem]" />}
+              </button>
+            )}
             <button
               type="button"
               onClick={newChat}
@@ -593,6 +708,20 @@ export function AssistantApp() {
                             {copiedId === m.id ? <Check className="size-3.5" /> : <Copy className="size-3.5" />}
                             {copiedId === m.id ? "Copied" : "Copy"}
                           </button>
+                          {tts.supported && (
+                            <button
+                              type="button"
+                              onClick={() => {
+                                unlockSpeech();
+                                cancelSpeech();
+                                speak(m.content, true);
+                              }}
+                              aria-label="Read answer aloud"
+                              className="flex items-center gap-1.5 px-2 py-1.5 text-xs transition-colors hover:text-champagne"
+                            >
+                              <Volume2 className="size-3.5" /> Listen
+                            </button>
+                          )}
                           {isLast && (
                             <button
                               type="button"
@@ -629,6 +758,47 @@ export function AssistantApp() {
         </div>
 
         <div className="shrink-0 px-4 pt-2 pb-4 sm:px-6">
+          {(voiceMode || speech.listening || tts.speaking) && (
+            <div
+              role="status"
+              aria-live="polite"
+              className="mx-auto mb-2 flex max-w-3xl items-center justify-between gap-3 border border-white/15 bg-white/[0.05] px-3.5 py-2 text-[0.82rem] text-ivory/80"
+            >
+              <span className="flex min-w-0 items-center gap-2.5">
+                {speech.listening && speech.hasMeter ? (
+                  <MicMeter levelRef={speech.levelRef} />
+                ) : (
+                  <span
+                    className={`size-2 shrink-0 rounded-full ${speech.listening ? "animate-pulse bg-red-400" : "bg-champagne"}`}
+                    aria-hidden
+                  />
+                )}
+                <span className="truncate">
+                  {tts.speaking
+                    ? "Speaking…"
+                    : speech.listening
+                      ? speech.tooQuiet
+                        ? "I can barely hear you. Move closer to the microphone or raise your input volume."
+                        : "Listening… speak naturally, I will reply when you pause"
+                      : busy
+                        ? "Thinking…"
+                        : "Voice conversation is on"}
+                </span>
+              </span>
+              {tts.speaking && (
+                <button
+                  type="button"
+                  onClick={() => {
+                    cancelSpeech();
+                    if (voiceModeRef.current) startListening();
+                  }}
+                  className="shrink-0 font-semibold text-champagne hover:underline"
+                >
+                  Stop speaking
+                </button>
+              )}
+            </div>
+          )}
           {(notice || speech.error) && (
             <p
               role="status"
@@ -715,7 +885,15 @@ export function AssistantApp() {
               value={input}
               maxLength={MAX_LENGTH}
               placeholder={speech.listening ? "Listening… speak now" : "Ask about setting up in Dubai…"}
-              onChange={(e) => setInput(e.target.value)}
+              onChange={(e) => {
+                if (voiceMode || speech.listening) {
+                  // Typing takes over from dictation so the two never overwrite each other.
+                  setVoiceMode(false);
+                  clearTimeout(autoSendTimer.current);
+                  stopListening(true);
+                }
+                setInput(e.target.value);
+              }}
               onKeyDown={(e) => {
                 if (e.key === "Enter" && !e.shiftKey && !e.nativeEvent.isComposing) {
                   e.preventDefault();
@@ -727,17 +905,21 @@ export function AssistantApp() {
             <button
               type="button"
               onClick={toggleVoice}
-              aria-label={speech.listening ? "Stop voice input" : "Start voice input"}
-              aria-pressed={speech.listening}
+              aria-label={voiceMode || speech.listening ? "Stop voice conversation" : "Start voice conversation"}
+              aria-pressed={voiceMode || speech.listening}
               title={
                 speech.supported
-                  ? speech.listening
-                    ? "Stop listening"
-                    : "Dictate your message"
+                  ? voiceMode || speech.listening
+                    ? "Stop voice conversation"
+                    : "Speak your question. It sends after a pause and the answer is read aloud."
                   : "Voice input is not supported in this browser"
               }
               className={`relative flex size-11 shrink-0 items-center justify-center transition-colors ${
-                speech.listening ? "bg-red-500 text-white" : "text-ivory/65 hover:text-champagne"
+                speech.listening
+                  ? "bg-red-500 text-white"
+                  : voiceMode
+                    ? "bg-champagne/25 text-champagne"
+                    : "text-ivory/65 hover:text-champagne"
               } ${!speech.supported ? "opacity-50" : ""}`}
             >
               {speech.listening && <span className="absolute inset-0 animate-ping bg-red-500/50" aria-hidden />}
