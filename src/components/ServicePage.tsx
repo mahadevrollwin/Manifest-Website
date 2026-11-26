@@ -1,13 +1,40 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
-import { ArrowRight, ArrowUpRight, Check } from "lucide-react";
+import {
+  Anchor,
+  ArrowRight,
+  ArrowUpRight,
+  Banknote,
+  Building2,
+  Calculator,
+  Check,
+  Globe2,
+  Landmark,
+  Languages,
+  Plane,
+  Store,
+  type LucideIcon,
+} from "lucide-react";
 import { PageHero } from "./PageHero";
 import { CtaBand } from "./CtaBand";
 import { Reveal } from "./Reveal";
 import { Accordion } from "./Accordion";
 import { WhatsappIcon } from "./SocialIcons";
 import { whatsappLink, whatsappMessages } from "@/content/site";
+
+// Icons for the "Related services" cards. The first six match the homepage "Our services" cards.
+const relatedIcons: Record<string, LucideIcon> = {
+  "/services/company-formation-in-dubai-experts/": Building2,
+  "/services/pro-services-dubai/": Landmark,
+  "/services/visa-services-dubai/": Plane,
+  "/banking/": Banknote,
+  "/services/accounting-bookkeeping/": Calculator,
+  "/services/attestation-translation-dubai/": Languages,
+  "/dubai-mainland/": Store,
+  "/dubai-free-zone-business-setup/": Globe2,
+  "/dubai-offshore-company-formation/": Anchor,
+};
 
 export type ServicePageData = {
   crumbs: { label: string; href?: string }[];
@@ -43,7 +70,7 @@ export type ServicePageData = {
   costNote: string;
 
   faqs: { q: string; a: string }[];
-  related: { t: string; href: string }[];
+  related: { t: string; href: string; d?: string }[];
 
   ctaTitle: string;
   ctaImage?: string;
@@ -263,7 +290,7 @@ export function ServicePage({ page }: { page: ServicePageData }) {
 
       {/* Related */}
       {page.related.length > 0 && (
-        <section className="bg-white py-20 sm:py-24">
+        <section className="bg-ivory py-20 sm:py-24">
           <div className="container-luxe">
             <Reveal>
               <h2 className="text-2xl text-olive-deep">Related services</h2>
@@ -273,17 +300,27 @@ export function ServicePage({ page }: { page: ServicePageData }) {
                 page.related.length === 3 ? "lg:grid-cols-3" : "lg:grid-cols-4"
               }`}
             >
-              {page.related.map((r, i) => (
-                <Reveal key={r.href} delay={i * 80} className="h-full">
-                  <Link
-                    href={r.href}
-                    className="group flex h-full min-h-[5.5rem] items-center justify-between gap-4 border border-olive-deep/10 bg-ivory px-6 py-5 text-lg leading-snug font-semibold text-olive-deep transition-colors hover:border-champagne hover:bg-olive-wash"
-                  >
-                    <span>{r.t}</span>
-                    <ArrowUpRight className="size-5 shrink-0 text-champagne-deep transition-transform duration-500 group-hover:translate-x-1 group-hover:-translate-y-1" />
-                  </Link>
-                </Reveal>
-              ))}
+              {page.related.map((r, i) => {
+                const Icon = relatedIcons[r.href] ?? Building2;
+                return (
+                  <Reveal key={r.href} delay={i * 80} className="h-full">
+                    <Link
+                      href={r.href}
+                      className="group relative flex h-full flex-col border border-olive-deep/10 bg-white p-6 transition-colors duration-500 ease-luxe hover:border-champagne hover:shadow-[0_24px_48px_-30px_rgba(42,50,31,0.4)]"
+                    >
+                      <span className="flex size-10 items-center justify-center border border-olive-deep/10 text-olive transition-colors duration-500 group-hover:border-champagne group-hover:text-champagne-deep">
+                        <Icon className="size-[1.15rem]" strokeWidth={1.5} aria-hidden />
+                      </span>
+                      <h3 className="mt-5 text-xl leading-tight text-olive-night">{r.t}</h3>
+                      {r.d && <p className="mt-2 flex-1 text-[0.95rem] leading-relaxed text-ink-soft/85">{r.d}</p>}
+                      <span className="mt-4 inline-flex items-center gap-2 text-[0.9rem] font-semibold text-champagne-deep transition-colors group-hover:text-olive-deep">
+                        Learn more
+                        <ArrowRight className="size-4 transition-transform duration-500 group-hover:translate-x-1" />
+                      </span>
+                    </Link>
+                  </Reveal>
+                );
+              })}
             </div>
           </div>
         </section>
