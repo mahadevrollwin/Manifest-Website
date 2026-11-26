@@ -45,7 +45,7 @@ const organizationJsonLd = {
   image: `${site.url}/images/hero-poster.jpg`,
   address: {
     "@type": "PostalAddress",
-    streetAddress: "Fahidi Heights, 15th Floor, 1502-A, Office No. 11, Sharaf D G Exit-4",
+    streetAddress: site.streetAddress,
     addressLocality: "Bur Dubai, Dubai",
     addressCountry: "AE",
   },

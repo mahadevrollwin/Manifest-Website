@@ -556,11 +556,14 @@ export default function HomePage() {
             </p>
             <div className="mt-12 flex flex-col gap-4 text-base">
               <h3 className="text-xl text-ivory">Visit us in Bur Dubai</h3>
-              <p className="leading-relaxed">
-                Office 1502-A, 15th Floor, Fahidi Heights
-                <br />
-                Bur Dubai, Dubai, UAE (Sharaf DG Metro, Exit 4)
-              </p>
+              <address className="leading-relaxed not-italic">
+                {site.addressLines.map((line, i) => (
+                  <span key={line}>
+                    {i > 0 && <br />}
+                    {line}
+                  </span>
+                ))}
+              </address>
               <p>
                 <a href={site.phoneHref} className="hover:text-champagne">
                   {site.phoneDisplay}

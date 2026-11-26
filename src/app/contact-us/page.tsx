@@ -86,13 +86,14 @@ export default function ContactPage() {
 
             <Reveal delay={180} className="border border-olive-deep/10 bg-white p-7 sm:p-8">
               <h2 className="text-xl text-olive-deep sm:text-[1.4rem]">Visit our office</h2>
-              <p className="mt-4 text-[0.98rem] leading-relaxed text-ink-soft">
-                Office 1502-A, 15th Floor, Fahidi Heights
-                <br />
-                Bur Dubai, Dubai, UAE
-                <br />
-                Sharaf DG Metro, Exit 4
-              </p>
+              <address className="mt-4 text-[0.98rem] leading-relaxed text-ink-soft not-italic">
+                {site.addressLines.map((line, i) => (
+                  <span key={line}>
+                    {i > 0 && <br />}
+                    {line}
+                  </span>
+                ))}
+              </address>
               <div className="relative mt-5 h-52 overflow-hidden bg-olive-mist">
                 <iframe
                   title="Manifest Business Services office location — Fahidi Heights, Bur Dubai"

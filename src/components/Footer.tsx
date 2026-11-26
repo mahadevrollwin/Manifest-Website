@@ -30,7 +30,16 @@ export function Footer() {
                   {site.email}
                 </a>
               </li>
-              <li>Fahidi Heights, Bur Dubai</li>
+              <li>
+                <address className="leading-relaxed not-italic">
+                  {site.addressLines.map((line, i) => (
+                    <span key={line}>
+                      {i > 0 && <br />}
+                      {line}
+                    </span>
+                  ))}
+                </address>
+              </li>
             </ul>
           </div>
         </div>

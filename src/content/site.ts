@@ -7,9 +7,15 @@ export const site = {
   phoneDisplay: "+971 50 924 5196",
   phoneHref: "tel:+971509245196",
   whatsappNumber: "971509245196",
-  address:
-    "Fahidi Heights, 15th Floor, 1502-A, Office No. 11, Sharaf D G Exit-4, Bur Dubai, Dubai, United Arab Emirates",
+  address: "Fahidi Heights, 16th Floor, 1603, Sharaf D G Exit-4, Bur Dubai, Dubai, United Arab Emirates",
+  addressLines: [
+    "Fahidi Heights, 16th Floor, 1603",
+    "Sharaf D G Exit-4,",
+    "Bur Dubai, Dubai,",
+    "United Arab Emirates",
+  ],
   addressShort: "Fahidi Heights, Bur Dubai, Dubai, UAE",
+  streetAddress: "Fahidi Heights, 16th Floor, 1603, Sharaf D G Exit-4",
   mapEmbed:
     "https://www.google.com/maps?q=Fahidi+Heights,+Sharaf+DG+Metro+Station,+Bur+Dubai,+Dubai&output=embed",
   social: {
