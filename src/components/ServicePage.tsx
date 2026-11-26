@@ -268,14 +268,18 @@ export function ServicePage({ page }: { page: ServicePageData }) {
             <Reveal>
               <h2 className="text-2xl text-olive-deep">Related services</h2>
             </Reveal>
-            <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            <div
+              className={`mt-10 grid gap-5 sm:grid-cols-2 ${
+                page.related.length === 3 ? "lg:grid-cols-3" : "lg:grid-cols-4"
+              }`}
+            >
               {page.related.map((r, i) => (
-                <Reveal key={r.href} delay={i * 80}>
+                <Reveal key={r.href} delay={i * 80} className="h-full">
                   <Link
                     href={r.href}
-                    className="group flex items-center justify-between gap-4 border border-olive-deep/10 bg-ivory p-6 text-lg font-semibold text-olive-deep transition-colors hover:border-champagne hover:bg-olive-wash"
+                    className="group flex h-full min-h-[5.5rem] items-center justify-between gap-4 border border-olive-deep/10 bg-ivory px-6 py-5 text-lg leading-snug font-semibold text-olive-deep transition-colors hover:border-champagne hover:bg-olive-wash"
                   >
-                    {r.t}
+                    <span>{r.t}</span>
                     <ArrowUpRight className="size-5 shrink-0 text-champagne-deep transition-transform duration-500 group-hover:translate-x-1 group-hover:-translate-y-1" />
                   </Link>
                 </Reveal>
