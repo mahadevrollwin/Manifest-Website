@@ -2,8 +2,12 @@
 
 import { useEffect, useRef } from "react";
 
-// H.264 MP4, 1920x1080, 17.3 s, no audio track: plays in every Safari, Chrome, Firefox and Edge build.
-const SRC = "/video/manifest-hero-banner.mp4";
+// Both files are H.264 MP4, 17.3 s, no audio track: they play in every Safari, Chrome, Firefox and Edge build.
+const SRC_DESKTOP = "/video/manifest-hero-banner.mp4"; // 1920x1080 (landscape)
+const SRC_MOBILE = "/video/manifest-hero-banner-mobile.mp4"; // 1080x1920 (portrait)
+
+// Phones, plus tablets held upright, get the portrait cut; everything else gets the landscape one.
+const MOBILE_QUERY = "(max-width: 767px), (max-width: 1024px) and (orientation: portrait)";
 
 const GESTURES = ["touchend", "pointerdown", "click", "keydown"] as const;
 
@@ -61,12 +65,22 @@ export function HeroVideo() {
     });
     observer.observe(video);
 
-    video.src = SRC;
-    video.load();
-    play();
+    // Only one file is ever requested: the source is chosen here, before any download starts.
+    const mobileQuery = window.matchMedia(MOBILE_QUERY);
+    const applySource = () => {
+      const next = mobileQuery.matches ? SRC_MOBILE : SRC_DESKTOP;
+      if (video.getAttribute("src") === next) return;
+      failed = false;
+      video.src = next;
+      video.load();
+      play();
+    };
+    mobileQuery.addEventListener("change", applySource); // rotation / window resize across the breakpoint
+    applySource();
 
     return () => {
       disposed = true;
+      mobileQuery.removeEventListener("change", applySource);
       observer.disconnect();
       video.removeEventListener("playing", onPlaying);
       video.removeEventListener("canplay", play);
