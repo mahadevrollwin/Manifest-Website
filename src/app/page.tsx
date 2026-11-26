@@ -359,12 +359,15 @@ export default function HomePage() {
           <SectionHeading eyebrow="How it works" title="From first call to trade licence in four steps" />
           <ol className="mt-14 grid gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
             {steps.map((step, i) => (
-              <Reveal as="li" key={step.title} delay={i * 100} className="border-t-2 border-olive-deep pt-6">
-                <span className="text-[2.5rem] leading-none font-bold text-champagne">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-                <h3 className="mt-4 text-xl text-olive-night">{step.title}</h3>
-                <p className="mt-2 text-base leading-relaxed text-ink-soft/85">{step.text}</p>
+              <Reveal as="li" key={step.title} delay={i * 100}>
+                {/* The lift lives on an inner wrapper so it never fights Reveal's own transform. */}
+                <div className="group -mx-3 h-full border-t-2 border-olive-deep px-3 pt-6 pb-7 transition-[translate,border-color,box-shadow,background-color] duration-500 ease-out hover:-translate-y-1 hover:border-champagne hover:bg-white hover:shadow-[0_2px_4px_rgba(42,50,31,0.05),0_18px_32px_-14px_rgba(42,50,31,0.25)] motion-reduce:transition-none motion-reduce:hover:translate-y-0">
+                  <span className="block text-[2.5rem] leading-none font-bold text-champagne transition-colors duration-500 group-hover:text-champagne-deep">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <h3 className="mt-4 text-xl text-olive-night">{step.title}</h3>
+                  <p className="mt-2 text-base leading-relaxed text-ink-soft/85">{step.text}</p>
+                </div>
               </Reveal>
             ))}
           </ol>
