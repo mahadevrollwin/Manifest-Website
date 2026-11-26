@@ -87,24 +87,31 @@ const stats = [
   { value: 100, decimals: 0, suffix: "%", label: "Client happiness" },
 ];
 
-const googleReviewsUrl = "https://www.google.com/search?q=Manifest+Business+Services+Dubai+reviews";
+const googleReviewsUrl =
+  "https://www.google.com/search?q=Manifest+Business+Services+Dubai+reviews&sei=nCcIa-LIN8HD5OUPiKCkwAw";
 
-// Placeholder copy from the reference design: replace with real Google reviews.
+// Real 5-star reviews from Manifest's Google Business profile (quotes are verbatim; longer ones are trimmed).
 const testimonials = [
   {
-    quote: "[Real Google review from Manifest, trimmed to 2–3 lines.]",
-    name: "[Client name]",
-    detail: "[Nationality] · Free Zone setup",
+    quote:
+      "Outstanding service from start to finish! The team is highly professional, knowledgeable, and always ready to provide the right guidance. They made the entire business setup process smooth, transparent, and hassle-free.",
+    name: "Abdul Nafaay",
+    detail: "Google review",
+    rating: 5,
   },
   {
-    quote: "[Real Google review from Manifest, trimmed to 2–3 lines.]",
-    name: "[Client name]",
-    detail: "[Business] · Mainland setup",
+    quote:
+      "We had a wonderful experience with Manifest Services from start to finish. The entire team was professional, helpful, responsive, and made the whole process incredibly smooth and stress-free for us.",
+    name: "Aishwarya Kapoor",
+    detail: "Google review · Local Guide",
+    rating: 5,
   },
   {
-    quote: "[Real Google review from Manifest, trimmed to 2–3 lines.]",
-    name: "[Client name]",
-    detail: "[Business] · Visa services",
+    quote:
+      "Really grateful to Manifest Business Services for making my business setup journey so much easier. Thank you for your support, guidance, and patience throughout the process. Truly appreciated!",
+    name: "Seejan Dulal",
+    detail: "Google review",
+    rating: 5,
   },
 ];
 
@@ -479,8 +486,8 @@ export default function HomePage() {
                 delay={i * 100}
                 className="flex flex-col bg-white p-7 shadow-[0_1px_2px_rgba(42,50,31,0.06),0_12px_32px_-16px_rgba(42,50,31,0.18)] sm:p-8"
               >
-                <div className="flex gap-0.5 text-champagne-deep" role="img" aria-label="5 out of 5 stars">
-                  {Array.from({ length: 5 }).map((_, s) => (
+                <div className="flex gap-0.5 text-champagne-deep" role="img" aria-label={`${t.rating} out of 5 stars`}>
+                  {Array.from({ length: t.rating }).map((_, s) => (
                     <Star key={s} className="size-4 fill-current" aria-hidden />
                   ))}
                 </div>
