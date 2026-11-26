@@ -17,10 +17,10 @@ function TalkToUs({ className = "" }: { className?: string }) {
       href={ASSISTANT_HREF}
       target="_blank"
       rel="noopener noreferrer"
-      className={`items-center gap-2 border border-current/30 px-3.5 py-2.5 text-[0.85rem] font-semibold whitespace-nowrap transition-colors hover:border-champagne hover:text-champagne focus-visible:border-champagne focus-visible:text-champagne sm:px-4 sm:text-[0.88rem] ${className}`}
+      className={`items-center gap-2 border border-current/30 px-3 py-2.5 text-[0.85rem] font-semibold whitespace-nowrap transition-colors max-[369px]:size-11 max-[369px]:justify-center max-[369px]:p-0 sm:px-4 hover:border-champagne hover:text-champagne focus-visible:border-champagne focus-visible:text-champagne sm:text-[0.88rem] ${className}`}
     >
       <MessageCircle className="size-4 text-champagne" aria-hidden />
-      Chat With Us
+      <span className="max-[369px]:sr-only">Chat With Us</span>
       <span className="sr-only"> (opens the AI assistant in a new tab)</span>
     </a>
   );
@@ -113,7 +113,7 @@ export function Header() {
 
       {/* Tier 2: brand, navigation and calls to action. */}
       <div
-        className={`container-luxe flex items-center justify-between gap-6 transition-all duration-700 ease-luxe ${
+        className={`container-luxe flex items-center justify-between gap-3 transition-all sm:gap-6 duration-700 ease-luxe ${
           solid ? "h-[4.5rem]" : "h-[5rem] sm:h-[5.5rem]"
         }`}
       >
@@ -168,8 +168,8 @@ export function Header() {
           )}
         </nav>
 
-        <div className="flex items-center gap-3">
-          <Link href="/contact-us/" className="btn btn-champagne hidden !px-5 !py-3 sm:inline-flex">
+        <div className="flex shrink-0 items-center gap-2 sm:gap-3">
+          <Link href="/contact-us/" className="btn btn-champagne hidden !px-5 !py-3 md:inline-flex">
             Book free consultation
           </Link>
           {/* Desktop / laptop: right after "Book free consultation" */}
