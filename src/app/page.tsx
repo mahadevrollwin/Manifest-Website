@@ -85,6 +85,27 @@ const stats = [
   { value: 100, decimals: 0, suffix: "%", label: "Client happiness" },
 ];
 
+const googleReviewsUrl = "https://www.google.com/search?q=Manifest+Business+Services+Dubai+reviews";
+
+// Placeholder copy from the reference design: replace with real Google reviews.
+const testimonials = [
+  {
+    quote: "[Real Google review from Manifest, trimmed to 2–3 lines.]",
+    name: "[Client name]",
+    detail: "[Nationality] · Free Zone setup",
+  },
+  {
+    quote: "[Real Google review from Manifest, trimmed to 2–3 lines.]",
+    name: "[Client name]",
+    detail: "[Business] · Mainland setup",
+  },
+  {
+    quote: "[Real Google review from Manifest, trimmed to 2–3 lines.]",
+    name: "[Client name]",
+    detail: "[Business] · Visa services",
+  },
+];
+
 const whyManifest = [
   {
     title: "One team, end to end",
@@ -427,6 +448,50 @@ export default function HomePage() {
               </Reveal>
             ))}
           </ol>
+        </div>
+      </section>
+
+      {/* Testimonials */}
+      <section className="bg-olive-wash py-24 sm:py-28">
+        <div className="container-luxe">
+          <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
+            <SectionHeading eyebrow="Testimonials" title="What our clients say" />
+            <Reveal delay={100}>
+              <a
+                href={googleReviewsUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 text-sm font-semibold text-olive-deep underline decoration-champagne decoration-2 underline-offset-4 transition-colors hover:text-olive"
+              >
+                Read all reviews on Google <ArrowRight className="size-4" aria-hidden />
+              </a>
+            </Reveal>
+          </div>
+          <ul className="mt-12 grid gap-6 md:grid-cols-3">
+            {testimonials.map((t, i) => (
+              <Reveal
+                as="li"
+                key={i}
+                delay={i * 100}
+                className="flex flex-col bg-white p-7 shadow-[0_1px_2px_rgba(42,50,31,0.06),0_12px_32px_-16px_rgba(42,50,31,0.18)] sm:p-8"
+              >
+                <div className="flex gap-0.5 text-champagne-deep" role="img" aria-label="5 out of 5 stars">
+                  {Array.from({ length: 5 }).map((_, s) => (
+                    <Star key={s} className="size-4 fill-current" aria-hidden />
+                  ))}
+                </div>
+                <blockquote className="mt-5 flex-1 text-[1.05rem] leading-relaxed font-medium text-olive-night">
+                  <span className="rounded-sm bg-champagne-light/50 px-1.5 py-0.5 [box-decoration-break:clone]">
+                    {t.quote}
+                  </span>
+                </blockquote>
+                <div className="mt-6 border-t border-olive-deep/10 pt-4">
+                  <p className="text-sm font-bold text-olive-night">{t.name}</p>
+                  <p className="mt-0.5 text-sm text-ink-soft/80">{t.detail}</p>
+                </div>
+              </Reveal>
+            ))}
+          </ul>
         </div>
       </section>
 
