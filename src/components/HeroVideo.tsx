@@ -2,16 +2,8 @@
 
 import { useEffect, useRef } from "react";
 
-// Both files are H.264 (High profile) in MP4 with the index at the start and no audio track, which every Safari can stream.
-const SD_SRC = "/video/hero-dubai-720.mp4"; // level 3.1: safe on every iPhone and iPad
-const HD_SRC = "/video/hero-dubai.mp4"; // 1080p, level 5.0: laptops and desktops only
-
-function pickSource() {
-  const connection = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection;
-  if (connection?.saveData) return SD_SRC;
-  // `<source media>` is ignored by Safari, so the choice is made here instead.
-  return window.matchMedia("(min-width: 1024px) and (hover: hover) and (pointer: fine)").matches ? HD_SRC : SD_SRC;
-}
+// H.264 MP4, 1920x1080, 17.3 s, no audio track: plays in every Safari, Chrome, Firefox and Edge build.
+const SRC = "/video/manifest-hero-banner.mp4";
 
 const GESTURES = ["touchend", "pointerdown", "click", "keydown"] as const;
 
@@ -22,6 +14,9 @@ export function HeroVideo() {
     const video = ref.current;
     if (!video) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return; // the poster image is shown instead
+    // Data-saver visitors keep the poster image rather than downloading the 32 MB file.
+    const connection = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection;
+    if (connection?.saveData) return;
 
     // Safari only autoplays video that is muted and inline. React does not reliably write these as attributes or
     // properties, so set every spelling WebKit looks at before playback starts.
@@ -34,7 +29,6 @@ export function HeroVideo() {
     let disposed = false;
     let visible = true;
     let failed = false;
-    let source = pickSource();
 
     const play = () => {
       if (disposed || failed || !visible || document.hidden) return;
@@ -46,18 +40,10 @@ export function HeroVideo() {
     const onGesture = () => play();
     const onPlaying = () => GESTURES.forEach((type) => window.removeEventListener(type, onGesture));
     const onError = () => {
-      if (source === HD_SRC) {
-        // The 1080p file was rejected by this device: fall back to the lighter one.
-        source = SD_SRC;
-        video.src = source;
-        video.load();
-        play();
-      } else {
-        // Nothing playable: leave the poster image in place.
-        failed = true;
-        video.removeAttribute("src");
-        video.load();
-      }
+      // Nothing playable on this device: leave the poster image in place.
+      failed = true;
+      video.removeAttribute("src");
+      video.load();
     };
     const onVisibility = () => play();
 
@@ -75,7 +61,7 @@ export function HeroVideo() {
     });
     observer.observe(video);
 
-    video.src = source;
+    video.src = SRC;
     video.load();
     play();
 
