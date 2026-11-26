@@ -130,10 +130,10 @@ const whyManifest = [
 ];
 
 const authorities = [
-  { src: "/images/authorities/auth-1.png", name: "Dubai Courts" },
-  { src: "/images/authorities/auth-2.png", name: "Salem" },
-  { src: "/images/authorities/auth-3.png", name: "Tasheel" },
-  { src: "/images/authorities/auth-4.png", name: "Amer" },
+  { src: "/images/authorities/trimmed/auth-1.png", name: "Dubai Courts", width: 237, height: 64 },
+  { src: "/images/authorities/trimmed/auth-2.png", name: "Salem", width: 183, height: 67 },
+  { src: "/images/authorities/trimmed/auth-3.png", name: "Tasheel", width: 185, height: 81 },
+  { src: "/images/authorities/trimmed/auth-4.png", name: "Amer", width: 158, height: 98 },
 ];
 
 const faqs = [
@@ -505,19 +505,21 @@ export default function HomePage() {
               We prepare and submit your applications through the official channels.
             </p>
           </Reveal>
-          <ul className="mx-auto mt-10 grid max-w-4xl grid-cols-2 gap-8 sm:grid-cols-4">
+          <ul className="mx-auto mt-10 grid max-w-4xl grid-cols-2 gap-5 sm:grid-cols-4 sm:gap-6">
             {authorities.map((a, i) => (
-              <Reveal as="li" key={a.name} delay={i * 90} className="flex flex-col items-center gap-3">
-                <span className="flex h-[4.5rem] w-full items-center justify-center border border-olive-deep/10 bg-white p-3">
+              <Reveal as="li" key={a.name} delay={i * 90} className="group flex flex-col items-center gap-4">
+                <span className="flex h-24 w-full items-center justify-center border border-olive-deep/10 bg-white px-5 py-4 shadow-[0_1px_2px_rgba(42,50,31,0.04)] transition-[translate,border-color,box-shadow] duration-500 ease-out group-hover:-translate-y-1.5 group-hover:border-champagne group-hover:shadow-[0_2px_4px_rgba(42,50,31,0.05),0_18px_32px_-14px_rgba(42,50,31,0.28)] motion-reduce:transition-none motion-reduce:group-hover:translate-y-0 sm:h-28">
                   <Image
                     src={a.src}
                     alt=""
-                    width={180}
-                    height={80}
-                    className="h-full w-auto object-contain opacity-70 grayscale"
+                    width={a.width}
+                    height={a.height}
+                    className="h-auto max-h-11 w-auto max-w-[7.5rem] object-contain opacity-70 grayscale transition-[scale,opacity,filter] duration-500 ease-out group-hover:scale-105 group-hover:opacity-100 group-hover:grayscale-0 motion-reduce:transition-none motion-reduce:group-hover:scale-100 sm:max-h-12"
                   />
                 </span>
-                <span className="text-sm font-semibold text-olive-night">{a.name}</span>
+                <span className="text-sm font-semibold text-olive-night transition-colors duration-300 group-hover:text-olive">
+                  {a.name}
+                </span>
               </Reveal>
             ))}
           </ul>
