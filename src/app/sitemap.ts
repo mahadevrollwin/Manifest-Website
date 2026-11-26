@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { posts } from "@/content/posts";
+import { postPath, posts } from "@/content/posts";
 import { site } from "@/content/site";
 
 const routes = [
@@ -28,7 +28,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: path === "/" ? 1 : 0.8,
     })),
     ...posts.map((post) => ({
-      url: `${site.url}/${post.slug}/`,
+      url: `${site.url}${postPath(post)}`,
       lastModified: post.date,
       changeFrequency: "yearly" as const,
       priority: 0.6,

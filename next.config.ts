@@ -20,6 +20,7 @@ const nextConfig: NextConfig = {
       { source: "/services/pro-services", destination: "/services/pro-services-dubai/", permanent: true },
       { source: "/services/visa-services", destination: "/services/visa-services-dubai/", permanent: true },
       { source: "/dubai-company-formation-services", destination: "/", permanent: true },
+      { source: "/blog", destination: "/dubai-business-setup-blog/", permanent: false },
     ];
   },
   async headers() {

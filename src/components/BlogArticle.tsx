@@ -4,7 +4,7 @@ import Link from "next/link";
 import { ArrowLeft, ArrowUpRight, Clock } from "lucide-react";
 import { Reveal } from "./Reveal";
 import { ConsultationForm } from "./ConsultationForm";
-import { getPost, posts, type Post } from "@/content/posts";
+import { getPost, postPath, posts, type Post } from "@/content/posts";
 import { formatDate } from "@/lib/format";
 import { site } from "@/content/site";
 
@@ -13,7 +13,7 @@ export function blogMetadata(slug: string): Metadata {
   return {
     title: { absolute: post.title },
     description: post.description,
-    alternates: { canonical: `/${post.slug}/` },
+    alternates: { canonical: postPath(post) },
     openGraph: {
       type: "article",
       title: post.title,
@@ -35,7 +35,7 @@ export function BlogArticle({ slug }: { slug: string }) {
     description: post.description,
     datePublished: post.date,
     image: `${site.url}${post.image}`,
-    mainEntityOfPage: `${site.url}/${post.slug}/`,
+    mainEntityOfPage: `${site.url}${postPath(post)}`,
     author: { "@type": "Organization", name: site.name },
     publisher: { "@type": "Organization", name: site.name },
   };
@@ -128,7 +128,7 @@ export function BlogArticle({ slug }: { slug: string }) {
 
 function RelatedLink({ post }: { post: Post }) {
   return (
-    <Link href={`/${post.slug}/`} className="group flex gap-4">
+    <Link href={postPath(post)} className="group flex gap-4">
       <span className="relative block size-20 shrink-0 overflow-hidden">
         <Image src={post.image} alt="" fill sizes="80px" className="object-cover transition-transform duration-700 group-hover:scale-110" />
       </span>

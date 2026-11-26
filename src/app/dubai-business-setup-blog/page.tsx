@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { PageHero } from "@/components/PageHero";
 import { CtaBand } from "@/components/CtaBand";
 import { BlogList } from "@/components/BlogList";
-import { posts } from "@/content/posts";
+import { postPath, posts } from "@/content/posts";
 
 export const metadata: Metadata = {
   title: { absolute: "Dubai Business Setup Blog | Insights, Guides & Updates" },
@@ -12,14 +12,15 @@ export const metadata: Metadata = {
 };
 
 export default function BlogPage() {
-  const cards = posts.map(({ slug, title, date, category, image, excerpt, readingMinutes }) => ({
-    slug,
-    title,
-    date,
-    category,
-    image,
-    excerpt,
-    readingMinutes,
+  const cards = posts.map((post) => ({
+    slug: post.slug,
+    href: postPath(post),
+    title: post.title,
+    date: post.date,
+    category: post.category,
+    image: post.image,
+    excerpt: post.excerpt,
+    readingMinutes: post.readingMinutes,
   }));
 
   return (

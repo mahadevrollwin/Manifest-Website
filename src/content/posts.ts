@@ -8,10 +8,59 @@ export type Post = {
   excerpt: string;
   readingMinutes: number;
   html: string;
+  /** Posts imported from the original site keep their root-level URL (/slug/). New posts live under /blog/[slug]/. */
+  legacyPath?: boolean;
 };
 
 export const posts: Post[] = [
   {
+    slug: "mainland-vs-free-zone-dubai-which-is-right-for-your-business",
+    title: "Mainland vs Free Zone in Dubai: Which Is Right for Your Business?",
+    date: "2026-11-26",
+    category: "Business Setup",
+    image: "/images/dubai-marina.jpg",
+    description:
+      "Mainland or free zone? Compare ownership, where you can trade, office rules, visas and corporate tax so you can choose the right Dubai company structure with confidence.",
+    excerpt:
+      "Where you set up decides who you can sell to, how many visas you can sponsor and how your office works. Here is how to choose between mainland and free zone.",
+    readingMinutes: 6,
+    html: `<p>It is one of the first questions every founder asks: should I set up on the mainland or in a free zone? Both are legitimate, both let you own your company, and both can be the right answer. The difference is in <em>who you plan to sell to</em>, <em>where your team will work</em> and <em>how you plan to grow</em>.</p>
+<h2>The short version</h2>
+<ul>
+<li><strong>Choose mainland</strong> if most of your customers are in the UAE, you want to work directly with government or large local clients, or you need a physical office or shop anywhere in Dubai.</li>
+<li><strong>Choose a free zone</strong> if you serve customers abroad or online, want a fast and lean setup, or run a business that benefits from a specific zone, such as trading, media or technology.</li>
+</ul>
+<p>Most people know which side they lean towards once they answer one question: <strong>where do my customers pay me from?</strong></p>
+<h2>1. Ownership</h2>
+<p>For most commercial and professional activities, you can own 100% of a company on the mainland and in a free zone. A small number of activities still carry ownership conditions on the mainland, and we check yours at the start so there are no surprises later.</p>
+<h2>2. Where you can trade</h2>
+<p>This is the biggest difference.</p>
+<ul>
+<li><strong>Mainland companies</strong> can trade anywhere in the UAE and work directly with government entities and local clients.</li>
+<li><strong>Free zone companies</strong> trade freely inside their zone and internationally. Selling directly to customers on the UAE mainland usually needs a local distributor, a branch or an additional permit.</li>
+</ul>
+<p>If you start in a free zone and later find your customers are mostly local, you can add a mainland licence or branch. It is better to plan this from day one than to restructure later.</p>
+<h2>3. Office and premises</h2>
+<p>Free zones offer flexible packages, from a flexi-desk for a lean start to private offices as you grow. Mainland licences generally need a registered office address in Dubai, and the type of office depends on your activity. If your business needs a shop, showroom or warehouse, mainland is usually the natural fit.</p>
+<h2>4. Visas</h2>
+<p>Both routes allow you to sponsor residence visas for yourself, partners and employees. In a free zone, the number of visas usually depends on the package and office type you choose. On the mainland, it depends on your office space and activity. Either way, we map out your visa needs before you pick a licence, so you do not outgrow it in six months.</p>
+<h2>5. Corporate tax</h2>
+<p>Every company in the UAE, including free zone companies, must register for corporate tax and file a return. A Qualifying Free Zone Person pays 0% on qualifying income and 9% on other taxable income. Whether you qualify depends on your activity and how you earn revenue, so it is worth confirming before you decide.</p>
+<h2>6. Setup speed and cost</h2>
+<p>Free zones are often quicker and simpler to set up, with fixed packages. Mainland setup involves more approvals, but gives you more flexibility. Costs depend on the jurisdiction, licence type, office option and number of visas, so we give you an itemised quote before you commit rather than a headline price.</p>
+<h2>A quick way to decide</h2>
+<ol>
+<li>List your first ten customers and where they are based.</li>
+<li>Decide whether you need a shop, showroom or client-facing office.</li>
+<li>Count the visas you will need in year one.</li>
+<li>Check whether you will bid for government or large local contracts.</li>
+</ol>
+<p>If most of your answers point to the UAE, start with the mainland. If they point abroad or online, a free zone is usually simpler. If the answers are mixed, that is exactly what a short consultation is for.</p>
+<h2>Where to go from here</h2>
+<p>Read more about <a href="/dubai-mainland/">Dubai mainland company setup</a> and <a href="/dubai-free-zone-business-setup/">free zone company setup</a>, or <a href="/contact-us/">talk to an adviser</a>. We compare both options for your exact business and recommend the one that fits, not the one that is easiest to sell.</p>`,
+  },
+  {
+    legacyPath: true,
     "slug": "how-foreigners-can-start-a-business-in-dubai-a-complete-guide-2026",
     "title": "How Foreigners Can Start a Business in Dubai: A Complete Guide (2026)",
     "date": "2026-07-24",
@@ -23,6 +72,7 @@ export const posts: Post[] = [
     "html": "<p>If you've ever daydreamed about running your own business from a city with zero personal income tax, world-class infrastructure, and a passport stamp that opens doors across the Middle East, Africa, and Asia — Dubai has probably crossed your mind. And you're not alone. Every year, thousands of entrepreneurs from India, the UK, Europe, and beyond pack up their laptops and their ambitions and head to the UAE to build something new.</p>\n<p>But here's the honest truth: <a href=\"/services/company-formation-in-dubai-experts/\"><strong>Dubai company formation</strong></a> looks simpler on Instagram than it feels when you're staring at a stack of paperwork, trying to figure out the difference between a free zone and a mainland license. The good news? Once you understand how the system works, starting a business here is genuinely one of the most foreigner-friendly processes around — no local sponsor required in most cases, and no red tape that drags on for a year. Just a clear path, if you know which one to take.</p>\n<h2>Why Dubai, Really?</h2>\n<p>Before the \"how,\" it's worth pausing on the \"why,\" because it shapes everything that follows.</p>\n<p>Dubai isn't just tax-friendly (0% personal income tax, and corporate tax that's still competitive at 9% above a certain profit threshold). It sits strategically between three continents, so if you're selling to Europe, Africa, or Asia, you're rarely more than an eight-hour flight from your customers. Add a government genuinely obsessed with attracting foreign investment — hence 100% foreign ownership in nearly every sector now — and you see why <strong>business setup in Dubai</strong> has become such a magnet for entrepreneurs. It's not magic. It's policy, deliberately designed to make this easy for you.</p>\n<h2>Step 1: Decide Where You'll Actually Operate</h2>\n<p>This is the single biggest decision in the process, and the one most first-timers get wrong. Dubai gives you three broad options:</p>\n<p><strong>Mainland </strong><a href=\"/services/company-formation-in-dubai-experts/\"><strong>company formation</strong></a> lets you trade freely anywhere in the UAE, bid for government contracts, and open physical shops or offices wherever you like. If your business depends on walk-in customers, local trading, or government work, this is your lane. Thanks to recent reforms, most mainland activities now allow full foreign ownership — the old requirement of a 51% local Emirati partner is largely a thing of the past.</p>\n<p><strong>Free zone </strong><a href=\"/services/company-formation-in-dubai-experts/\"><strong>company formation</strong></a> is the classic choice for consultants, e-commerce sellers, tech startups, and import-export businesses. There are more than 40 free zones across the UAE (think DMCC, IFZA, Dubai South, DIFC), each with its own specialties, and each offering 100% foreign ownership, full profit repatriation, and often faster, cheaper setup. The trade-off: free zone companies typically can't trade directly within the UAE mainland without extra licensing — fine if your customers are international, less fine if they're local.</p>\n<p><strong>Offshore companies</strong> suit those who want a UAE corporate structure purely for holding assets, international trading, or tax planning — without a physical office or the ability to trade inside the UAE itself.</p>\n<p>There's no universally \"best\" option — it depends on who your customers are and what you're selling. This is usually the first conversation we have with clients at Manifest Business Services, because getting it wrong means paying to restructure later.</p>\n<h2>Step 2: Choose Your Business Activity and Trade Name</h2>\n<p>Every UAE license is tied to a specific business activity — consulting, trading, marketing, IT services, and so on — and this choice determines which authority you register with and what documentation you'll need. The UAE maintains an extensive list of approved activities, and picking the right one (or combination) matters more than people expect, since it affects your license cost and future flexibility.</p>\n<p>Alongside this, you'll reserve a trade name. The rules are fairly simple: no offensive language, no references to religious or political entities, and if you're using your own name, it generally needs to reflect the full name, not initials.</p>\n<h2>Step 3: Apply for Initial Approval and Draft Your MOA</h2>\n<p>Once your activity and structure are locked in, you'll apply for initial approval from the Department of Economy and Tourism (for mainland) or the relevant free zone authority. This is essentially the government saying \"no objection\" to you starting this business.</p>\n<p>For most company types, you'll also need a Memorandum of Association (MOA) — a legal document outlining ownership structure, shareholding, and the scope of the business. If you're setting up alone as a sole establishment, this step is simpler; with partners, it needs more careful drafting.</p>\n<img src=\"/images/blog-foreigners-2.jpg\" alt=\"\" loading=\"lazy\" />\n<h2>Step 4: Secure Your Office Space</h2>\n<p>Every UAE company needs a registered address — this could be a flexi-desk in a free zone, a serviced office, or a full commercial space, depending on your license type and budget. Free zones are particularly generous here, often bundling affordable flexi-desk options directly into your setup package.</p>\n<h2>Step 5: Get Your License and Register a Company in Dubai</h2>\n<p>With approvals in hand, your MOA signed, and your office secured, you submit the final application. This is where \"company registration in Dubai\" becomes official — you'll receive your trade license, which is your legal permission to operate.</p>\n<p>Processing times vary, but many free zones now issue licenses within a few working days, while mainland licenses can take a little longer depending on the activity and approvals required from other government bodies (for things like healthcare, education, or financial services).</p>\n<h2>Step 6: Open a Corporate Bank Account</h2>\n<p>This step trips up more foreign entrepreneurs than any other. UAE banks have become increasingly cautious with compliance checks, and a mismatched business plan, unclear source of funds, or incomplete documentation can lead to delays or rejections. Having a clear business plan, proof of address, and your trade license ready — plus, ideally, a local advisor who already has relationships with the banks — makes this considerably smoother.</p>\n<h2>Step 7: Apply for Visas</h2>\n<p>Once your company is registered, you (and your employees, if applicable) can apply for UAE residency visas tied to the business. This typically includes a medical test, Emirates ID application, and visa stamping. Depending on your free zone or mainland package, you may be eligible for anywhere from one to several visas.</p>\n<p>What This Actually Costs</p>\n<p>Costs vary by structure, but as a rough guide, free zone setups often start from around AED 12,000–20,000 annually for a basic license and flexi-desk, while mainland setups tend to start slightly higher once office rent and additional approvals are factored in. The real cost driver isn't the government fee — it's picking the wrong structure and having to redo things later.</p>\n<img src=\"/images/blog-foreigners-3.jpg\" alt=\"\" loading=\"lazy\" />\n<h4>Why Foreigners Choose to Work With a Local Consultant</h4>\n<p>On paper, you can do all of this yourself. In practice, most successful founders don't. UAE regulations shift periodically, free zones have wildly different rules, and one wrong step — the wrong activity code, an incomplete MOA, a bank application missing the right documentation — can cost you weeks.</p>\n<p>This is precisely where <strong>Manifest Business Services</strong> comes in. We handle the entire journey for foreign entrepreneurs — from choosing the right jurisdiction and drafting your paperwork, to opening your bank account and securing your visa — so you're not learning UAE bureaucracy through trial and error.</p>\n<h2>Final Thoughts</h2>\n<p><strong>Starting a business in Dubai</strong> as a foreigner isn't the maze it might look like from the outside. It's a well-oiled process, built to welcome international entrepreneurs. The key is understanding your options before you commit — mainland vs. free zone vs. offshore, the right activity code, the right banking approach — rather than figuring it out after you've already signed.</p>\n<p>If you're ready to <strong>open a company in Dubai</strong> and want someone who's done this hundreds of times to guide you, Manifest Business Services is here to make the process fast, transparent, and refreshingly stress-free.</p>"
   },
   {
+    legacyPath: true,
     "slug": "business-setup-in-dubai-guide",
     "title": "Business Setup in Dubai: A Step-by-Step Guide for Entrepreneurs (2026)",
     "date": "2026-07-20",
@@ -35,8 +85,17 @@ export const posts: Post[] = [
   }
 ];
 
+export function findPost(slug: string) {
+  return posts.find((p) => p.slug === slug);
+}
+
 export function getPost(slug: string) {
-  const post = posts.find((p) => p.slug === slug);
+  const post = findPost(slug);
   if (!post) throw new Error(`Unknown post: ${slug}`);
   return post;
+}
+
+/** Public URL path of a post (with trailing slash). */
+export function postPath(post: { slug: string; legacyPath?: boolean }) {
+  return post.legacyPath ? `/${post.slug}/` : `/blog/${post.slug}/`;
 }

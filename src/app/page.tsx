@@ -20,6 +20,7 @@ import { SectionHeading } from "@/components/SectionHeading";
 import { Counter } from "@/components/Counter";
 import { Accordion } from "@/components/Accordion";
 import { ConsultationForm } from "@/components/ConsultationForm";
+import { LatestInsights } from "@/components/LatestInsights";
 import { WhatsappIcon } from "@/components/SocialIcons";
 import { coreServices, site, whatsappLink, whatsappMessages } from "@/content/site";
 
@@ -525,6 +526,9 @@ export default function HomePage() {
           </ul>
         </div>
       </section>
+
+      {/* Latest insights */}
+      <LatestInsights />
 
       {/* FAQ */}
       <section className="bg-ivory py-24 sm:py-28">

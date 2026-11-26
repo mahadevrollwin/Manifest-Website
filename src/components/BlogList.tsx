@@ -8,6 +8,7 @@ import { formatDate } from "@/lib/format";
 
 export type BlogCard = {
   slug: string;
+  href: string;
   title: string;
   date: string;
   category: string;
@@ -55,7 +56,7 @@ export function BlogList({ posts }: { posts: BlogCard[] }) {
 
       {featured && (
         <Link
-          href={`/${featured.slug}/`}
+          href={featured.href}
           className="group grid overflow-hidden border border-olive-deep/10 bg-white lg:grid-cols-2"
         >
           <div className="relative aspect-[16/10] overflow-hidden lg:aspect-auto lg:min-h-80">
@@ -88,7 +89,7 @@ export function BlogList({ posts }: { posts: BlogCard[] }) {
           {rest.map((post) => (
             <Link
               key={post.slug}
-              href={`/${post.slug}/`}
+              href={post.href}
               className="group flex flex-col overflow-hidden border border-olive-deep/10 bg-white"
             >
               <div className="relative aspect-[16/9] overflow-hidden">
