@@ -11,7 +11,7 @@ import Link from "next/link";
 const LOGO_SRC = "/images/manifest-logo.png";
 export const LOGO_ASPECT = 942 / 203;
 
-export function Logo({ className = "h-8 min-[400px]:h-9 sm:h-11 xl:h-10 2xl:h-12" }: { className?: string }) {
+export function Logo({ className = "h-8 min-[400px]:h-9 sm:h-11 2xl:h-12" }: { className?: string }) {
   return (
     <Link
       href="/"

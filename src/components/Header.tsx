@@ -3,8 +3,9 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState, useSyncExternalStore } from "react";
-import { ArrowUpRight, ChevronDown, Menu, MessageCircle, Phone, X } from "lucide-react";
+import { ArrowUpRight, ChevronDown, Mail, Menu, MessageCircle, Phone, X } from "lucide-react";
 import { Logo } from "./Logo";
+import { socialLinks } from "./socialLinks";
 import { mainNav, site } from "@/content/site";
 
 const ASSISTANT_HREF = "/ai-assistant/";
@@ -63,9 +64,57 @@ export function Header() {
           : "bg-transparent text-ivory"
       }`}
     >
+      {/* Tier 1: utility bar. Collapses away once the page is scrolled. */}
       <div
-        className={`container-luxe flex items-center justify-between transition-all duration-700 ease-luxe ${
-          solid ? "h-[4.5rem]" : "h-[5.75rem]"
+        inert={solid}
+        className={`overflow-hidden bg-olive-night/90 text-ivory/80 backdrop-blur-sm transition-[height,opacity] duration-500 ease-luxe ${
+          solid ? "h-0 opacity-0" : "h-9 opacity-100 sm:h-10"
+        }`}
+      >
+        <div className="container-luxe flex h-full items-center justify-between gap-4 text-[0.78rem] sm:text-[0.82rem]">
+          <ul className="flex min-w-0 items-center gap-4 sm:gap-6" aria-label="Contact">
+            <li>
+              <a
+                href={site.phoneHref}
+                className="inline-flex items-center gap-2 whitespace-nowrap transition-colors hover:text-champagne focus-visible:text-champagne"
+              >
+                <Phone className="size-3.5 text-champagne" aria-hidden />
+                {site.phoneDisplay}
+              </a>
+            </li>
+            <li className="hidden min-w-0 sm:block">
+              <a
+                href={`mailto:${site.email}`}
+                className="inline-flex items-center gap-2 transition-colors hover:text-champagne focus-visible:text-champagne"
+              >
+                <Mail className="size-3.5 shrink-0 text-champagne" aria-hidden />
+                <span className="truncate">{site.email}</span>
+              </a>
+            </li>
+          </ul>
+          <ul className="flex items-center gap-1" aria-label="Social media">
+            {socialLinks.map(({ label, href, Icon }) => (
+              <li key={label}>
+                <a
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`Manifest on ${label}`}
+                  title={label}
+                  className="flex size-7 items-center justify-center text-ivory/75 transition-colors hover:text-champagne focus-visible:text-champagne"
+                >
+                  <Icon className="size-[0.95rem]" />
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+
+      {/* Tier 2: brand, navigation and calls to action. */}
+      <div
+        className={`container-luxe flex items-center justify-between gap-6 transition-all duration-700 ease-luxe ${
+          solid ? "h-[4.5rem]" : "h-[5rem] sm:h-[5.5rem]"
         }`}
       >
         <Logo />
@@ -120,13 +169,6 @@ export function Header() {
         </nav>
 
         <div className="flex items-center gap-3">
-          <a
-            href={site.phoneHref}
-            className="hidden items-center gap-2 text-[0.92rem] font-medium whitespace-nowrap lg:flex"
-          >
-            <Phone className="size-4 text-champagne" />
-            {site.phoneDisplay}
-          </a>
           <Link href="/contact-us/" className="btn btn-champagne hidden !px-5 !py-3 sm:inline-flex">
             Book free consultation
           </Link>
@@ -153,7 +195,7 @@ export function Header() {
           open ? "visible opacity-100" : "invisible opacity-0"
         }`}
       >
-        <div className="container-luxe flex h-full flex-col overflow-y-auto pt-28 pb-10">
+        <div className="container-luxe flex h-full flex-col overflow-y-auto pt-36 pb-10">
           <nav aria-label="Mobile" className="flex-1">
             <ul className="divide-y divide-ivory/10 border-y border-ivory/10">
               {mainNav.map((item) => (
