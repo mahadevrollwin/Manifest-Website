@@ -1,4 +1,7 @@
-import { answerLocally, followUpsFor, systemPrompt, type ChatMessage } from "@/lib/assistant/engine";
+import { answerLocally, followUpsFor, systemPrompt } from "@/lib/assistant/engine";
+import { ATTACHMENT_LIMITS, type Attachment, type ChatMessage } from "@/lib/assistant/types";
+
+const MAX_BODY_BYTES = 4_000_000; // stays under the serverless request body limit
 
 const MAX_MESSAGES = 20;
 const MAX_CONTENT = 2000;
@@ -19,17 +22,61 @@ function rateLimited(key: string) {
   return recent.length > RATE_LIMIT;
 }
 
+function parseAttachments(value: unknown): Attachment[] | null {
+  if (value === undefined) return [];
+  if (!Array.isArray(value) || value.length > ATTACHMENT_LIMITS.maxFiles) return null;
+  const out: Attachment[] = [];
+  for (const item of value) {
+    if (!item || typeof item !== "object") return null;
+    const { name, kind, size, dataUrl, text } = item as Record<string, unknown>;
+    if (typeof name !== "string" || (kind !== "image" && kind !== "text" && kind !== "file")) return null;
+    const attachment: Attachment = { name: name.slice(0, 120), kind };
+    if (typeof size === "number") attachment.size = size;
+    if (kind === "image" && dataUrl !== undefined) {
+      if (
+        typeof dataUrl !== "string" ||
+        dataUrl.length > ATTACHMENT_LIMITS.maxDataUrlChars ||
+        !/^data:image\/(jpeg|png|webp|gif);base64,[A-Za-z0-9+/=]+$/.test(dataUrl)
+      ) {
+        return null;
+      }
+      attachment.dataUrl = dataUrl;
+    }
+    if (kind === "text" && typeof text === "string") attachment.text = text.slice(0, ATTACHMENT_LIMITS.maxTextChars);
+    out.push(attachment);
+  }
+  return out;
+}
+
 function parseMessages(body: unknown): ChatMessage[] | null {
   if (!body || typeof body !== "object" || !("messages" in body) || !Array.isArray(body.messages)) return null;
   const messages: ChatMessage[] = [];
   for (const m of body.messages.slice(-MAX_MESSAGES)) {
     if (!m || typeof m !== "object") return null;
-    const { role, content } = m as { role?: unknown; content?: unknown };
+    const { role, content, attachments } = m as { role?: unknown; content?: unknown; attachments?: unknown };
     if ((role !== "user" && role !== "assistant") || typeof content !== "string") return null;
-    messages.push({ role, content: content.slice(0, MAX_CONTENT) });
+    const parsed = role === "user" ? parseAttachments(attachments) : [];
+    if (!parsed) return null;
+    messages.push({ role, content: content.slice(0, MAX_CONTENT), ...(parsed.length ? { attachments: parsed } : {}) });
   }
-  if (messages.length === 0 || messages.at(-1)?.role !== "user" || !messages.at(-1)?.content.trim()) return null;
+  const last = messages.at(-1);
+  if (!last || last.role !== "user" || (!last.content.trim() && !last.attachments?.length)) return null;
   return messages;
+}
+
+/** Converts a message into the OpenAI-compatible shape, adding images and text-file contents for the newest user message. */
+function toModelMessage(m: ChatMessage, includeFiles: boolean) {
+  if (m.role !== "user" || !m.attachments?.length) return { role: m.role, content: m.content };
+  const notes: string[] = [];
+  const images: { type: "image_url"; image_url: { url: string } }[] = [];
+  for (const a of m.attachments) {
+    if (a.kind === "image" && a.dataUrl && includeFiles) images.push({ type: "image_url", image_url: { url: a.dataUrl } });
+    else if (a.kind === "text" && a.text && includeFiles) notes.push(`[Attached file "${a.name}"]\n${a.text}`);
+    else notes.push(`[Attached file "${a.name}" — its contents are not available to you; say so if asked about it.]`);
+  }
+  const text = [m.content, ...notes].filter(Boolean).join("\n\n") || "(no message)";
+  if (!images.length) return { role: m.role, content: text };
+  return { role: m.role, content: [{ type: "text", text }, ...images] };
 }
 
 const encoder = new TextEncoder();
@@ -75,7 +122,10 @@ async function streamFromModel(messages: ChatMessage[], signal: AbortSignal) {
       stream: true,
       temperature: 0.3,
       max_tokens: 600,
-      messages: [{ role: "system", content: systemPrompt() }, ...messages],
+      messages: [
+        { role: "system", content: systemPrompt() },
+        ...messages.map((m, i) => toModelMessage(m, i === messages.length - 1)),
+      ],
     }),
     signal,
   });
@@ -132,6 +182,10 @@ export async function POST(request: Request) {
   const client = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ?? "anonymous";
   if (rateLimited(client)) {
     return Response.json({ error: "Too many messages. Please wait a moment and try again." }, { status: 429 });
+  }
+
+  if (Number(request.headers.get("content-length") ?? 0) > MAX_BODY_BYTES) {
+    return Response.json({ error: "Those attachments are too large. Please attach smaller files." }, { status: 413 });
   }
 
   let body: unknown;

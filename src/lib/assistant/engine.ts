@@ -1,7 +1,9 @@
 import { site } from "@/content/site";
 import { curated, knowledge, links, starterPrompts, type KbEntry } from "./knowledge";
 
-export type ChatMessage = { role: "user" | "assistant"; content: string };
+import type { Attachment, ChatMessage } from "./types";
+
+export type { ChatMessage };
 
 export type EngineReply = {
   text: string;
@@ -72,10 +74,25 @@ function adviserLine() {
   return `If you would like a precise answer for your situation, an adviser replies within one working day: [book a free consultation](/contact-us/), [WhatsApp](https://wa.me/${site.whatsappNumber}) or call [${site.phoneDisplay}](${site.phoneHref}).`;
 }
 
+function attachmentNote(attachments: Attachment[]) {
+  const names = attachments.map((a) => `**${a.name.replace(/[*[\]()`]/g, "")}**`).join(", ");
+  const plural = attachments.length > 1;
+  return `Thanks, I have received ${names}. This chat cannot open or review uploaded files yet, so please send ${plural ? "them" : "it"} to an adviser, who will review ${plural ? "them" : "it"} within one working day: [WhatsApp](https://wa.me/${site.whatsappNumber}) or [${site.email}](mailto:${site.email}).`;
+}
+
 /** Built-in answering engine: matches the question against Manifest's knowledge base. Used when no AI API key is configured, and as the fallback if the AI API fails. */
 export function answerLocally(messages: ChatMessage[]): EngineReply {
   const users = messages.filter((m) => m.role === "user");
   const last = users.at(-1)?.content.trim() ?? "";
+  const attachments = users.at(-1)?.attachments ?? [];
+  if (attachments.length) {
+    const note = attachmentNote(attachments);
+    if (!last) {
+      return { text: note, followUps: ["What documents do I need to start a company?", "Talk to an adviser"] };
+    }
+    const reply = answerLocally(messages.map((m) => (m === users.at(-1) ? { ...m, attachments: undefined } : m)));
+    return { ...reply, text: `${reply.text}\n\n${note}` };
+  }
   const previous = users.at(-2)?.content;
   const words = normalize(last).split(" ").filter(Boolean);
 

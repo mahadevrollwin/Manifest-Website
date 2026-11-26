@@ -10,8 +10,11 @@ import {
   Check,
   Coins,
   Copy,
+  FileText,
   MessageCircle,
   Menu,
+  Mic,
+  Paperclip,
   Phone,
   Plus,
   RefreshCw,
@@ -22,16 +25,32 @@ import {
   X,
 } from "lucide-react";
 import { Markdown } from "./Markdown";
+import { ACCEPT, formatSize, readAttachment, type PendingAttachment } from "./files";
+import { useSpeechInput } from "./useSpeechInput";
 import { site } from "@/content/site";
 import { starterPrompts } from "@/lib/assistant/starters";
+import { ATTACHMENT_LIMITS, type Attachment } from "@/lib/assistant/types";
 
 type Msg = {
   id: string;
   role: "user" | "assistant";
   content: string;
+  attachments?: Attachment[];
   followUps?: string[];
   error?: string;
 };
+
+/** Attachment contents are kept in memory only, never in localStorage. */
+function stripFileData(convos: Convo[]): Convo[] {
+  return convos.map((c) => ({
+    ...c,
+    messages: c.messages.map((m) =>
+      m.attachments
+        ? { ...m, attachments: m.attachments.map(({ name, kind, size }) => ({ name, kind, size })) }
+        : m,
+    ),
+  }));
+}
 
 type Convo = { id: string; title: string; updatedAt: number; messages: Msg[] };
 
@@ -56,7 +75,13 @@ export function AssistantApp() {
   const [busy, setBusy] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [copiedId, setCopiedId] = useState<string | null>(null);
+  const [attachments, setAttachments] = useState<PendingAttachment[]>([]);
+  const [reading, setReading] = useState(false);
+  const [notice, setNotice] = useState<string | null>(null);
+  const speech = useSpeechInput();
+  const { stop: stopSpeech } = speech;
 
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const abortRef = useRef<AbortController | null>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
   const stickRef = useRef(true);
@@ -83,7 +108,7 @@ export function AssistantApp() {
   useEffect(() => {
     if (!ready || busy) return;
     try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(convos.slice(0, MAX_CONVOS)));
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(stripFileData(convos.slice(0, MAX_CONVOS))));
     } catch {
       // storage may be full or blocked
     }
@@ -126,7 +151,20 @@ export function AssistantApp() {
           headers: { "Content-Type": "application/json" },
           signal: controller.signal,
           body: JSON.stringify({
-            messages: history.filter((m) => m.content && !m.error).map(({ role, content }) => ({ role, content })),
+            messages: history
+              .filter((m) => (m.content || m.attachments?.length) && !m.error)
+              .map(({ role, content, attachments }, index, list) => ({
+                role,
+                content,
+                // Only the newest message carries file contents; earlier ones keep just the file names.
+                ...(attachments?.length
+                  ? {
+                      attachments: attachments.map((a) =>
+                        index === list.length - 1 ? a : { name: a.name, kind: a.kind, size: a.size },
+                      ),
+                    }
+                  : {}),
+              })),
           }),
         });
         if (!res.ok || !res.body) {
@@ -172,14 +210,23 @@ export function AssistantApp() {
   );
 
   const send = useCallback(
-    async (raw: string) => {
+    async (raw: string, withFiles = false) => {
       const text = raw.trim().slice(0, MAX_LENGTH);
-      if (!text || busy) return;
+      const files = withFiles ? attachments : [];
+      if ((!text && files.length === 0) || busy || reading) return;
+      stopSpeech();
       setInput("");
+      setAttachments([]);
+      setNotice(null);
       setSidebarOpen(false);
 
       const convoId = activeId ?? uid();
-      const userMsg: Msg = { id: uid(), role: "user", content: text };
+      const userMsg: Msg = {
+        id: uid(),
+        role: "user",
+        content: text,
+        ...(files.length ? { attachments: files.map(({ name, kind, size, dataUrl, text: fileText }) => ({ name, kind, size, dataUrl, text: fileText })) } : {}),
+      };
       const botMsg: Msg = { id: uid(), role: "assistant", content: "" };
       const history = [...(active?.messages ?? []), userMsg];
 
@@ -190,13 +237,53 @@ export function AssistantApp() {
             c.id === convoId ? { ...c, updatedAt: Date.now(), messages: [...history, botMsg] } : c,
           );
         }
-        return [{ id: convoId, title: titleFrom(text), updatedAt: Date.now(), messages: [...history, botMsg] }, ...prev];
+        return [
+          { id: convoId, title: titleFrom(text || files[0]?.name || "Attachment"), updatedAt: Date.now(), messages: [...history, botMsg] },
+          ...prev,
+        ];
       });
       setActiveId(convoId);
       await stream(convoId, history, botMsg.id);
     },
-    [active, activeId, busy, stream],
+    [active, activeId, attachments, busy, reading, stopSpeech, stream],
   );
+
+  const addFiles = async (list: FileList | null) => {
+    if (!list || list.length === 0) return;
+    const picked = Array.from(list);
+    if (fileInputRef.current) fileInputRef.current.value = "";
+    const room = ATTACHMENT_LIMITS.maxFiles - attachments.length;
+    if (room <= 0) {
+      setNotice(`You can attach up to ${ATTACHMENT_LIMITS.maxFiles} files per message.`);
+      return;
+    }
+    setReading(true);
+    setNotice(picked.length > room ? `Only ${ATTACHMENT_LIMITS.maxFiles} files can be attached per message.` : null);
+    const added: PendingAttachment[] = [];
+    const errors: string[] = [];
+    for (const file of picked.slice(0, room)) {
+      const result = await readAttachment(file);
+      if (result.attachment) added.push(result.attachment);
+      else if (result.error) errors.push(result.error);
+    }
+    setAttachments((prev) => [...prev, ...added]);
+    if (errors.length) setNotice(errors.join(" "));
+    setReading(false);
+  };
+
+  const removeAttachment = (id: string) => setAttachments((prev) => prev.filter((a) => a.id !== id));
+
+  const toggleVoice = () => {
+    if (speech.listening) {
+      speech.stop();
+      return;
+    }
+    setNotice(null);
+    const base = input.trim();
+    speech.start((transcript) => {
+      setInput((base ? `${base} ${transcript}` : transcript).slice(0, MAX_LENGTH));
+    });
+  };
 
   const regenerate = useCallback(async () => {
     if (!active || busy) return;
@@ -214,8 +301,11 @@ export function AssistantApp() {
 
   const newChat = () => {
     if (busy) abortRef.current?.abort();
+    stopSpeech();
     setActiveId(null);
     setInput("");
+    setAttachments([]);
+    setNotice(null);
     setSidebarOpen(false);
     textareaRef.current?.focus();
   };
@@ -416,7 +506,7 @@ export function AssistantApp() {
                       <span className="flex size-9 shrink-0 items-center justify-center bg-champagne/15 text-champagne">
                         <Icon className="size-[1.1rem]" aria-hidden />
                       </span>
-                      <span className="pt-1 text-[0.95rem] leading-snug font-medium text-ivory/90 group-hover:text-ivory">
+                      <span className="pt-1 text-left text-[0.95rem] leading-snug font-medium text-ivory/90 group-hover:text-ivory">
                         {prompt}
                       </span>
                     </button>
@@ -430,10 +520,29 @@ export function AssistantApp() {
                 const isLast = i === lastIndex;
                 if (m.role === "user") {
                   return (
-                    <div key={m.id} className="flex justify-end">
-                      <p className="max-w-[85%] bg-champagne px-4 py-3 text-[0.95rem] leading-relaxed whitespace-pre-wrap text-ink">
-                        {m.content}
-                      </p>
+                    <div key={m.id} className="flex flex-col items-end gap-2">
+                      {m.attachments && m.attachments.length > 0 && (
+                        <ul className="flex max-w-[85%] flex-wrap items-start justify-end gap-2">
+                          {m.attachments.map((a, ai) => (
+                            <li key={ai} className="overflow-hidden border border-champagne/40 bg-white/[0.06]">
+                              {a.kind === "image" && a.dataUrl ? (
+                                // eslint-disable-next-line @next/next/no-img-element
+                                <img src={a.dataUrl} alt={a.name} className="max-h-40 max-w-[14rem] object-cover" />
+                              ) : (
+                                <span className="flex items-center gap-2 px-3 py-2 text-[0.8rem] text-ivory/85">
+                                  <FileText className="size-4 shrink-0 text-champagne" aria-hidden />
+                                  <span className="max-w-[10rem] truncate">{a.name}</span>
+                                </span>
+                              )}
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                      {m.content && (
+                        <p className="max-w-[85%] bg-champagne px-4 py-3 text-[0.95rem] leading-relaxed whitespace-pre-wrap text-ink">
+                          {m.content}
+                        </p>
+                      )}
                     </div>
                   );
                 }
@@ -520,13 +629,82 @@ export function AssistantApp() {
         </div>
 
         <div className="shrink-0 px-4 pt-2 pb-4 sm:px-6">
+          {(notice || speech.error) && (
+            <p
+              role="status"
+              className="mx-auto mb-2 flex max-w-3xl items-start justify-between gap-3 border border-champagne/40 bg-champagne/10 px-3.5 py-2 text-[0.82rem] text-champagne-light"
+            >
+              <span>{notice ?? speech.error}</span>
+              <button
+                type="button"
+                aria-label="Dismiss message"
+                onClick={() => {
+                  setNotice(null);
+                  speech.clearError();
+                }}
+                className="shrink-0 text-champagne-light/70 hover:text-champagne-light"
+              >
+                <X className="size-4" />
+              </button>
+            </p>
+          )}
           <form
-            className="mx-auto flex w-full max-w-3xl items-end gap-2 border border-white/20 bg-white/[0.06] p-2 transition-colors focus-within:border-champagne"
+            className="mx-auto w-full max-w-3xl border border-white/20 bg-white/[0.06] p-2 transition-colors focus-within:border-champagne"
             onSubmit={(e) => {
               e.preventDefault();
-              send(input);
+              send(input, true);
             }}
           >
+            {(attachments.length > 0 || reading) && (
+              <ul className="flex flex-wrap gap-2 px-1 pt-1 pb-2" aria-label="Attached files">
+                {attachments.map((a) => (
+                  <li key={a.id} className="flex max-w-full items-center gap-2 border border-white/15 bg-white/[0.07] py-1 pr-1 pl-1">
+                    {a.kind === "image" && a.dataUrl ? (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img src={a.dataUrl} alt="" className="size-9 shrink-0 object-cover" />
+                    ) : (
+                      <span className="flex size-9 shrink-0 items-center justify-center bg-champagne/15 text-champagne">
+                        <FileText className="size-4" aria-hidden />
+                      </span>
+                    )}
+                    <span className="min-w-0 leading-tight">
+                      <span className="block max-w-[10rem] truncate text-[0.8rem] font-medium text-ivory sm:max-w-[14rem]">{a.name}</span>
+                      <span className="block text-[0.7rem] text-ivory/50">{formatSize(a.size)}</span>
+                    </span>
+                    <button
+                      type="button"
+                      onClick={() => removeAttachment(a.id)}
+                      aria-label={`Remove ${a.name}`}
+                      className="flex size-7 shrink-0 items-center justify-center text-ivory/60 hover:text-champagne"
+                    >
+                      <X className="size-4" />
+                    </button>
+                  </li>
+                ))}
+                {reading && <li className="self-center px-2 text-[0.8rem] text-ivory/55">Reading file…</li>}
+              </ul>
+            )}
+            <div className="flex items-end gap-1.5">
+            <input
+              ref={fileInputRef}
+              type="file"
+              multiple
+              accept={ACCEPT}
+              className="sr-only"
+              tabIndex={-1}
+              aria-hidden
+              onChange={(e) => addFiles(e.target.files)}
+            />
+            <button
+              type="button"
+              onClick={() => fileInputRef.current?.click()}
+              disabled={busy || attachments.length >= ATTACHMENT_LIMITS.maxFiles}
+              aria-label="Attach a file"
+              title="Attach images or documents"
+              className="flex size-11 shrink-0 items-center justify-center text-ivory/65 transition-colors hover:text-champagne disabled:cursor-not-allowed disabled:opacity-40"
+            >
+              <Paperclip className="size-5" />
+            </button>
             <label htmlFor="assistant-input" className="sr-only">
               Message Manifest AI
             </label>
@@ -536,16 +714,35 @@ export function AssistantApp() {
               rows={1}
               value={input}
               maxLength={MAX_LENGTH}
-              placeholder="Ask about setting up in Dubai…"
+              placeholder={speech.listening ? "Listening… speak now" : "Ask about setting up in Dubai…"}
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={(e) => {
                 if (e.key === "Enter" && !e.shiftKey && !e.nativeEvent.isComposing) {
                   e.preventDefault();
-                  send(input);
+                  send(input, true);
                 }
               }}
-              className="max-h-[180px] min-h-11 flex-1 resize-none bg-transparent px-3 py-2.5 text-[16px] leading-relaxed text-ivory outline-none placeholder:text-ivory/40 sm:text-[0.95rem]"
+              className="max-h-[180px] min-h-11 min-w-0 flex-1 resize-none bg-transparent px-2 py-2.5 text-[16px] leading-relaxed text-ivory outline-none placeholder:text-ivory/40 sm:text-[0.95rem]"
             />
+            <button
+              type="button"
+              onClick={toggleVoice}
+              aria-label={speech.listening ? "Stop voice input" : "Start voice input"}
+              aria-pressed={speech.listening}
+              title={
+                speech.supported
+                  ? speech.listening
+                    ? "Stop listening"
+                    : "Dictate your message"
+                  : "Voice input is not supported in this browser"
+              }
+              className={`relative flex size-11 shrink-0 items-center justify-center transition-colors ${
+                speech.listening ? "bg-red-500 text-white" : "text-ivory/65 hover:text-champagne"
+              } ${!speech.supported ? "opacity-50" : ""}`}
+            >
+              {speech.listening && <span className="absolute inset-0 animate-ping bg-red-500/50" aria-hidden />}
+              <Mic className="relative size-5" />
+            </button>
             {busy ? (
               <button
                 type="button"
@@ -558,13 +755,14 @@ export function AssistantApp() {
             ) : (
               <button
                 type="submit"
-                disabled={!input.trim()}
+                disabled={(!input.trim() && attachments.length === 0) || reading}
                 aria-label="Send message"
                 className="flex size-11 shrink-0 items-center justify-center bg-champagne text-ink transition-colors hover:bg-champagne-light disabled:cursor-not-allowed disabled:opacity-40"
               >
                 <ArrowUp className="size-5" />
               </button>
             )}
+            </div>
           </form>
           <p className="mx-auto mt-2.5 max-w-3xl text-center text-[0.72rem] leading-snug text-ivory/45">
             Manifest AI can make mistakes. For quotes and legal advice, confirm details with an adviser.
