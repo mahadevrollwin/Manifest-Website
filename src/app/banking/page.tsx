@@ -12,18 +12,38 @@ export const metadata: Metadata = {
   alternates: { canonical: "/banking/" },
 };
 
+const banks = [
+  { name: "FAB Islamic", src: "/images/banks/fab-islamic.png", width: 195, height: 60 },
+  { name: "ADCB", src: "/images/banks/adcb.png", width: 217, height: 71 },
+  { name: "Dubai Islamic Bank", src: "/images/banks/dubai-islamic-bank.png", width: 195, height: 51 },
+  { name: "Emirates NBD", src: "/images/banks/emirates-nbd.png", width: 186, height: 58 },
+];
+
 const media = (
-  <section className="bg-white py-16 sm:py-20">
-    <Reveal className="container-luxe flex flex-col items-center gap-6 text-center">
-      <p className="eyebrow">Banks we work with</p>
-      <Image
-        src="/images/connected-banks.png"
-        alt="Connected banks: FAB Islamic, ADCB, Dubai Islamic Bank, Emirates NBD"
-        width={1000}
-        height={170}
-        className="h-auto w-full max-w-2xl"
-      />
-    </Reveal>
+  <section className="bg-white py-20 sm:py-24">
+    <div className="container-luxe">
+      <Reveal className="text-center">
+        <h2 className="eyebrow justify-center">Banks we work with</h2>
+      </Reveal>
+      <ul className="mx-auto mt-10 grid max-w-5xl grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-4">
+        {banks.map((bank, i) => (
+          <Reveal
+            as="li"
+            key={bank.name}
+            delay={i * 90}
+            className="flex h-28 items-center justify-center border border-olive-deep/10 bg-white px-6 py-5 shadow-[0_1px_2px_rgba(42,50,31,0.05),0_14px_30px_-18px_rgba(42,50,31,0.22)] transition-colors hover:border-champagne sm:h-32 sm:px-8"
+          >
+            <Image
+              src={bank.src}
+              alt={bank.name}
+              width={bank.width}
+              height={bank.height}
+              className="h-auto max-h-12 w-auto max-w-full object-contain sm:max-h-14"
+            />
+          </Reveal>
+        ))}
+      </ul>
+    </div>
   </section>
 );
 
