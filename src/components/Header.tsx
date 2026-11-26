@@ -19,7 +19,7 @@ function TalkToUs({ className = "" }: { className?: string }) {
       className={`items-center gap-2 border border-current/30 px-3.5 py-2.5 text-[0.85rem] font-semibold whitespace-nowrap transition-colors hover:border-champagne hover:text-champagne focus-visible:border-champagne focus-visible:text-champagne sm:px-4 sm:text-[0.88rem] ${className}`}
     >
       <MessageCircle className="size-4 text-champagne" aria-hidden />
-      Talk To Us
+      Chat With Us
       <span className="sr-only"> (opens the AI assistant in a new tab)</span>
     </a>
   );
@@ -76,7 +76,7 @@ export function Header() {
               <div key={item.label} className="group relative">
                 <Link
                   href={item.href}
-                  className={`flex items-center gap-1.5 px-3.5 py-3 text-[0.92rem] font-medium transition-colors ${
+                  className={`flex items-center gap-1.5 px-3 py-3 text-[0.92rem] whitespace-nowrap 2xl:px-3.5 font-medium transition-colors ${
                     isActive(item.href, item.children) ? "text-champagne" : "hover:text-champagne"
                   }`}
                 >
@@ -109,7 +109,7 @@ export function Header() {
               <Link
                 key={item.label}
                 href={item.href}
-                className={`px-3.5 py-3 text-[0.92rem] font-medium transition-colors ${
+                className={`px-3 py-3 text-[0.92rem] whitespace-nowrap 2xl:px-3.5 font-medium transition-colors ${
                   isActive(item.href) ? "text-champagne" : "hover:text-champagne"
                 }`}
               >
@@ -120,11 +120,9 @@ export function Header() {
         </nav>
 
         <div className="flex items-center gap-3">
-          {/* Desktop: right before the phone number */}
-          <TalkToUs className="hidden xl:inline-flex" />
           <a
             href={site.phoneHref}
-            className="hidden items-center gap-2 text-[0.92rem] font-medium lg:flex"
+            className="hidden items-center gap-2 text-[0.92rem] font-medium whitespace-nowrap lg:flex"
           >
             <Phone className="size-4 text-champagne" />
             {site.phoneDisplay}
@@ -132,6 +130,8 @@ export function Header() {
           <Link href="/contact-us/" className="btn btn-champagne hidden !px-5 !py-3 sm:inline-flex">
             Book free consultation
           </Link>
+          {/* Desktop / laptop: right after "Book free consultation" */}
+          <TalkToUs className="hidden xl:inline-flex" />
           {/* Mobile / tablet: directly before the menu button */}
           <TalkToUs className="inline-flex xl:hidden" />
           <button
