@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/Header";
+import { HideOnAssistant } from "@/components/HideOnAssistant";
 import { Footer } from "@/components/Footer";
 import { WhatsAppFloat } from "@/components/WhatsAppFloat";
 import { site } from "@/content/site";
@@ -62,10 +63,14 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         >
           Skip to content
         </a>
-        <Header />
+        <HideOnAssistant>
+          <Header />
+        </HideOnAssistant>
         <main id="main">{children}</main>
-        <Footer />
-        <WhatsAppFloat />
+        <HideOnAssistant>
+          <Footer />
+          <WhatsAppFloat />
+        </HideOnAssistant>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}

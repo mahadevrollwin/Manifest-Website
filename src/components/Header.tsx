@@ -3,9 +3,27 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState, useSyncExternalStore } from "react";
-import { ArrowUpRight, ChevronDown, Menu, Phone, X } from "lucide-react";
+import { ArrowUpRight, ChevronDown, Menu, MessageCircle, Phone, X } from "lucide-react";
 import { Logo } from "./Logo";
 import { mainNav, site } from "@/content/site";
+
+const ASSISTANT_HREF = "/ai-assistant/";
+
+/** Opens the Manifest AI assistant in a new tab. */
+function TalkToUs({ className = "" }: { className?: string }) {
+  return (
+    <a
+      href={ASSISTANT_HREF}
+      target="_blank"
+      rel="noopener noreferrer"
+      className={`items-center gap-2 border border-current/30 px-3.5 py-2.5 text-[0.85rem] font-semibold whitespace-nowrap transition-colors hover:border-champagne hover:text-champagne focus-visible:border-champagne focus-visible:text-champagne sm:px-4 sm:text-[0.88rem] ${className}`}
+    >
+      <MessageCircle className="size-4 text-champagne" aria-hidden />
+      Talk To Us
+      <span className="sr-only"> (opens the AI assistant in a new tab)</span>
+    </a>
+  );
+}
 
 function subscribeToScroll(callback: () => void) {
   window.addEventListener("scroll", callback, { passive: true });
@@ -102,6 +120,8 @@ export function Header() {
         </nav>
 
         <div className="flex items-center gap-3">
+          {/* Desktop: right before the phone number */}
+          <TalkToUs className="hidden xl:inline-flex" />
           <a
             href={site.phoneHref}
             className="hidden items-center gap-2 text-[0.92rem] font-medium lg:flex"
@@ -112,6 +132,8 @@ export function Header() {
           <Link href="/contact-us/" className="btn btn-champagne hidden !px-5 !py-3 sm:inline-flex">
             Book free consultation
           </Link>
+          {/* Mobile / tablet: directly before the menu button */}
+          <TalkToUs className="inline-flex xl:hidden" />
           <button
             type="button"
             onClick={() => setOpen((v) => !v)}
