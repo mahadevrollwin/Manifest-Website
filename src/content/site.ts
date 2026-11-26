@@ -21,6 +21,9 @@ export const site = {
   social: {
     instagram: "https://www.instagram.com/manifest_business/",
     linkedin: "https://www.linkedin.com/company/manifestbusinessservices/",
+    // TODO: replace with Manifest's real Facebook page and YouTube channel URLs (these are the platforms' home pages).
+    facebook: "https://www.facebook.com/",
+    youtube: "https://www.youtube.com/",
   },
 } as const;
 

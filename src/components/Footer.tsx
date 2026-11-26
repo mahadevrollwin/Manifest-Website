@@ -1,6 +1,14 @@
 import Link from "next/link";
 import { Logo } from "./Logo";
+import { FacebookIcon, InstagramIcon, LinkedinIcon, YoutubeIcon } from "./SocialIcons";
 import { footerQuickLinks, footerServiceLinks, site } from "@/content/site";
+
+const socialLinks = [
+  { label: "LinkedIn", href: site.social.linkedin, Icon: LinkedinIcon },
+  { label: "Instagram", href: site.social.instagram, Icon: InstagramIcon },
+  { label: "Facebook", href: site.social.facebook, Icon: FacebookIcon },
+  { label: "YouTube", href: site.social.youtube, Icon: YoutubeIcon },
+];
 
 export function Footer() {
   return (
@@ -46,14 +54,22 @@ export function Footer() {
 
         <div className="flex flex-col gap-3 border-t border-ivory/15 py-8 text-[0.8rem] text-ivory/60 sm:flex-row sm:items-center sm:justify-between">
           <p>© 2026 {site.name}. All rights reserved.</p>
-          <p className="flex gap-5">
-            <a href={site.social.linkedin} target="_blank" rel="noopener noreferrer" className="hover:text-champagne">
-              LinkedIn
-            </a>
-            <a href={site.social.instagram} target="_blank" rel="noopener noreferrer" className="hover:text-champagne">
-              Instagram
-            </a>
-          </p>
+          <ul className="flex items-center gap-3" aria-label="Social media">
+            {socialLinks.map(({ label, href, Icon }) => (
+              <li key={label}>
+                <a
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`Manifest on ${label}`}
+                  title={label}
+                  className="flex size-9 items-center justify-center rounded-full border border-ivory/20 text-ivory/70 transition-[translate,color,border-color,background-color] duration-300 ease-out hover:-translate-y-0.5 hover:border-champagne hover:bg-champagne/10 hover:text-champagne focus-visible:border-champagne focus-visible:text-champagne motion-reduce:transition-none motion-reduce:hover:translate-y-0"
+                >
+                  <Icon className="size-[1.05rem]" />
+                </a>
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
     </footer>
