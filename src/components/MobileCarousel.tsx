@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState, type ReactNode } from "react";
+import { useLang } from "./useLang";
 
 /**
  * Swipeable carousel on phones, regular grid from the `sm` breakpoint up.
@@ -22,18 +23,21 @@ export function MobileCarousel({
   gridClassName?: string;
   dots?: boolean;
 }) {
+  const { tr } = useLang();
   const listRef = useRef<HTMLUListElement>(null);
   const [active, setActive] = useState(0);
 
   const syncActive = useCallback(() => {
     const list = listRef.current;
     if (!list || list.scrollWidth <= list.clientWidth + 1) return; // grid layout: nothing scrolls
-    const center = list.scrollLeft + list.clientWidth / 2;
+    // Viewport rects work the same in left-to-right and right-to-left layouts (scrollLeft is negative in RTL).
+    const listRect = list.getBoundingClientRect();
+    const center = listRect.left + list.clientWidth / 2;
     let best = 0;
     let bestDistance = Infinity;
     Array.from(list.children).forEach((child, i) => {
-      const el = child as HTMLElement;
-      const distance = Math.abs(el.offsetLeft + el.offsetWidth / 2 - center);
+      const rect = (child as HTMLElement).getBoundingClientRect();
+      const distance = Math.abs(rect.left + rect.width / 2 - center);
       if (distance < bestDistance) {
         best = i;
         bestDistance = distance;
@@ -64,8 +68,10 @@ export function MobileCarousel({
     const item = list?.children[index] as HTMLElement | undefined;
     if (!list || !item) return;
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    list.scrollTo({
-      left: item.offsetLeft + item.offsetWidth / 2 - list.clientWidth / 2,
+    const listRect = list.getBoundingClientRect();
+    const itemRect = item.getBoundingClientRect();
+    list.scrollBy({
+      left: itemRect.left + itemRect.width / 2 - (listRect.left + list.clientWidth / 2),
       behavior: reduce ? "auto" : "smooth",
     });
   };
@@ -74,19 +80,19 @@ export function MobileCarousel({
     <div className="mt-8 sm:mt-14">
       <ul
         ref={listRef}
-        aria-label={label}
+        aria-label={tr(label)}
         className={`-mx-5 flex snap-x snap-mandatory gap-4 overflow-x-auto overscroll-x-contain px-5 pt-6 pb-8 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:mx-0 sm:grid sm:gap-6 sm:overflow-visible sm:px-0 sm:pt-0 sm:pb-0 ${gridClassName}`}
       >
         {children}
       </ul>
       {dots && count > 1 && (
-        <div className="-mt-2 flex justify-center sm:hidden" role="group" aria-label={`${label} navigation`}>
+        <div className="-mt-2 flex justify-center sm:hidden" role="group" aria-label={`${tr(label)} ${tr("navigation")}`}>
           {Array.from({ length: count }).map((_, i) => (
             <button
               key={i}
               type="button"
               onClick={() => goTo(i)}
-              aria-label={`Show package ${i + 1} of ${count}`}
+              aria-label={tr("Show package {n} of {total}").replace("{n}", String(i + 1)).replace("{total}", String(count))}
               aria-current={active === i ? "true" : undefined}
               className="flex size-6 items-center justify-center"
             >

@@ -3,6 +3,7 @@ import Image from "next/image";
 import { AuthoritiesStrip } from "@/components/AuthoritiesStrip";
 import { Reveal } from "@/components/Reveal";
 import { ServicePage, type ServicePageData } from "@/components/ServicePage";
+import { T } from "@/components/T";
 import { serviceLinks as l } from "@/content/service-links";
 
 export const metadata: Metadata = {
@@ -47,9 +48,9 @@ const media = (
     <section className="bg-white py-20 sm:py-24">
       <div className="container-luxe">
         <Reveal className="max-w-3xl">
-          <p className="eyebrow">Company structures</p>
+          <p className="eyebrow"><T>Company structures</T></p>
           <h2 className="mt-5 text-3xl leading-[1.15] text-olive-deep sm:text-4xl">
-            Choose the free zone structure that fits your plan
+            <T>Choose the free zone structure that fits your plan</T>
           </h2>
         </Reveal>
         <div className="mt-12 grid gap-6 md:grid-cols-3">
@@ -73,7 +74,7 @@ const media = (
                   {s.short}
                 </p>
                 <h3 className="mt-2 text-xl leading-snug text-olive-deep">
-                  {s.title}
+                  <T>{s.title}</T>
                 </h3>
               </div>
             </Reveal>
@@ -81,9 +82,9 @@ const media = (
         </div>
 
         <Reveal className="mt-16">
-          <h3 className="text-2xl text-olive-deep">Free zones we set up in</h3>
+          <h3 className="text-2xl text-olive-deep"><T>Free zones we set up in</T></h3>
           <p className="mt-3 max-w-2xl text-[0.98rem] leading-relaxed text-ink-soft/85">
-            We work across 46+ UAE jurisdictions, including:
+            <T>We work across 46+ UAE jurisdictions, including:</T>
           </p>
           <ul className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
             {freeZones.map((z) => (
@@ -95,7 +96,7 @@ const media = (
                   {z.short}
                 </span>
                 <span className="mt-1 block text-sm leading-snug text-ink-soft/80">
-                  {z.name}
+                  <T>{z.name}</T>
                 </span>
               </li>
             ))}

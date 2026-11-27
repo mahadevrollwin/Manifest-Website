@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { Reveal } from "./Reveal";
+import { T } from "./T";
 
 // Trimmed copies of the logos (no built-in white margin) so every logo can be sized consistently.
 const authorities = [
@@ -13,9 +14,13 @@ export function AuthoritiesStrip() {
   return (
     <section className="border-y border-olive-deep/10 bg-white py-16 sm:py-20">
       <div className="container-luxe flex flex-col items-center gap-10 lg:flex-row lg:items-center lg:gap-14">
-        <Reveal className="shrink-0 text-center lg:max-w-xs lg:text-left">
-          <p className="eyebrow justify-center lg:justify-start">Working alongside</p>
-          <h2 className="mt-4 text-3xl leading-tight text-olive-deep">UAE Government Authorities</h2>
+        <Reveal className="shrink-0 text-center lg:max-w-xs lg:text-start">
+          <p className="eyebrow justify-center lg:justify-start">
+            <T>Working alongside</T>
+          </p>
+          <h2 className="mt-4 text-3xl leading-tight text-olive-deep">
+            <T>UAE Government Authorities</T>
+          </h2>
         </Reveal>
         <div className="hidden h-24 w-px shrink-0 bg-olive-deep/15 lg:block" />
         <ul className="grid w-full grid-cols-2 gap-4 sm:gap-5 lg:grid-cols-4">

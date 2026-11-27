@@ -2,6 +2,8 @@
 
 import { useState, type FormEvent } from "react";
 import { ArrowUpRight, CheckCircle2 } from "lucide-react";
+import { Rich } from "./T";
+import { useLang } from "./useLang";
 import { consultationInterests, site, whatsappLink } from "@/content/site";
 
 type ConsultationFormProps = {
@@ -19,6 +21,7 @@ export function ConsultationForm({
   variant = "default",
   interests = consultationInterests,
 }: ConsultationFormProps) {
+  const { tr } = useLang();
   const [sent, setSent] = useState(false);
   const dark = tone === "dark";
   const plan = variant === "plan";
@@ -47,16 +50,23 @@ export function ConsultationForm({
     return (
       <div className={`flex flex-col items-start gap-5 py-6 ${dark ? "text-ivory" : "text-olive-deep"}`}>
         <CheckCircle2 className="size-10 text-champagne" strokeWidth={1.4} />
-        <h3 className="text-2xl">Thank you — we&apos;ll be in touch shortly.</h3>
+        <h3 className="text-2xl">{tr("Thank you — we'll be in touch shortly.")}</h3>
         <p className={`max-w-md text-sm leading-relaxed ${dark ? "text-ivory/70" : "text-ink-soft/80"}`}>
-          Your request has been prepared in WhatsApp. If it didn&apos;t open, email us at{" "}
-          <a href={`mailto:${site.email}`} className="underline decoration-champagne underline-offset-4">
-            {site.email}
-          </a>{" "}
-          or call {site.phoneDisplay}.
+          <Rich
+            slots={{
+              email: (
+                <a href={`mailto:${site.email}`} className="underline decoration-champagne underline-offset-4">
+                  <bdi dir="ltr">{site.email}</bdi>
+                </a>
+              ),
+              phone: <bdi dir="ltr">{site.phoneDisplay}</bdi>,
+            }}
+          >
+            {"Your request has been prepared in WhatsApp. If it didn't open, email us at {email} or call {phone}."}
+          </Rich>
         </p>
         <button type="button" onClick={() => setSent(false)} className={`btn ${dark ? "btn-ghost-light" : "btn-ghost-dark"}`}>
-          Send another request
+          {tr("Send another request")}
         </button>
       </div>
     );
@@ -66,13 +76,13 @@ export function ConsultationForm({
     <form onSubmit={handleSubmit} className="grid gap-7 sm:grid-cols-2">
       <div>
         <label htmlFor="cf-name" className={label}>
-          Full name
+          {tr("Full name")}
         </label>
-        <input id="cf-name" name="name" required autoComplete="name" placeholder="Your name" className={field} />
+        <input id="cf-name" name="name" required autoComplete="name" placeholder={tr("Your name")} className={field} />
       </div>
       <div>
         <label htmlFor="cf-email" className={label}>
-          Email
+          {tr("Email")}
         </label>
         <input
           id="cf-email"
@@ -80,13 +90,13 @@ export function ConsultationForm({
           type="email"
           required
           autoComplete="email"
-          placeholder="you@company.com"
+          placeholder="you@company.com" dir="ltr"
           className={field}
         />
       </div>
       <div>
         <label htmlFor="cf-phone" className={label}>
-          Phone / WhatsApp
+          {tr("Phone / WhatsApp")}
         </label>
         <input
           id="cf-phone"
@@ -94,65 +104,65 @@ export function ConsultationForm({
           type="tel"
           required
           autoComplete="tel"
-          placeholder="+971"
+          placeholder="+971" dir="ltr"
           className={field}
         />
       </div>
       {plan && (
         <div>
           <label htmlFor="cf-country" className={label}>
-            Country of residence (optional)
+            {tr("Country of residence (optional)")}
           </label>
           <input
             id="cf-country"
             name="country"
             autoComplete="country-name"
-            placeholder="e.g. India"
+            placeholder={tr("e.g. India")}
             className={field}
           />
         </div>
       )}
       <div className={plan ? "sm:col-span-2" : ""}>
         <label htmlFor="cf-interest" className={label}>
-          I&apos;m interested in *
+          {tr("I'm interested in *")}
         </label>
         <select id="cf-interest" name="interest" required defaultValue={defaultInterest} className={`${field} cursor-pointer`}>
           <option value="" disabled>
-            Select a service
+            {tr("Select a service")}
           </option>
           {interests.map((interest) => (
             <option key={interest} value={interest}>
-              {interest}
+              {tr(interest)}
             </option>
           ))}
         </select>
       </div>
       <div className="sm:col-span-2">
         <label htmlFor="cf-message" className={label}>
-          {plan ? "Tell us about your business (optional)" : "How can we help?"}
+          {plan ? tr("Tell us about your business (optional)") : tr("How can we help?")}
         </label>
         <textarea
           id="cf-message"
           name="message"
           rows={3}
-          placeholder="Tell us about your business goals in the UAE…"
+          placeholder={tr("Tell us about your business goals in the UAE…")}
           className={`${field} resize-none`}
         />
       </div>
       {plan && (
         <label className="flex items-start gap-3 text-sm leading-snug text-ink-soft/85 sm:col-span-2">
           <input type="checkbox" name="consent" required className="mt-0.5 size-[1.125rem] accent-olive-deep" />
-          I agree to Manifest contacting me about my enquiry.
+          {tr("I agree to Manifest contacting me about my enquiry.")}
         </label>
       )}
       <div className="flex flex-col gap-4 sm:col-span-2 sm:flex-row sm:items-center sm:justify-between">
         <p className={`text-xs ${dark ? "text-ivory/60" : "text-ink-soft/70"}`}>
           {plan
-            ? "Confidential · No obligation · Reply within one working day"
-            : "Confidential · No obligation · Dubai-based experts"}
+            ? tr("Confidential · No obligation · Reply within one working day")
+            : tr("Confidential · No obligation · Dubai-based experts")}
         </p>
         <button type="submit" className={`btn ${dark ? "btn-champagne" : "btn-olive"}`}>
-          {plan ? "Get my free setup plan" : "Request consultation"} <ArrowUpRight className="size-4" />
+          {plan ? tr("Get my free setup plan") : tr("Request consultation")} <ArrowUpRight className="size-4 rtl:-scale-x-100" />
         </button>
       </div>
     </form>

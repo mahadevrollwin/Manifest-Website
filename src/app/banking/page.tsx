@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { Reveal } from "@/components/Reveal";
+import { T } from "@/components/T";
 import { ServicePage, type ServicePageData } from "@/components/ServicePage";
 import { serviceLinks as l } from "@/content/service-links";
 import { whatsappMessages } from "@/content/site";
@@ -23,7 +24,7 @@ const media = (
   <section className="bg-white py-20 sm:py-24">
     <div className="container-luxe">
       <Reveal className="text-center">
-        <h2 className="eyebrow justify-center">Banks we work with</h2>
+        <h2 className="eyebrow justify-center"><T>Banks we work with</T></h2>
       </Reveal>
       <ul className="mx-auto mt-10 grid max-w-5xl grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-4">
         {banks.map((bank, i) => (

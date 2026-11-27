@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import { Reveal } from "./Reveal";
+import { T } from "./T";
 
 type SectionHeadingProps = {
   eyebrow?: string;
@@ -24,7 +25,7 @@ export function SectionHeading({
     <Reveal className={`${centered ? "mx-auto text-center" : ""} max-w-3xl ${className}`}>
       {eyebrow && (
         <p className={`eyebrow ${dark ? "eyebrow-light" : ""} ${centered ? "justify-center" : ""}`}>
-          {eyebrow}
+          <T>{eyebrow}</T>
         </p>
       )}
       <h2
@@ -32,7 +33,7 @@ export function SectionHeading({
           dark ? "text-ivory" : "text-olive-deep"
         }`}
       >
-        {title}
+        <T>{title}</T>
       </h2>
       {intro && (
         <p
@@ -40,7 +41,7 @@ export function SectionHeading({
             dark ? "text-ivory/70" : "text-ink-soft/80"
           } ${centered ? "mx-auto max-w-2xl" : ""}`}
         >
-          {intro}
+          <T>{intro}</T>
         </p>
       )}
     </Reveal>

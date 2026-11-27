@@ -4,10 +4,12 @@ import { MobileCarousel } from "./MobileCarousel";
 import { Reveal } from "./Reveal";
 import { SectionHeading } from "./SectionHeading";
 import { WhatsappIcon } from "./SocialIcons";
+import { Rich, T } from "./T";
 import { formationPackages } from "@/content/packages";
 import { site, whatsappLink } from "@/content/site";
 
 const aed = (value: number) => `AED ${value.toLocaleString("en-US")}`;
+const amount = (value: number) => value.toLocaleString("en-US");
 
 export function FormationPackages() {
   return (
@@ -34,19 +36,23 @@ export function FormationPackages() {
                 }`}
               >
                 {pkg.badge && (
-                  <span className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-champagne px-3.5 py-1 text-[0.68rem] font-bold tracking-[0.12em] whitespace-nowrap text-ink uppercase">
-                    {pkg.badge}
+                  <span className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-champagne px-3.5 py-1 text-[0.68rem] font-bold tracking-[0.12em] whitespace-nowrap text-ink uppercase rtl:tracking-normal">
+                    <T>{pkg.badge}</T>
                   </span>
                 )}
 
-                <h3 className="min-h-[4.2rem] text-[1.4rem] leading-tight text-olive-deep">{pkg.name}</h3>
-                <p className="mt-3 text-[0.95rem] font-semibold text-champagne-deep">{pkg.subtitle}</p>
+                <h3 className="min-h-[4.2rem] text-[1.4rem] leading-tight text-olive-deep">
+                  <T>{pkg.name}</T>
+                </h3>
+                <p className="mt-3 text-[0.95rem] font-semibold text-champagne-deep">
+                  <T>{pkg.subtitle}</T>
+                </p>
 
                 <ul className="mt-5 flex-1 divide-y divide-dashed divide-olive-deep/15 border-t border-olive-deep/10">
                   {pkg.features.map((feature) => (
                     <li key={feature} className="flex items-start gap-3 py-3 text-[0.92rem] leading-snug text-ink-soft">
                       <Check className="mt-0.5 size-4 shrink-0 text-olive" aria-hidden />
-                      {feature}
+                      <T>{feature}</T>
                     </li>
                   ))}
                 </ul>
@@ -55,24 +61,34 @@ export function FormationPackages() {
                   <p className="h-5 text-sm text-ink-soft/60">
                     {pkg.wasPrice && (
                       <>
-                        <span className="sr-only">Previous price: </span>
-                        <span className="line-through">Before {aed(pkg.wasPrice)}*</span>
+                        <span className="sr-only">
+                          <T>Previous price: </T>
+                        </span>
+                        <span className="line-through">
+                          <Rich slots={{ n: amount(pkg.wasPrice) }}>{"Before AED {n}*"}</Rich>
+                        </span>
                       </>
                     )}
                   </p>
                   <p className="mt-1 text-[2rem] leading-none font-bold text-olive-deep">
-                    <span className="sr-only">Price: </span>
-                    {aed(pkg.price)}*
+                    <span className="sr-only">
+                      <T>Price: </T>
+                    </span>
+                    <Rich slots={{ n: amount(pkg.price) }}>{"AED {n}*"}</Rich>
                   </p>
-                  <p className="mt-2 text-xs text-ink-soft/60">*T &amp; C apply</p>
+                  <p className="mt-2 text-xs text-ink-soft/60">
+                    <T>*T &amp; C apply</T>
+                  </p>
                 </div>
 
                 <Link href="#form" className="btn btn-olive mt-6 w-full justify-center">
-                  Get started today <ArrowRight className="size-4" aria-hidden />
+                  <T>Get started today</T> <ArrowRight className="size-4 rtl:-scale-x-100" aria-hidden />
                 </Link>
 
                 <div className="mt-5 flex items-center justify-between gap-3">
-                  <span className="text-[0.82rem] leading-tight text-ink-soft/70">For instant response</span>
+                  <span className="text-[0.82rem] leading-tight text-ink-soft/70">
+                    <T>For instant response</T>
+                  </span>
                   <span className="flex items-center gap-2">
                     <a
                       href={whatsappLink(

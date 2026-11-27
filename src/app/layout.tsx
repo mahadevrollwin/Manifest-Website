@@ -2,6 +2,8 @@ import type { Metadata, Viewport } from "next";
 import { Noto_Sans_Arabic, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/Header";
+import { LangSync } from "@/components/LangSync";
+import { T } from "@/components/T";
 import { HideOnAssistant } from "@/components/HideOnAssistant";
 import { Footer } from "@/components/Footer";
 import { WhatsAppFloat } from "@/components/WhatsAppFloat";
@@ -66,11 +68,12 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" className={`${jakarta.variable} ${notoArabic.variable} antialiased`}>
       <body className="min-h-svh">
+        <LangSync />
         <a
           href="#main"
-          className="sr-only z-[60] bg-champagne px-4 py-2 text-ink focus:not-sr-only focus:fixed focus:top-3 focus:left-3"
+          className="sr-only z-[60] bg-champagne px-4 py-2 text-ink focus:not-sr-only focus:fixed focus:top-3 focus:start-3"
         >
-          Skip to content
+          <T>Skip to content</T>
         </a>
         <HideOnAssistant>
           <Header />

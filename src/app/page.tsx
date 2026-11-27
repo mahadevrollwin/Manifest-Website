@@ -17,7 +17,7 @@ import {
 import { HeroVideo } from "@/components/HeroVideo";
 import { Reveal } from "@/components/Reveal";
 import { SectionHeading } from "@/components/SectionHeading";
-import { LangScope, T } from "@/components/T";
+import { LangScope, Rich, T } from "@/components/T";
 import { Counter } from "@/components/Counter";
 import { Accordion } from "@/components/Accordion";
 import { ConsultationForm } from "@/components/ConsultationForm";
@@ -151,8 +151,10 @@ const faqs = [
     question: "How long does company formation in Dubai take?",
     answer: (
       <p>
-        It depends on the jurisdiction and activity. The Dubai company registration process typically takes 3–7 working
-        days once your documents are ready. Visas and bank accounts take additional time.
+        <T>
+          It depends on the jurisdiction and activity. The Dubai company registration process typically takes 3–7 working
+          days once your documents are ready. Visas and bank accounts take additional time.
+        </T>
       </p>
     ),
   },
@@ -160,8 +162,10 @@ const faqs = [
     question: "How much does it cost to set up a company in Dubai?",
     answer: (
       <p>
-        Costs depend on the jurisdiction, licence type, office option and number of visas. We give you an itemised
-        quote before you commit.
+        <T>
+          Costs depend on the jurisdiction, licence type, office option and number of visas. We give you an itemised
+          quote before you commit.
+        </T>
       </p>
     ),
   },
@@ -169,8 +173,10 @@ const faqs = [
     question: "Can I own 100% of a mainland company?",
     answer: (
       <p>
-        Yes, for most commercial and professional activities. A small number of activities still have ownership
-        conditions, and we check yours in the consultation.
+        <T>
+          Yes, for most commercial and professional activities. A small number of activities still have ownership
+          conditions, and we check yours in the consultation.
+        </T>
       </p>
     ),
   },
@@ -178,8 +184,10 @@ const faqs = [
     question: "Do I need to be in the UAE to set up my company?",
     answer: (
       <p>
-        Much of the process can start remotely. You will usually need to be in the UAE for the visa medical test and
-        Emirates ID biometrics.
+        <T>
+          Much of the process can start remotely. You will usually need to be in the UAE for the visa medical test and
+          Emirates ID biometrics.
+        </T>
       </p>
     ),
   },
@@ -187,8 +195,10 @@ const faqs = [
     question: "Mainland or free zone: which is better for my business?",
     answer: (
       <p>
-        If most of your customers are in the UAE, mainland is usually the better fit. If you sell internationally or
-        online, a free zone is often simpler. We compare both for your plan.
+        <T>
+          If most of your customers are in the UAE, mainland is usually the better fit. If you sell internationally or
+          online, a free zone is often simpler. We compare both for your plan.
+        </T>
       </p>
     ),
   },
@@ -254,7 +264,9 @@ export default function HomePage() {
               <Star key={i} className="size-4 fill-current" />
             ))}
           </span>
-          <p>Rated 4.9 on Google</p>
+          <p>
+            <T>Rated 4.9 on Google</T>
+          </p>
         </div>
       </section>
 
@@ -262,7 +274,7 @@ export default function HomePage() {
       <section className="overflow-hidden bg-ivory py-24 sm:py-28">
         <div className="container-luxe grid items-center gap-16 lg:grid-cols-12 lg:gap-20">
           <Reveal className="relative mb-10 sm:mb-14 lg:col-span-6 lg:mb-0">
-            <div className="relative ml-auto aspect-[4/5] w-[78%] overflow-hidden">
+            <div className="relative ms-auto aspect-[4/5] w-[78%] overflow-hidden">
               <Image
                 src="/images/home-meeting.jpg"
                 alt="Two businessmen discussing a Manifest business consultation for Dubai Company Formation"
@@ -271,7 +283,7 @@ export default function HomePage() {
                 className="object-cover"
               />
             </div>
-            <div className="absolute bottom-[-8%] left-0 aspect-square w-[48%] overflow-hidden border-[10px] border-ivory shadow-[0_40px_80px_-40px_rgba(20,22,16,0.6)]">
+            <div className="absolute bottom-[-8%] start-0 aspect-square w-[48%] overflow-hidden border-[10px] border-ivory shadow-[0_40px_80px_-40px_rgba(20,22,16,0.6)]">
               <Image
                 src="/images/home-team.jpg"
                 alt="Three business people working together and looking at a laptop"
@@ -280,38 +292,48 @@ export default function HomePage() {
                 className="object-cover"
               />
             </div>
-            <div className="absolute top-10 left-[6%] bg-olive-deep px-6 py-5 text-ivory shadow-2xl">
+            <div className="absolute top-10 start-[6%] bg-olive-deep px-6 py-5 text-ivory shadow-2xl">
               <div className="flex items-center gap-1 text-champagne">
                 {Array.from({ length: 5 }, (_, i) => (
                   <Star key={i} className="size-3.5 fill-current" />
                 ))}
               </div>
               <p className="mt-2 text-4xl leading-none font-bold">4.9</p>
-              <p className="mt-1.5 text-xs text-ivory/70">Google rating</p>
+              <p className="mt-1.5 text-xs text-ivory/70">
+                <T>Google rating</T>
+              </p>
             </div>
           </Reveal>
 
           <Reveal delay={150} className="lg:col-span-6">
-            <p className="eyebrow">About Manifest</p>
+            <p className="eyebrow">
+              <T>About Manifest</T>
+            </p>
             <h2 className="mt-5 text-[2rem] leading-[1.12] text-olive-night sm:text-4xl lg:text-[2.75rem]">
-              A business partner in Dubai, not just a paperwork agent
+              <T>A business partner in Dubai, not just a paperwork agent</T>
             </h2>
             <p className="mt-7 text-[1.05rem] leading-[1.7] text-ink-soft/90">
-              Manifest Business Services helps founders, freelancers and growing companies set up in Dubai without the
-              guesswork. We start with your plan: what you&apos;ll sell, who you&apos;ll sell to, and how many visas you
-              need. Then we recommend the jurisdiction and licence that fit.
+              <T>
+                Manifest Business Services helps founders, freelancers and growing companies set up in Dubai without the
+                guesswork. We start with your plan: what you&apos;ll sell, who you&apos;ll sell to, and how many visas
+                you need. Then we recommend the jurisdiction and licence that fit.
+              </T>
             </p>
             <p className="mt-4 text-[1.05rem] leading-[1.7] text-ink-soft/90">
-              After that, we handle the rest: trade name, approvals, documents, government submissions, visas, Emirates
-              ID and bank account. One team and one point of contact, from your first call to your first invoice.
+              <T>
+                After that, we handle the rest: trade name, approvals, documents, government submissions, visas, Emirates
+                ID and bank account. One team and one point of contact, from your first call to your first invoice.
+              </T>
             </p>
             <div className="mt-9 flex flex-wrap items-center gap-x-8 gap-y-5">
               <Link href="/about-manifest-business-setup-experts/" className="btn btn-ghost-dark">
-                About Manifest
+                <T>About Manifest</T>
               </Link>
               <a href={site.phoneHref} className="flex items-center gap-2.5 text-[0.95rem] font-semibold text-olive-deep hover:text-olive">
                 <Phone className="size-4 text-champagne-deep" />
-                Talk to an expert: {site.phoneDisplay}
+                <span>
+                  <Rich slots={{ phone: <bdi dir="ltr">{site.phoneDisplay}</bdi> }}>{"Talk to an expert: {phone}"}</Rich>
+                </span>
               </a>
             </div>
           </Reveal>
@@ -341,11 +363,15 @@ export default function HomePage() {
                       </span>
                       <span className="text-sm font-semibold text-champagne-deep">{String(i + 1).padStart(2, "0")}</span>
                     </div>
-                    <h3 className="mt-8 text-2xl leading-tight text-olive-night">{service.title}</h3>
-                    <p className="mt-3 flex-1 text-base leading-relaxed text-ink-soft/85">{service.text}</p>
+                    <h3 className="mt-8 text-2xl leading-tight text-olive-night">
+                      <T>{service.title}</T>
+                    </h3>
+                    <p className="mt-3 flex-1 text-base leading-relaxed text-ink-soft/85">
+                      <T>{service.text}</T>
+                    </p>
                     <span className="mt-6 inline-flex items-center gap-2 text-[0.95rem] font-semibold text-champagne-deep transition-colors group-hover:text-olive-deep">
-                      {service.key === "attestation" ? "Enquire now" : "Learn more"}
-                      <ArrowRight className="size-4 transition-transform duration-500 group-hover:translate-x-1" />
+                      <T>{service.key === "attestation" ? "Enquire now" : "Learn more"}</T>
+                      <ArrowRight className="size-4 transition-transform duration-500 group-hover:translate-x-1 rtl:-scale-x-100 rtl:group-hover:-translate-x-1" />
                     </span>
                   </Link>
                 </Reveal>
@@ -354,7 +380,7 @@ export default function HomePage() {
           </div>
           <Reveal className="mt-14 flex justify-center">
             <Link href="/services/" className="btn btn-olive">
-              View all services
+              <T>View all services</T>
             </Link>
           </Reveal>
         </div>
@@ -372,15 +398,19 @@ export default function HomePage() {
                   <span className="block text-[2.5rem] leading-none font-bold text-champagne transition-colors duration-500 group-hover:text-champagne-deep">
                     {String(i + 1).padStart(2, "0")}
                   </span>
-                  <h3 className="mt-4 text-xl text-olive-night">{step.title}</h3>
-                  <p className="mt-2 text-base leading-relaxed text-ink-soft/85">{step.text}</p>
+                  <h3 className="mt-4 text-xl text-olive-night">
+                    <T>{step.title}</T>
+                  </h3>
+                  <p className="mt-2 text-base leading-relaxed text-ink-soft/85">
+                    <T>{step.text}</T>
+                  </p>
                 </div>
               </Reveal>
             ))}
           </ol>
           <Reveal className="mt-14 flex justify-center">
             <Link href="#form" className="btn btn-olive">
-              Book free consultation <ArrowRight className="size-4" />
+              <T>Book free consultation</T> <ArrowRight className="size-4 rtl:-scale-x-100" />
             </Link>
           </Reveal>
         </div>
@@ -401,17 +431,24 @@ export default function HomePage() {
             {zones.map((zone, i) => (
               <Reveal key={zone.title} delay={i * 100} className="h-full">
                 <article className="group flex h-full flex-col gap-4 border border-ivory/5 bg-olive-deep p-8 card-lift card-lift-dark hover:bg-[#313a24]">
-                  <h3 className="text-2xl text-ivory transition-colors duration-500 group-hover:text-champagne-light">{zone.title}</h3>
-                  <p className="flex-1 text-base leading-relaxed">{zone.text}</p>
+                  <h3 className="text-2xl text-ivory transition-colors duration-500 group-hover:text-champagne-light">
+                    <T>{zone.title}</T>
+                  </h3>
+                  <p className="flex-1 text-base leading-relaxed">
+                    <T>{zone.text}</T>
+                  </p>
                   <p className="text-sm text-champagne">
-                    <strong className="font-semibold">Best for:</strong> {zone.bestFor}
+                    <strong className="font-semibold">
+                      <T>Best for:</T>
+                    </strong>{" "}
+                    <T>{zone.bestFor}</T>
                   </p>
                   <Link
                     href={zone.href}
                     className="inline-flex items-center gap-2 text-[0.95rem] font-semibold text-champagne hover:text-champagne-light"
                   >
-                    Learn more{" "}
-                    <ArrowRight className="size-4 transition-transform duration-500 ease-out group-hover:translate-x-1 motion-reduce:transition-none motion-reduce:group-hover:translate-x-0" />
+                    <T>Learn more</T>{" "}
+                    <ArrowRight className="size-4 transition-transform duration-500 ease-out group-hover:translate-x-1 motion-reduce:transition-none motion-reduce:group-hover:translate-x-0 rtl:-scale-x-100 rtl:group-hover:-translate-x-1 rtl:motion-reduce:group-hover:translate-x-0" />
                   </Link>
                 </article>
               </Reveal>
@@ -426,8 +463,10 @@ export default function HomePage() {
           <SectionHeading eyebrow="In numbers" title="Trusted by founders from around the world" />
           <dl className="mt-12 grid grid-cols-2 gap-x-6 gap-y-10 lg:grid-cols-4 lg:gap-8">
             {stats.map((stat, i) => (
-              <Reveal key={stat.label} delay={i * 100} className="flex flex-col-reverse border-l border-olive-deep/15 pl-6">
-                <dt className="mt-2 text-[0.95rem] font-medium text-ink-soft/85">{stat.label}</dt>
+              <Reveal key={stat.label} delay={i * 100} className="flex flex-col-reverse border-s border-olive-deep/15 ps-6">
+                <dt className="mt-2 text-[0.95rem] font-medium text-ink-soft/85">
+                  <T>{stat.label}</T>
+                </dt>
                 <dd className="text-4xl leading-none font-bold tracking-tight text-olive-night sm:text-5xl">
                   <Counter value={stat.value} decimals={stat.decimals} suffix={stat.suffix} />
                 </dd>
@@ -461,19 +500,21 @@ export default function HomePage() {
                 className="border-b border-olive-deep/15 py-6 first:pt-0"
               >
                 {/* The nudge lives on an inner wrapper so it never fights Reveal's own transform. */}
-                <div className="group relative flex gap-6 transition-transform duration-500 ease-out hover:translate-x-2 motion-reduce:transition-none motion-reduce:hover:translate-x-0">
+                <div className="group relative flex gap-6 transition-transform duration-500 ease-out hover:translate-x-2 motion-reduce:transition-none motion-reduce:hover:translate-x-0 rtl:hover:-translate-x-2 rtl:motion-reduce:hover:translate-x-0">
                   <span
                     aria-hidden
-                    className="absolute -left-4 inset-y-0 w-0.5 origin-top scale-y-0 bg-champagne transition-transform duration-500 ease-out group-hover:scale-y-100 motion-reduce:transition-none"
+                    className="absolute -start-4 inset-y-0 w-0.5 origin-top scale-y-0 bg-champagne transition-transform duration-500 ease-out group-hover:scale-y-100 motion-reduce:transition-none"
                   />
                   <span className="min-w-8 text-[0.95rem] font-bold text-champagne-deep transition-colors duration-500 group-hover:text-olive">
                     {String(i + 1).padStart(2, "0")}
                   </span>
                   <div>
                     <h3 className="text-xl text-olive-night transition-colors duration-500 group-hover:text-olive-rich">
-                      {item.title}
+                      <T>{item.title}</T>
                     </h3>
-                    <p className="mt-1.5 text-base leading-relaxed text-ink-soft/85">{item.text}</p>
+                    <p className="mt-1.5 text-base leading-relaxed text-ink-soft/85">
+                      <T>{item.text}</T>
+                    </p>
                   </div>
                 </div>
               </Reveal>
@@ -494,7 +535,7 @@ export default function HomePage() {
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-1.5 text-sm font-semibold text-olive-deep underline decoration-champagne decoration-2 underline-offset-4 transition-colors hover:text-olive"
               >
-                Read all reviews on Google <ArrowRight className="size-4" aria-hidden />
+                <T>Read all reviews on Google</T> <ArrowRight className="size-4 rtl:-scale-x-100" aria-hidden />
               </a>
             </Reveal>
           </div>
@@ -514,12 +555,14 @@ export default function HomePage() {
                   </div>
                   <blockquote className="mt-5 flex-1 text-[1.05rem] leading-relaxed font-medium text-olive-night">
                     <span className="rounded-sm bg-champagne-light/50 px-1.5 py-0.5 transition-colors duration-500 [box-decoration-break:clone] group-hover:bg-champagne-light/80">
-                      {t.quote}
+                      <T>{t.quote}</T>
                     </span>
                   </blockquote>
                   <div className="mt-6 border-t border-olive-deep/10 pt-4">
                     <p className="text-sm font-bold text-olive-night">{t.name}</p>
-                    <p className="mt-0.5 text-sm text-ink-soft/80">{t.detail}</p>
+                    <p className="mt-0.5 text-sm text-ink-soft/80">
+                      <T>{t.detail}</T>
+                    </p>
                   </div>
                 </div>
               </Reveal>
@@ -532,10 +575,14 @@ export default function HomePage() {
       <section className="border-y border-olive-deep/10 bg-white py-20">
         <div className="container-luxe text-center">
           <Reveal>
-            <p className="eyebrow justify-center">We work with</p>
-            <h2 className="mt-4 text-3xl text-olive-night">UAE government authorities</h2>
+            <p className="eyebrow justify-center">
+              <T>We work with</T>
+            </p>
+            <h2 className="mt-4 text-3xl text-olive-night">
+              <T>UAE government authorities</T>
+            </h2>
             <p className="mt-3 text-base text-ink-soft/85">
-              We prepare and submit your applications through the official channels.
+              <T>We prepare and submit your applications through the official channels.</T>
             </p>
           </Reveal>
           <ul className="mx-auto mt-10 grid max-w-4xl grid-cols-2 gap-5 sm:grid-cols-4 sm:gap-6">
@@ -551,7 +598,7 @@ export default function HomePage() {
                   />
                 </span>
                 <span className="text-sm font-semibold text-olive-night transition-colors duration-300 group-hover:text-olive">
-                  {a.name}
+                  <T>{a.name}</T>
                 </span>
               </Reveal>
             ))}
@@ -566,12 +613,14 @@ export default function HomePage() {
       <section className="bg-ivory py-24 sm:py-28">
         <div className="container-luxe grid gap-14 lg:grid-cols-12 lg:gap-20">
           <Reveal className="lg:col-span-5">
-            <p className="eyebrow">FAQs</p>
+            <p className="eyebrow">
+              <T>FAQs</T>
+            </p>
             <h2 className="mt-5 text-[2rem] leading-[1.12] text-olive-night sm:text-4xl lg:text-[2.75rem]">
-              Questions founders ask us
+              <T>Questions founders ask us</T>
             </h2>
             <Link href="/faqs/" className="btn btn-ghost-dark mt-8">
-              See all FAQs
+              <T>See all FAQs</T>
             </Link>
           </Reveal>
           <Reveal delay={120} className="lg:col-span-7">
@@ -584,31 +633,37 @@ export default function HomePage() {
       <section id="form" className="scroll-mt-20 bg-olive-night py-24 text-ivory/85 sm:py-28">
         <div className="container-luxe grid gap-14 lg:grid-cols-12 lg:gap-20">
           <Reveal className="lg:col-span-5">
-            <p className="eyebrow eyebrow-light">Free consultation</p>
+            <p className="eyebrow eyebrow-light">
+              <T>Free consultation</T>
+            </p>
             <h2 className="mt-5 text-[2rem] leading-[1.12] text-ivory sm:text-4xl lg:text-[2.75rem]">
-              Get your free setup plan
+              <T>Get your free setup plan</T>
             </h2>
             <p className="mt-5 text-lg leading-relaxed">
-              Tell us what you plan to do. An adviser will reply within one working day with the setup options and costs
-              that fit.
+              <T>
+                Tell us what you plan to do. An adviser will reply within one working day with the setup options and
+                costs that fit.
+              </T>
             </p>
             <div className="mt-12 flex flex-col gap-4 text-base">
-              <h3 className="text-xl text-ivory">Visit us in Bur Dubai</h3>
+              <h3 className="text-xl text-ivory">
+                <T>Visit us in Bur Dubai</T>
+              </h3>
               <address className="leading-relaxed not-italic">
                 {site.addressLines.map((line, i) => (
                   <span key={line}>
                     {i > 0 && <br />}
-                    {line}
+                    <T>{line}</T>
                   </span>
                 ))}
               </address>
               <p>
                 <a href={site.phoneHref} className="hover:text-champagne">
-                  {site.phoneDisplay}
+                  <bdi dir="ltr">{site.phoneDisplay}</bdi>
                 </a>{" "}
                 ·{" "}
                 <a href={`mailto:${site.email}`} className="hover:text-champagne">
-                  {site.email}
+                  <bdi dir="ltr">{site.email}</bdi>
                 </a>
               </p>
               <div className="relative mt-2 h-56 overflow-hidden bg-olive-deep">

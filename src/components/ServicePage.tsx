@@ -21,6 +21,7 @@ import { CtaBand } from "./CtaBand";
 import { Reveal } from "./Reveal";
 import { Accordion } from "./Accordion";
 import { WhatsappIcon } from "./SocialIcons";
+import { Rich, T } from "./T";
 import { whatsappLink, whatsappMessages } from "@/content/site";
 
 // Icons for the "Related services" cards. The first six match the homepage "Our services" cards.
@@ -100,10 +101,10 @@ export function ServicePage({ page }: { page: ServicePageData }) {
         facts={page.facts}
       >
         <Link href="/contact-us/" className="btn btn-champagne">
-          Book free consultation <ArrowRight className="size-4" />
+          <T>Book free consultation</T> <ArrowRight className="size-4 rtl:-scale-x-100" />
         </Link>
         <a href={whatsappLink(wa)} target="_blank" rel="noopener noreferrer" className="btn btn-ghost-light">
-          <WhatsappIcon className="size-4" /> Chat on WhatsApp
+          <WhatsappIcon className="size-4" /> <T>Chat on WhatsApp</T>
         </a>
       </PageHero>
 
@@ -111,8 +112,8 @@ export function ServicePage({ page }: { page: ServicePageData }) {
       <section className="bg-white py-20 sm:py-24">
         <div className="container-luxe">
           <Reveal className="max-w-3xl">
-            <p className="eyebrow">Who it&apos;s for</p>
-            <h2 className="mt-5 text-3xl leading-[1.15] text-olive-deep sm:text-4xl">{page.forTitle}</h2>
+            <p className="eyebrow"><T>Who it&apos;s for</T></p>
+            <h2 className="mt-5 text-3xl leading-[1.15] text-olive-deep sm:text-4xl"><T>{page.forTitle}</T></h2>
           </Reveal>
           <div
             className={`mt-12 grid gap-6 sm:grid-cols-2 ${page.forItems.length === 4 ? "lg:grid-cols-4" : "lg:grid-cols-3"}`}
@@ -131,8 +132,8 @@ export function ServicePage({ page }: { page: ServicePageData }) {
                   </div>
                 )}
                 <div className="p-7">
-                  <h3 className="text-xl leading-snug text-olive-deep">{item.t}</h3>
-                  <p className="mt-3 text-[0.95rem] leading-relaxed text-ink-soft/85">{item.d}</p>
+                  <h3 className="text-xl leading-snug text-olive-deep"><T>{item.t}</T></h3>
+                  <p className="mt-3 text-[0.95rem] leading-relaxed text-ink-soft/85"><T>{item.d}</T></p>
                 </div>
               </Reveal>
             ))}
@@ -145,15 +146,15 @@ export function ServicePage({ page }: { page: ServicePageData }) {
         <div className="container-luxe">
           <div className={page.image ? "grid items-start gap-12 lg:grid-cols-12 lg:gap-16" : ""}>
             <Reveal className={page.image ? "min-w-0 lg:col-span-7" : "min-w-0"}>
-              <p className="eyebrow">What&apos;s included</p>
-              <h2 className="mt-5 max-w-3xl text-3xl leading-[1.15] text-olive-deep sm:text-4xl">{page.incTitle}</h2>
+              <p className="eyebrow"><T>What&apos;s included</T></p>
+              <h2 className="mt-5 max-w-3xl text-3xl leading-[1.15] text-olive-deep sm:text-4xl"><T>{page.incTitle}</T></h2>
               <ul className={`mt-10 grid gap-x-10 gap-y-4 ${page.image ? "sm:grid-cols-2" : "sm:grid-cols-2 lg:grid-cols-3"}`}>
                 {page.included.map((item) => (
                   <li key={item} className="flex gap-3.5 text-[0.98rem] leading-snug text-ink-soft">
                     <span className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full bg-olive-deep text-champagne">
                       <Check className="size-3" strokeWidth={2.5} />
                     </span>
-                    {item}
+                    <T>{item}</T>
                   </li>
                 ))}
               </ul>
@@ -175,14 +176,14 @@ export function ServicePage({ page }: { page: ServicePageData }) {
 
           {page.compare && (
             <Reveal className="mt-16 min-w-0">
-              <h3 className="text-2xl text-olive-deep">{page.compare.title}</h3>
+              <h3 className="text-2xl text-olive-deep"><T>{page.compare.title}</T></h3>
               <div className="mt-6 overflow-x-auto border border-olive-deep/10 bg-white">
-                <table className="w-full min-w-[44rem] border-collapse text-left text-[0.95rem]">
+                <table className="w-full min-w-[44rem] border-collapse text-start text-[0.95rem]">
                   <thead>
                     <tr className="bg-olive-deep text-ivory">
                       {page.compare.cols.map((col, i) => (
                         <th key={i} scope="col" className="px-5 py-4 text-sm font-semibold">
-                          {col}
+                          <T>{col}</T>
                         </th>
                       ))}
                     </tr>
@@ -191,11 +192,11 @@ export function ServicePage({ page }: { page: ServicePageData }) {
                     {page.compare.rows.map((row) => (
                       <tr key={row.label} className="align-top">
                         <th scope="row" className="w-40 px-5 py-4 font-semibold text-olive-deep">
-                          {row.label}
+                          <T>{row.label}</T>
                         </th>
                         {row.cells.map((cell, i) => (
                           <td key={i} className="px-5 py-4 leading-relaxed text-ink-soft/90">
-                            {cell}
+                            <T>{cell}</T>
                           </td>
                         ))}
                       </tr>
@@ -214,8 +215,8 @@ export function ServicePage({ page }: { page: ServicePageData }) {
       <section className="bg-white py-20 sm:py-24">
         <div className="container-luxe">
           <Reveal className="max-w-3xl">
-            <p className="eyebrow">How it works</p>
-            <h2 className="mt-5 text-3xl leading-[1.15] text-olive-deep sm:text-4xl">{page.stepsTitle}</h2>
+            <p className="eyebrow"><T>How it works</T></p>
+            <h2 className="mt-5 text-3xl leading-[1.15] text-olive-deep sm:text-4xl"><T>{page.stepsTitle}</T></h2>
           </Reveal>
           <ol
             className={`mt-12 grid gap-x-8 gap-y-10 sm:grid-cols-2 ${
@@ -226,8 +227,8 @@ export function ServicePage({ page }: { page: ServicePageData }) {
               <Reveal as="li" key={step.n} delay={i * 80}>
                 <div className="-mx-3 h-full border-t-2 border-champagne px-3 pt-6 pb-7 card-lift hover:bg-ivory">
                   <span className="text-sm font-semibold tracking-[0.12em] text-champagne-deep">{step.n}</span>
-                  <h3 className="mt-3 text-xl leading-snug text-olive-deep">{step.t}</h3>
-                  <p className="mt-3 text-[0.95rem] leading-relaxed text-ink-soft/85">{step.d}</p>
+                  <h3 className="mt-3 text-xl leading-snug text-olive-deep"><T>{step.t}</T></h3>
+                  <p className="mt-3 text-[0.95rem] leading-relaxed text-ink-soft/85"><T>{step.d}</T></p>
                 </div>
               </Reveal>
             ))}
@@ -239,34 +240,34 @@ export function ServicePage({ page }: { page: ServicePageData }) {
       <section className="bg-ivory py-20 sm:py-24">
         <div className="container-luxe grid gap-6 lg:grid-cols-2">
           <Reveal className="border border-olive-deep/10 bg-white p-8 card-lift sm:p-10">
-            <h2 className="text-2xl text-olive-deep sm:text-3xl">{page.docsTitle}</h2>
-            <p className="mt-3 text-[0.95rem] leading-relaxed text-ink-soft/80">{page.docsNote}</p>
+            <h2 className="text-2xl text-olive-deep sm:text-3xl"><T>{page.docsTitle}</T></h2>
+            <p className="mt-3 text-[0.95rem] leading-relaxed text-ink-soft/80"><T>{page.docsNote}</T></p>
             <ul className="mt-7 space-y-3.5">
               {page.docs.map((doc) => (
                 <li key={doc} className="flex gap-3 text-[0.98rem] leading-snug text-ink-soft">
                   <span className="mt-[0.7em] h-px w-3 shrink-0 bg-champagne-deep" />
-                  {doc}
+                  <T>{doc}</T>
                 </li>
               ))}
             </ul>
           </Reveal>
           <Reveal delay={120} className="flex flex-col border border-transparent bg-olive-night p-8 text-ivory card-lift card-lift-dark sm:p-10">
-            <h2 className="text-2xl sm:text-3xl">Timeline &amp; cost</h2>
+            <h2 className="text-2xl sm:text-3xl"><T>Timeline &amp; cost</T></h2>
             {page.costs && page.costs.length > 0 && (
               <dl className="mt-7 divide-y divide-ivory/15 border-y border-ivory/15">
                 {page.costs.map((cost) => (
                   <div key={cost.k} className="flex flex-wrap justify-between gap-x-6 gap-y-1 py-4">
-                    <dt className="text-ivory/70">{cost.k}</dt>
-                    <dd className="font-semibold text-champagne">{cost.v}</dd>
+                    <dt className="text-ivory/70"><T>{cost.k}</T></dt>
+                    <dd className="font-semibold text-champagne"><T>{cost.v}</T></dd>
                   </div>
                 ))}
               </dl>
             )}
-            <p className="mt-6 text-[0.95rem] leading-relaxed text-ivory/75">{page.costNote}</p>
+            <p className="mt-6 text-[0.95rem] leading-relaxed text-ivory/75"><T>{page.costNote}</T></p>
             {/* mt-auto keeps the button pinned to the card bottom; pt-6 guarantees breathing room above it. */}
             <div className="mt-auto pt-6">
               <Link href="/contact-us/" className="btn btn-champagne">
-                Get an itemised quote <ArrowUpRight className="size-4" />
+                <T>Get an itemised quote</T> <ArrowUpRight className="size-4 rtl:-scale-x-100" />
               </Link>
             </div>
           </Reveal>
@@ -277,17 +278,31 @@ export function ServicePage({ page }: { page: ServicePageData }) {
       <section className="bg-olive-wash py-20 sm:py-24">
         <div className="container-luxe grid gap-12 lg:grid-cols-12 lg:gap-16">
           <Reveal className="lg:col-span-4">
-            <p className="eyebrow">FAQs</p>
-            <h2 className="mt-5 text-3xl leading-[1.15] text-olive-deep sm:text-4xl">Common questions</h2>
+            <p className="eyebrow"><T>FAQs</T></p>
+            <h2 className="mt-5 text-3xl leading-[1.15] text-olive-deep sm:text-4xl"><T>Common questions</T></h2>
             <p className="mt-5 text-[0.98rem] leading-relaxed text-ink-soft/85">
-              Can&apos;t find your answer? <Link href="/contact-us/" className="font-semibold text-olive underline decoration-champagne underline-offset-4">Ask an adviser</Link>{" "}
-              or see <Link href="/faqs/" className="font-semibold text-olive underline decoration-champagne underline-offset-4">all FAQs</Link>.
+              <Rich
+                slots={{
+                  ask: (
+                    <Link href="/contact-us/" className="font-semibold text-olive underline decoration-champagne underline-offset-4">
+                      <T>Ask an adviser</T>
+                    </Link>
+                  ),
+                  faqs: (
+                    <Link href="/faqs/" className="font-semibold text-olive underline decoration-champagne underline-offset-4">
+                      <T>all FAQs</T>
+                    </Link>
+                  ),
+                }}
+              >
+                {"Can't find your answer? {ask} or see {faqs}."}
+              </Rich>
             </p>
           </Reveal>
           <Reveal delay={120} className="min-w-0 lg:col-span-8">
             <Accordion
               name={`faq-${page.eyebrow}`}
-              items={page.faqs.map((f, i) => ({ question: f.q, answer: <p>{f.a}</p>, defaultOpen: i === 0 }))}
+              items={page.faqs.map((f, i) => ({ question: f.q, answer: <p><T>{f.a}</T></p>, defaultOpen: i === 0 }))}
             />
           </Reveal>
         </div>
@@ -298,7 +313,7 @@ export function ServicePage({ page }: { page: ServicePageData }) {
         <section className="bg-ivory py-20 sm:py-24">
           <div className="container-luxe">
             <Reveal>
-              <h2 className="text-2xl text-olive-deep">Related services</h2>
+              <h2 className="text-2xl text-olive-deep"><T>Related services</T></h2>
             </Reveal>
             <div
               className={`mt-10 grid gap-5 sm:grid-cols-2 ${
@@ -316,11 +331,11 @@ export function ServicePage({ page }: { page: ServicePageData }) {
                       <span className="flex size-10 items-center justify-center border border-olive-deep/10 text-olive transition-colors duration-500 group-hover:border-champagne group-hover:text-champagne-deep">
                         <Icon className="size-[1.15rem]" strokeWidth={1.5} aria-hidden />
                       </span>
-                      <h3 className="mt-5 text-xl leading-tight text-olive-night">{r.t}</h3>
-                      {r.d && <p className="mt-2 flex-1 text-[0.95rem] leading-relaxed text-ink-soft/85">{r.d}</p>}
+                      <h3 className="mt-5 text-xl leading-tight text-olive-night"><T>{r.t}</T></h3>
+                      {r.d && <p className="mt-2 flex-1 text-[0.95rem] leading-relaxed text-ink-soft/85"><T>{r.d}</T></p>}
                       <span className="mt-4 inline-flex items-center gap-2 text-[0.9rem] font-semibold text-champagne-deep transition-colors group-hover:text-olive-deep">
-                        Learn more
-                        <ArrowRight className="size-4 transition-transform duration-500 group-hover:translate-x-1" />
+                        <T>Learn more</T>
+                        <ArrowRight className="size-4 transition-transform duration-500 group-hover:translate-x-1 rtl:-scale-x-100 rtl:group-hover:-translate-x-1" />
                       </span>
                     </Link>
                   </Reveal>

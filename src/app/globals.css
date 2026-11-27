@@ -392,7 +392,7 @@
 /* Arabic regions (marked lang="ar" by the language switch): Arabic typeface, and no letter-spacing,
    which would break the joined letterforms. */
 [lang="ar"],
-[lang="ar"] :where(h1, h2, h3, h4, .font-display, .eyebrow, .btn) {
+[lang="ar"] :where(body, h1, h2, h3, h4, .font-display, .eyebrow, .btn) {
   font-family: var(--font-arabic), var(--font-sans);
 }
 [lang="ar"] * {
@@ -429,4 +429,17 @@
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
   }
+}
+
+/* Blog article body (.prose-luxe) in RTL: mirror the physical list indent and dash marker. */
+[dir="rtl"] .prose-luxe ul {
+  padding-inline-start: 0;
+}
+[dir="rtl"] .prose-luxe li {
+  padding-left: 0;
+  padding-right: 1.6rem;
+}
+[dir="rtl"] .prose-luxe li::before {
+  left: auto;
+  right: 0;
 }

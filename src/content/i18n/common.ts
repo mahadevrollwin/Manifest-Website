@@ -5,9 +5,10 @@ export type Lang = "en" | "ar";
  * Anything missing here falls back to the English text, so pages that are not
  * translated yet keep working. Add new entries here to extend Arabic coverage.
  */
-export const ar: Record<string, string> = {
+export const commonAr: Record<string, string> = {
   // Language switch
   Language: "اللغة",
+  "Skip to content": "انتقل إلى المحتوى",
 
   // Header: utility bar and actions
   Contact: "اتصل بنا",
@@ -72,4 +73,54 @@ export const ar: Record<string, string> = {
   "Licence, visas, PRO & banking under one roof": "الرخصة والتأشيرات وخدمات PRO والبنوك تحت سقف واحد",
   "Clear quote before you commit": "عرض سعر واضح قبل أن تلتزم",
   "Office in Bur Dubai, meet us in person": "مكتبنا في بر دبي، يسعدنا لقاؤك شخصيًا",
+
+  // Shared: breadcrumbs, CTA band, carousels, floating button
+  Home: "الرئيسية",
+  "Chat with us": "تحدث معنا",
+  "navigation": "التنقل",
+  "Show package {n} of {total}": "عرض الباقة {n} من {total}",
+  "Tell us what you plan to do. An adviser will reply within one working day with the options and costs that fit.":
+    "أخبرنا بما تخطط له. سيردّ عليك مستشار خلال يوم عمل واحد بالخيارات والتكاليف المناسبة.",
+  "Get my free setup plan": "احصل على خطة التأسيس المجانية",
+
+  // Shared: FAQ panel
+  "FAQ topics": "مواضيع الأسئلة الشائعة",
+  "Still have a question?": "هل لديك سؤال آخر؟",
+  "An adviser will reply within one working day.": "سيردّ عليك مستشار خلال يوم عمل واحد.",
+  "Ask an adviser": "اسأل مستشارًا",
+
+  // Shared: consultation form
+  "Thank you — we'll be in touch shortly.": "شكرًا لك — سنتواصل معك قريبًا.",
+  "Your request has been prepared in WhatsApp. If it didn't open, email us at {email} or call {phone}.":
+    "تم تجهيز طلبك على واتساب. إذا لم يفتح، راسلنا على {email} أو اتصل على {phone}.",
+  "Send another request": "إرسال طلب آخر",
+  "Full name": "الاسم الكامل",
+  "Your name": "اسمك",
+  Email: "البريد الإلكتروني",
+  "Phone / WhatsApp": "الهاتف / واتساب",
+  "Country of residence (optional)": "بلد الإقامة (اختياري)",
+  "e.g. India": "مثال: الهند",
+  "I'm interested in *": "أنا مهتم بـ *",
+  "Select a service": "اختر خدمة",
+  "Dubai Mainland Setup": "تأسيس شركة في البر الرئيسي بدبي",
+  "Dubai Free Zone Setup": "تأسيس شركة في منطقة حرة بدبي",
+  "Banking Assistance": "المساعدة في الخدمات المصرفية",
+  "Attestation & Translation": "التصديق والترجمة",
+  Other: "أخرى",
+  "How can we help?": "كيف يمكننا مساعدتك؟",
+  "Tell us about your business (optional)": "حدثنا عن عملك (اختياري)",
+  "Tell us about your business goals in the UAE…": "حدثنا عن أهدافك التجارية في الإمارات…",
+  "I agree to Manifest contacting me about my enquiry.": "أوافق على تواصل مانيفست معي بخصوص استفساري.",
+  "Confidential · No obligation · Reply within one working day": "سرّي · دون التزام · رد خلال يوم عمل واحد",
+  "Confidential · No obligation · Dubai-based experts": "سرّي · دون التزام · خبراء مقيمون في دبي",
+  "Request consultation": "اطلب استشارة",
+
+  // 404
+  "Error 404": "خطأ 404",
+  "This page has": "هذه الصفحة",
+  "moved on": "انتقلت إلى مكان آخر",
+  "The page you're looking for doesn't exist. Let's get you back to building your business in Dubai.":
+    "الصفحة التي تبحث عنها غير موجودة. دعنا نعيدك إلى بناء عملك في دبي.",
+  "Back to home": "العودة إلى الرئيسية",
+  "Contact Us": "اتصل بنا",
 };

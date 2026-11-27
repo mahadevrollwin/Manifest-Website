@@ -4,6 +4,7 @@ import { User } from "lucide-react";
 import { PageHero } from "@/components/PageHero";
 import { CtaBand } from "@/components/CtaBand";
 import { Reveal } from "@/components/Reveal";
+import { Rich, T } from "@/components/T";
 
 export const metadata: Metadata = {
   title: { absolute: "Dubai Business Setup Experts Company Formation & Consulting" },
@@ -77,17 +78,19 @@ export default function AboutPage() {
       <section className="bg-ivory py-20 sm:py-28">
         <div className="container-luxe grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
           <Reveal>
-            <p className="eyebrow">Our story</p>
+            <p className="eyebrow"><T>Our story</T></p>
             <h2 className="mt-5 text-3xl leading-[1.12] text-olive-deep sm:text-4xl lg:text-[2.5rem]">
-              Built in Bur Dubai for founders from everywhere
+              <T>Built in Bur Dubai for founders from everywhere</T>
             </h2>
             <p className="mt-6 text-[1.05rem] leading-[1.7] text-ink-soft">
-              Today our team helps entrepreneurs, freelancers and international companies choose the right structure,
-              get licensed and stay compliant, from our office in Fahidi Heights, Bur Dubai.
+              <T>
+                Today our team helps entrepreneurs, freelancers and international companies choose the right structure, get licensed and stay compliant, from our office in Fahidi Heights, Bur Dubai.
+              </T>
             </p>
             <p className="mt-4 text-[1.05rem] leading-[1.7] text-ink-soft">
-              We work with the authorities every day, so we know what each process really needs, and we tell you
-              upfront.
+              <T>
+                We work with the authorities every day, so we know what each process really needs, and we tell you upfront.
+              </T>
             </p>
           </Reveal>
           <Reveal delay={120}>
@@ -108,8 +111,8 @@ export default function AboutPage() {
         <div className="container-luxe">
           <dl className="grid grid-cols-2 gap-x-6 gap-y-10 lg:grid-cols-4">
             {stats.map((s, i) => (
-              <Reveal key={s.k} delay={i * 90} className="flex flex-col-reverse border-l border-olive-deep/25 pl-6">
-                <dt className="mt-2 text-[0.95rem] text-ink-soft">{s.k}</dt>
+              <Reveal key={s.k} delay={i * 90} className="flex flex-col-reverse border-s border-olive-deep/25 ps-6">
+                <dt className="mt-2 text-[0.95rem] text-ink-soft"><T>{s.k}</T></dt>
                 <dd className="text-4xl font-bold text-olive-deep sm:text-5xl">{s.v}</dd>
               </Reveal>
             ))}
@@ -120,9 +123,9 @@ export default function AboutPage() {
       <section className="bg-white py-20 sm:py-28">
         <div className="container-luxe">
           <Reveal className="max-w-3xl">
-            <p className="eyebrow">How we work</p>
+            <p className="eyebrow"><T>How we work</T></p>
             <h2 className="mt-5 text-3xl leading-[1.12] text-olive-deep sm:text-4xl lg:text-[2.5rem]">
-              What you can expect from us
+              <T>What you can expect from us</T>
             </h2>
           </Reveal>
           <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
@@ -130,8 +133,8 @@ export default function AboutPage() {
               <Reveal key={v.n} delay={(i % 3) * 90}>
                 <article className="h-full border border-olive-deep/10 bg-ivory p-7 card-lift">
                   <span className="text-sm font-bold text-champagne-deep">{v.n}</span>
-                  <h3 className="mt-3 text-xl leading-snug text-olive-deep">{v.t}</h3>
-                  <p className="mt-2 text-[0.95rem] leading-relaxed text-ink-soft/85">{v.d}</p>
+                  <h3 className="mt-3 text-xl leading-snug text-olive-deep"><T>{v.t}</T></h3>
+                  <p className="mt-2 text-[0.95rem] leading-relaxed text-ink-soft/85"><T>{v.d}</T></p>
                 </article>
               </Reveal>
             ))}
@@ -142,9 +145,9 @@ export default function AboutPage() {
       <section className="bg-olive-wash py-20 sm:py-28">
         <div className="container-luxe">
           <Reveal className="max-w-3xl">
-            <p className="eyebrow">Our team</p>
+            <p className="eyebrow"><T>Our team</T></p>
             <h2 className="mt-5 text-3xl leading-[1.12] text-olive-deep sm:text-4xl lg:text-[2.5rem]">
-              The people you&apos;ll work with
+              <T>The people you&apos;ll work with</T>
             </h2>
           </Reveal>
           <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
@@ -167,9 +170,13 @@ export default function AboutPage() {
                   <div className="p-5">
                     {member.name && <h3 className="text-lg leading-snug text-olive-deep">{member.name}</h3>}
                     <p className={`text-[0.95rem] text-ink-soft ${member.name ? "mt-1.5" : "font-semibold text-olive-deep"}`}>
-                      {member.role}
+                      <T>{member.role}</T>
                     </p>
-                    {member.languages && <p className="mt-1.5 text-sm text-ink-soft/70">Speaks {member.languages}</p>}
+                    {member.languages && (
+                      <p className="mt-1.5 text-sm text-ink-soft/70">
+                        <Rich slots={{ languages: member.languages }}>{"Speaks {languages}"}</Rich>
+                      </p>
+                    )}
                   </div>
                 </article>
               </Reveal>

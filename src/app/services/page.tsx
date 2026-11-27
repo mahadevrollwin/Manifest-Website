@@ -3,6 +3,7 @@ import Link from "next/link";
 import { PageHero } from "@/components/PageHero";
 import { CtaBand } from "@/components/CtaBand";
 import { Reveal } from "@/components/Reveal";
+import { T } from "@/components/T";
 import { serviceLinks as l } from "@/content/service-links";
 
 export const metadata: Metadata = {
@@ -70,10 +71,10 @@ function ServiceCards({ items, cols }: { items: { t: string; href: string; d: st
             href={s.href}
             className="card-luxe card-lift group flex w-full flex-col gap-3 p-7"
           >
-            <h3 className="text-xl leading-snug text-olive-deep">{s.t}</h3>
-            <p className="flex-1 text-[0.95rem] leading-relaxed text-ink-soft/85">{s.d}</p>
+            <h3 className="text-xl leading-snug text-olive-deep"><T>{s.t}</T></h3>
+            <p className="flex-1 text-[0.95rem] leading-relaxed text-ink-soft/85"><T>{s.d}</T></p>
             <span className="text-[0.95rem] font-semibold text-champagne-deep transition-colors group-hover:text-olive-deep">
-              Learn more →
+              <T>Learn more</T> <span aria-hidden className="inline-block rtl:-scale-x-100">→</span>
             </span>
           </Link>
         </Reveal>
@@ -97,14 +98,14 @@ export default function ServicesPage() {
       <section className="bg-ivory py-20 sm:py-24">
         <div className="container-luxe">
           <Reveal>
-            <h2 className="text-3xl text-olive-deep sm:text-[2rem]">Set up your company</h2>
-            <p className="mt-2 text-[1.05rem] text-ink-soft/85">Choose the right jurisdiction and get licensed.</p>
+            <h2 className="text-3xl text-olive-deep sm:text-[2rem]"><T>Set up your company</T></h2>
+            <p className="mt-2 text-[1.05rem] text-ink-soft/85"><T>Choose the right jurisdiction and get licensed.</T></p>
           </Reveal>
           <ServiceCards items={setup} cols="lg:grid-cols-4" />
 
           <Reveal className="mt-20">
-            <h2 className="text-3xl text-olive-deep sm:text-[2rem]">Run and grow</h2>
-            <p className="mt-2 text-[1.05rem] text-ink-soft/85">Ongoing support once your company is licensed.</p>
+            <h2 className="text-3xl text-olive-deep sm:text-[2rem]"><T>Run and grow</T></h2>
+            <p className="mt-2 text-[1.05rem] text-ink-soft/85"><T>Ongoing support once your company is licensed.</T></p>
           </Reveal>
           <ServiceCards items={run} cols="lg:grid-cols-3" />
         </div>
@@ -113,9 +114,9 @@ export default function ServicesPage() {
       <section className="bg-olive-wash py-20 sm:py-24">
         <div className="container-luxe">
           <Reveal className="max-w-3xl">
-            <p className="eyebrow">How it works</p>
+            <p className="eyebrow"><T>How it works</T></p>
             <h2 className="mt-5 text-3xl leading-[1.15] text-olive-deep sm:text-4xl">
-              From first call to trade licence in four steps
+              <T>From first call to trade licence in four steps</T>
             </h2>
           </Reveal>
           <ol className="mt-12 grid gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
@@ -123,8 +124,8 @@ export default function ServicesPage() {
               <Reveal as="li" key={s.n} delay={i * 90}>
                 <div className="-mx-3 h-full border-t-2 border-olive-deep px-3 pt-6 pb-7 card-lift hover:bg-white">
                   <span className="text-4xl font-bold text-champagne">{s.n}</span>
-                  <h3 className="mt-3 text-xl leading-snug text-olive-deep">{s.t}</h3>
-                  <p className="mt-2 text-[0.95rem] leading-relaxed text-ink-soft/85">{s.d}</p>
+                  <h3 className="mt-3 text-xl leading-snug text-olive-deep"><T>{s.t}</T></h3>
+                  <p className="mt-2 text-[0.95rem] leading-relaxed text-ink-soft/85"><T>{s.d}</T></p>
                 </div>
               </Reveal>
             ))}

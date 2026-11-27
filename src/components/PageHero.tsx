@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
+import { T } from "./T";
 
 type Crumb = { label: string; href?: string };
 
@@ -19,7 +20,7 @@ export function PageHero({ eyebrow, title, intro, image, imageAlt = "", crumbs, 
   return (
     <section className="grain relative isolate overflow-hidden bg-[#141a0f] pt-36 pb-16 text-ivory sm:pt-44 sm:pb-20">
       <Image src={image} alt={imageAlt} fill priority sizes="100vw" className="-z-20 object-cover opacity-40" />
-      <div className="absolute inset-0 -z-10 bg-gradient-to-r from-[#141a0f] via-[#141a0f]/85 to-[#141a0f]/45" />
+      <div className="absolute inset-0 -z-10 bg-gradient-to-r from-[#141a0f] via-[#141a0f]/85 to-[#141a0f]/45 rtl:bg-gradient-to-l" />
       <div className="absolute inset-0 -z-10 bg-gradient-to-t from-[#141a0f] via-transparent to-transparent" />
 
       <div className="container-luxe">
@@ -30,24 +31,24 @@ export function PageHero({ eyebrow, title, intro, image, imageAlt = "", crumbs, 
                 {i > 0 && <span aria-hidden="true">/</span>}
                 {crumb.href ? (
                   <Link href={crumb.href} className="hover:text-champagne">
-                    {crumb.label}
+                    <T>{crumb.label}</T>
                   </Link>
                 ) : (
                   <span aria-current="page" className="text-ivory/90">
-                    {crumb.label}
+                    <T>{crumb.label}</T>
                   </span>
                 )}
               </li>
             ))}
           </ol>
         </nav>
-        <p className="eyebrow eyebrow-light mt-10 animate-fade-up [animation-delay:100ms]">{eyebrow}</p>
+        <p className="eyebrow eyebrow-light mt-10 animate-fade-up [animation-delay:100ms]"><T>{eyebrow}</T></p>
         <h1 className="mt-5 max-w-4xl animate-fade-up text-4xl leading-[1.08] [animation-delay:180ms] sm:text-5xl lg:text-[3.5rem]">
-          {title}
+          <T>{title}</T>
         </h1>
         {intro && (
           <p className="mt-6 max-w-3xl animate-fade-up text-base leading-relaxed text-ivory/75 [animation-delay:260ms] sm:text-lg">
-            {intro}
+            <T>{intro}</T>
           </p>
         )}
         {children && <div className="mt-9 flex animate-fade-up flex-col gap-3 [animation-delay:340ms] sm:flex-row sm:flex-wrap">{children}</div>}
@@ -55,8 +56,8 @@ export function PageHero({ eyebrow, title, intro, image, imageAlt = "", crumbs, 
           <dl className="mt-12 grid animate-fade-up gap-6 border-t border-ivory/15 pt-8 [animation-delay:420ms] sm:grid-cols-2 lg:grid-cols-3">
             {facts.map((fact) => (
               <div key={fact.k}>
-                <dt className="text-[0.8rem] text-ivory/55">{fact.k}</dt>
-                <dd className="mt-1.5 text-lg leading-snug font-semibold text-ivory">{fact.v}</dd>
+                <dt className="text-[0.8rem] text-ivory/55"><T>{fact.k}</T></dt>
+                <dd className="mt-1.5 text-lg leading-snug font-semibold text-ivory"><T>{fact.v}</T></dd>
               </div>
             ))}
           </dl>
