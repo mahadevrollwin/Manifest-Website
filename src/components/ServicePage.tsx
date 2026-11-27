@@ -261,9 +261,12 @@ export function ServicePage({ page }: { page: ServicePageData }) {
               </dl>
             )}
             <p className="mt-6 text-[0.95rem] leading-relaxed text-ivory/75">{page.costNote}</p>
-            <Link href="/contact-us/" className="btn btn-champagne mt-auto self-start">
-              Get an itemised quote <ArrowUpRight className="size-4" />
-            </Link>
+            {/* mt-auto keeps the button pinned to the card bottom; pt-6 guarantees breathing room above it. */}
+            <div className="mt-auto pt-6">
+              <Link href="/contact-us/" className="btn btn-champagne">
+                Get an itemised quote <ArrowUpRight className="size-4" />
+              </Link>
+            </div>
           </Reveal>
         </div>
       </section>
