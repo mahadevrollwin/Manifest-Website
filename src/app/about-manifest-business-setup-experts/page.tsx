@@ -104,13 +104,13 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="bg-olive-night py-20 text-ivory sm:py-24">
+      <section className="bg-olive-mist py-20 text-olive-deep sm:py-24">
         <div className="container-luxe">
           <dl className="grid grid-cols-2 gap-x-6 gap-y-10 lg:grid-cols-4">
             {stats.map((s, i) => (
-              <Reveal key={s.k} delay={i * 90} className="flex flex-col-reverse border-l border-ivory/20 pl-6">
-                <dt className="mt-2 text-[0.95rem] text-ivory/75">{s.k}</dt>
-                <dd className="text-4xl font-bold sm:text-5xl">{s.v}</dd>
+              <Reveal key={s.k} delay={i * 90} className="flex flex-col-reverse border-l border-olive-deep/25 pl-6">
+                <dt className="mt-2 text-[0.95rem] text-ink-soft">{s.k}</dt>
+                <dd className="text-4xl font-bold text-olive-deep sm:text-5xl">{s.v}</dd>
               </Reveal>
             ))}
           </dl>
