@@ -207,7 +207,8 @@ export default function HomePage() {
         <div className="container-luxe relative flex flex-1 flex-col justify-center pt-36 pb-20">
           <p className="eyebrow eyebrow-light animate-fade-up">Business setup in Dubai</p>
           <h1 className="mt-6 max-w-3xl animate-fade-up text-[clamp(2.4rem,6vw,4rem)] leading-[1.05] [animation-delay:150ms]">
-            Your Dubai company, set up properly from day one
+            Your Dubai company, <br />
+            set up properly from day one
           </h1>
           <p className="mt-7 max-w-xl animate-fade-up text-lg leading-relaxed text-ivory/85 [animation-delay:300ms] sm:text-xl">
             Mainland, free zone or offshore. We help you choose the right licence, then handle the paperwork, visas and
