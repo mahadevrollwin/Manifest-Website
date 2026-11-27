@@ -484,25 +484,27 @@ export default function HomePage() {
           </div>
           <ul className="mt-12 grid gap-6 md:grid-cols-3">
             {testimonials.map((t, i) => (
-              <Reveal
-                as="li"
-                key={i}
-                delay={i * 100}
-                className="flex flex-col bg-white p-7 shadow-[0_1px_2px_rgba(42,50,31,0.06),0_12px_32px_-16px_rgba(42,50,31,0.18)] sm:p-8"
-              >
-                <div className="flex gap-0.5 text-champagne-deep" role="img" aria-label={`${t.rating} out of 5 stars`}>
-                  {Array.from({ length: t.rating }).map((_, s) => (
-                    <Star key={s} className="size-4 fill-current" aria-hidden />
-                  ))}
-                </div>
-                <blockquote className="mt-5 flex-1 text-[1.05rem] leading-relaxed font-medium text-olive-night">
-                  <span className="rounded-sm bg-champagne-light/50 px-1.5 py-0.5 [box-decoration-break:clone]">
-                    {t.quote}
-                  </span>
-                </blockquote>
-                <div className="mt-6 border-t border-olive-deep/10 pt-4">
-                  <p className="text-sm font-bold text-olive-night">{t.name}</p>
-                  <p className="mt-0.5 text-sm text-ink-soft/80">{t.detail}</p>
+              <Reveal as="li" key={i} delay={i * 100}>
+                {/* The lift lives on an inner wrapper so it never fights Reveal's own transform. */}
+                <div className="group flex h-full flex-col border border-transparent bg-white p-7 shadow-[0_1px_2px_rgba(42,50,31,0.06),0_12px_32px_-16px_rgba(42,50,31,0.18)] transition-[translate,border-color,box-shadow] duration-500 ease-out hover:-translate-y-1.5 hover:border-champagne hover:shadow-[0_2px_4px_rgba(42,50,31,0.06),0_24px_40px_-16px_rgba(42,50,31,0.3)] motion-reduce:transition-none motion-reduce:hover:translate-y-0 sm:p-8">
+                  <div
+                    className="flex gap-0.5 text-champagne-deep transition-colors duration-500 group-hover:text-champagne"
+                    role="img"
+                    aria-label={`${t.rating} out of 5 stars`}
+                  >
+                    {Array.from({ length: t.rating }).map((_, s) => (
+                      <Star key={s} className="size-4 fill-current" aria-hidden />
+                    ))}
+                  </div>
+                  <blockquote className="mt-5 flex-1 text-[1.05rem] leading-relaxed font-medium text-olive-night">
+                    <span className="rounded-sm bg-champagne-light/50 px-1.5 py-0.5 transition-colors duration-500 [box-decoration-break:clone] group-hover:bg-champagne-light/80">
+                      {t.quote}
+                    </span>
+                  </blockquote>
+                  <div className="mt-6 border-t border-olive-deep/10 pt-4">
+                    <p className="text-sm font-bold text-olive-night">{t.name}</p>
+                    <p className="mt-0.5 text-sm text-ink-soft/80">{t.detail}</p>
+                  </div>
                 </div>
               </Reveal>
             ))}
