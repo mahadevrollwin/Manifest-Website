@@ -29,8 +29,8 @@ export function FormationPackages() {
               className="flex w-[82%] shrink-0 snap-center max-sm:transform-none! max-sm:opacity-100! sm:w-auto"
             >
               <article
-                className={`relative flex w-full flex-col border bg-white px-6 pt-9 pb-6 shadow-[0_1px_2px_rgba(42,50,31,0.05)] transition-[translate,border-color,box-shadow] duration-500 ease-out hover:-translate-y-1.5 hover:shadow-[0_2px_4px_rgba(42,50,31,0.05),0_22px_36px_-16px_rgba(42,50,31,0.28)] motion-reduce:transition-none motion-reduce:hover:translate-y-0 sm:px-7 ${
-                  pkg.badge ? "border-champagne" : "border-olive-deep/10 hover:border-champagne"
+                className={`relative flex w-full flex-col border bg-white px-6 pt-9 pb-6 shadow-[0_1px_2px_rgba(42,50,31,0.05)] card-lift sm:px-7 ${
+                  pkg.badge ? "border-champagne" : "border-olive-deep/10"
                 }`}
               >
                 {pkg.badge && (

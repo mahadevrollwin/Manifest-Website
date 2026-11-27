@@ -78,7 +78,7 @@ export function BlogArticle({ slug }: { slug: string }) {
         <div className="container-luxe grid max-w-6xl gap-16 lg:grid-cols-[1fr_20rem]">
           <article className="prose-luxe" dangerouslySetInnerHTML={{ __html: post.html }} />
           <aside className="space-y-8 lg:sticky lg:top-28 lg:self-start">
-            <div className="bg-olive-deep p-8 text-ivory">
+            <div className="border border-transparent bg-olive-deep p-8 text-ivory card-lift card-lift-dark">
               <p className="eyebrow eyebrow-light">Free consultation</p>
               <p className="mt-4 font-display text-3xl leading-tight">Planning your Dubai business setup?</p>
               <p className="mt-3 text-sm leading-relaxed text-ivory/70">

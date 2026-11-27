@@ -24,7 +24,7 @@ export function AuthoritiesStrip() {
               as="li"
               key={a.alt}
               delay={i * 90}
-              className="group flex h-28 items-center justify-center border border-olive-deep/10 bg-white px-5 py-4 shadow-[0_1px_2px_rgba(42,50,31,0.05),0_14px_30px_-18px_rgba(42,50,31,0.2)] transition-colors hover:border-champagne sm:h-32 sm:px-6"
+              className="group flex h-28 items-center justify-center border border-olive-deep/10 bg-white px-5 py-4 shadow-[0_1px_2px_rgba(42,50,31,0.05),0_14px_30px_-18px_rgba(42,50,31,0.2)] card-lift sm:h-32 sm:px-6"
             >
               <Image
                 src={a.src}

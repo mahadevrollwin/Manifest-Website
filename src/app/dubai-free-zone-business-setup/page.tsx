@@ -57,7 +57,7 @@ const media = (
             <Reveal
               key={s.short}
               delay={i * 90}
-              className="overflow-hidden border border-olive-deep/10 bg-ivory"
+              className="overflow-hidden border border-olive-deep/10 bg-ivory card-lift"
             >
               <div className="relative aspect-[4/3] overflow-hidden">
                 <Image
@@ -89,7 +89,7 @@ const media = (
             {freeZones.map((z) => (
               <li
                 key={z.short}
-                className="border border-olive-deep/10 bg-ivory px-5 py-4"
+                className="border border-olive-deep/10 bg-ivory px-5 py-4 card-lift"
               >
                 <span className="block font-semibold text-olive-deep">
                   {z.short}

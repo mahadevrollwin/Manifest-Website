@@ -57,7 +57,7 @@ export function BlogList({ posts }: { posts: BlogCard[] }) {
       {featured && (
         <Link
           href={featured.href}
-          className="group grid overflow-hidden border border-olive-deep/10 bg-white lg:grid-cols-2"
+          className="group grid overflow-hidden border border-olive-deep/10 bg-white card-lift lg:grid-cols-2"
         >
           <div className="relative aspect-[16/10] overflow-hidden lg:aspect-auto lg:min-h-80">
             <Image
@@ -90,7 +90,7 @@ export function BlogList({ posts }: { posts: BlogCard[] }) {
             <Link
               key={post.slug}
               href={post.href}
-              className="group flex flex-col overflow-hidden border border-olive-deep/10 bg-white"
+              className="group flex flex-col overflow-hidden border border-olive-deep/10 bg-white card-lift"
             >
               <div className="relative aspect-[16/9] overflow-hidden">
                 <Image

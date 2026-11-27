@@ -60,7 +60,7 @@ export default function ContactPage() {
           </Reveal>
 
           <div className="flex min-w-0 flex-col gap-6 lg:col-span-5">
-            <Reveal delay={100} className="flex flex-col gap-5 bg-olive-night p-7 text-ivory sm:p-8">
+            <Reveal delay={100} className="flex flex-col gap-5 border border-transparent bg-olive-night p-7 text-ivory card-lift card-lift-dark sm:p-8">
               <h2 className="text-xl sm:text-[1.4rem]">Reach us directly</h2>
               <a
                 href={whatsappLink(whatsappMessages.general)}
@@ -84,7 +84,7 @@ export default function ContactPage() {
               </p>
             </Reveal>
 
-            <Reveal delay={180} className="border border-olive-deep/10 bg-white p-7 sm:p-8">
+            <Reveal delay={180} className="border border-olive-deep/10 bg-white p-7 card-lift sm:p-8">
               <h2 className="text-xl text-olive-deep sm:text-[1.4rem]">Visit our office</h2>
               <address className="mt-4 text-[0.98rem] leading-relaxed text-ink-soft not-italic">
                 {site.addressLines.map((line, i) => (
@@ -123,10 +123,12 @@ export default function ContactPage() {
           </Reveal>
           <ol className="mt-10 grid gap-x-8 gap-y-10 md:grid-cols-3">
             {steps.map((s, i) => (
-              <Reveal as="li" key={s.n} delay={i * 90} className="border-t-2 border-olive-deep pt-5">
-                <span className="text-3xl font-bold text-champagne">{s.n}</span>
-                <h3 className="mt-3 text-xl text-olive-deep">{s.t}</h3>
-                <p className="mt-2 text-[0.95rem] leading-relaxed text-ink-soft/85">{s.d}</p>
+              <Reveal as="li" key={s.n} delay={i * 90}>
+                <div className="-mx-3 h-full border-t-2 border-olive-deep px-3 pt-5 pb-6 card-lift hover:bg-white">
+                  <span className="text-3xl font-bold text-champagne">{s.n}</span>
+                  <h3 className="mt-3 text-xl text-olive-deep">{s.t}</h3>
+                  <p className="mt-2 text-[0.95rem] leading-relaxed text-ink-soft/85">{s.d}</p>
+                </div>
               </Reveal>
             ))}
           </ol>

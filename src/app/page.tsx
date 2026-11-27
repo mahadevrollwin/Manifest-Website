@@ -324,7 +324,7 @@ export default function HomePage() {
                 <Reveal key={service.key} delay={(i % 3) * 100} className="h-full">
                   <Link
                     href={service.href}
-                    className="group relative flex h-full flex-col border border-olive-deep/10 bg-white p-8 transition-colors duration-500 ease-luxe hover:border-champagne hover:shadow-[0_30px_60px_-35px_rgba(42,50,31,0.4)]"
+                    className="group relative flex h-full flex-col border border-olive-deep/10 bg-white p-8 card-lift"
                   >
                     <div className="flex items-start justify-between">
                       <span className="flex size-12 items-center justify-center border border-olive-deep/10 text-olive transition-colors duration-500 group-hover:border-champagne group-hover:text-champagne-deep">
@@ -359,7 +359,7 @@ export default function HomePage() {
             {steps.map((step, i) => (
               <Reveal as="li" key={step.title} delay={i * 100}>
                 {/* The lift lives on an inner wrapper so it never fights Reveal's own transform. */}
-                <div className="group -mx-3 h-full border-t-2 border-olive-deep px-3 pt-6 pb-7 transition-[translate,border-color,box-shadow,background-color] duration-500 ease-out hover:-translate-y-1 hover:border-champagne hover:bg-white hover:shadow-[0_2px_4px_rgba(42,50,31,0.05),0_18px_32px_-14px_rgba(42,50,31,0.25)] motion-reduce:transition-none motion-reduce:hover:translate-y-0">
+                <div className="group -mx-3 h-full border-t-2 border-olive-deep px-3 pt-6 pb-7 card-lift hover:bg-white">
                   <span className="block text-[2.5rem] leading-none font-bold text-champagne transition-colors duration-500 group-hover:text-champagne-deep">
                     {String(i + 1).padStart(2, "0")}
                   </span>
@@ -391,7 +391,7 @@ export default function HomePage() {
           <div className="mt-14 grid gap-5 lg:grid-cols-3">
             {zones.map((zone, i) => (
               <Reveal key={zone.title} delay={i * 100} className="h-full">
-                <article className="group flex h-full flex-col gap-4 border border-ivory/5 bg-olive-deep p-8 transition-[translate,border-color,box-shadow,background-color] duration-500 ease-out hover:-translate-y-1.5 hover:border-champagne/60 hover:bg-[#313a24] hover:shadow-[0_2px_4px_rgba(0,0,0,0.2),0_24px_40px_-16px_rgba(0,0,0,0.6)] motion-reduce:transition-none motion-reduce:hover:translate-y-0">
+                <article className="group flex h-full flex-col gap-4 border border-ivory/5 bg-olive-deep p-8 card-lift card-lift-dark hover:bg-[#313a24]">
                   <h3 className="text-2xl text-ivory transition-colors duration-500 group-hover:text-champagne-light">{zone.title}</h3>
                   <p className="flex-1 text-base leading-relaxed">{zone.text}</p>
                   <p className="text-sm text-champagne">
@@ -493,7 +493,7 @@ export default function HomePage() {
             {testimonials.map((t, i) => (
               <Reveal as="li" key={i} delay={i * 100}>
                 {/* The lift lives on an inner wrapper so it never fights Reveal's own transform. */}
-                <div className="group flex h-full flex-col border border-transparent bg-white p-7 shadow-[0_1px_2px_rgba(42,50,31,0.06),0_12px_32px_-16px_rgba(42,50,31,0.18)] transition-[translate,border-color,box-shadow] duration-500 ease-out hover:-translate-y-1.5 hover:border-champagne hover:shadow-[0_2px_4px_rgba(42,50,31,0.06),0_24px_40px_-16px_rgba(42,50,31,0.3)] motion-reduce:transition-none motion-reduce:hover:translate-y-0 sm:p-8">
+                <div className="group flex h-full flex-col border border-transparent bg-white p-7 shadow-[0_1px_2px_rgba(42,50,31,0.06),0_12px_32px_-16px_rgba(42,50,31,0.18)] card-lift sm:p-8">
                   <div
                     className="flex gap-0.5 text-champagne-deep transition-colors duration-500 group-hover:text-champagne"
                     role="img"
@@ -532,7 +532,7 @@ export default function HomePage() {
           <ul className="mx-auto mt-10 grid max-w-4xl grid-cols-2 gap-5 sm:grid-cols-4 sm:gap-6">
             {authorities.map((a, i) => (
               <Reveal as="li" key={a.name} delay={i * 90} className="group flex flex-col items-center gap-4">
-                <span className="flex h-24 w-full items-center justify-center border border-olive-deep/10 bg-white px-5 py-4 shadow-[0_1px_2px_rgba(42,50,31,0.04)] transition-[translate,border-color,box-shadow] duration-500 ease-out group-hover:-translate-y-1.5 group-hover:border-champagne group-hover:shadow-[0_2px_4px_rgba(42,50,31,0.05),0_18px_32px_-14px_rgba(42,50,31,0.28)] motion-reduce:transition-none motion-reduce:group-hover:translate-y-0 sm:h-28">
+                <span className="flex h-24 w-full items-center justify-center border border-olive-deep/10 bg-white px-5 py-4 shadow-[0_1px_2px_rgba(42,50,31,0.04)] card-lift card-lift-g sm:h-28">
                   <Image
                     src={a.src}
                     alt=""

@@ -31,7 +31,7 @@ const media = (
             as="li"
             key={bank.name}
             delay={i * 90}
-            className="flex h-28 items-center justify-center border border-olive-deep/10 bg-white px-6 py-5 shadow-[0_1px_2px_rgba(42,50,31,0.05),0_14px_30px_-18px_rgba(42,50,31,0.22)] transition-colors hover:border-champagne sm:h-32 sm:px-8"
+            className="flex h-28 items-center justify-center border border-olive-deep/10 bg-white px-6 py-5 shadow-[0_1px_2px_rgba(42,50,31,0.05),0_14px_30px_-18px_rgba(42,50,31,0.22)] card-lift sm:h-32 sm:px-8"
           >
             <Image
               src={bank.src}

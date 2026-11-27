@@ -31,7 +31,7 @@ export function LatestInsights() {
             <Reveal as="li" key={post.slug} delay={i * 100} className="flex">
               <Link
                 href={postPath(post)}
-                className="group flex w-full flex-col overflow-hidden border border-olive-deep/10 bg-white shadow-[0_1px_2px_rgba(42,50,31,0.05)] transition-[translate,border-color,box-shadow] duration-500 ease-out hover:-translate-y-1.5 hover:border-champagne hover:shadow-[0_2px_4px_rgba(42,50,31,0.05),0_22px_36px_-16px_rgba(42,50,31,0.28)] motion-reduce:transition-none motion-reduce:hover:translate-y-0"
+                className="group flex w-full flex-col overflow-hidden border border-olive-deep/10 bg-white shadow-[0_1px_2px_rgba(42,50,31,0.05)] card-lift"
               >
                 <span className="relative block aspect-[16/10] overflow-hidden">
                   <Image

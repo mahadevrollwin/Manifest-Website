@@ -118,7 +118,7 @@ export function ServicePage({ page }: { page: ServicePageData }) {
             className={`mt-12 grid gap-6 sm:grid-cols-2 ${page.forItems.length === 4 ? "lg:grid-cols-4" : "lg:grid-cols-3"}`}
           >
             {page.forItems.map((item, i) => (
-              <Reveal key={item.t} delay={(i % 4) * 90} className="flex flex-col overflow-hidden border border-olive-deep/10 bg-ivory">
+              <Reveal key={item.t} delay={(i % 4) * 90} className="flex flex-col overflow-hidden border border-olive-deep/10 bg-ivory card-lift">
                 {item.image && (
                   <div className="relative aspect-[4/3] overflow-hidden">
                     <Image
@@ -223,10 +223,12 @@ export function ServicePage({ page }: { page: ServicePageData }) {
             }`}
           >
             {page.steps.map((step, i) => (
-              <Reveal as="li" key={step.n} delay={i * 80} className="border-t-2 border-champagne pt-6">
-                <span className="text-sm font-semibold tracking-[0.12em] text-champagne-deep">{step.n}</span>
-                <h3 className="mt-3 text-xl leading-snug text-olive-deep">{step.t}</h3>
-                <p className="mt-3 text-[0.95rem] leading-relaxed text-ink-soft/85">{step.d}</p>
+              <Reveal as="li" key={step.n} delay={i * 80}>
+                <div className="-mx-3 h-full border-t-2 border-champagne px-3 pt-6 pb-7 card-lift hover:bg-ivory">
+                  <span className="text-sm font-semibold tracking-[0.12em] text-champagne-deep">{step.n}</span>
+                  <h3 className="mt-3 text-xl leading-snug text-olive-deep">{step.t}</h3>
+                  <p className="mt-3 text-[0.95rem] leading-relaxed text-ink-soft/85">{step.d}</p>
+                </div>
               </Reveal>
             ))}
           </ol>
@@ -236,7 +238,7 @@ export function ServicePage({ page }: { page: ServicePageData }) {
       {/* Documents + cost */}
       <section className="bg-ivory py-20 sm:py-24">
         <div className="container-luxe grid gap-6 lg:grid-cols-2">
-          <Reveal className="border border-olive-deep/10 bg-white p-8 sm:p-10">
+          <Reveal className="border border-olive-deep/10 bg-white p-8 card-lift sm:p-10">
             <h2 className="text-2xl text-olive-deep sm:text-3xl">{page.docsTitle}</h2>
             <p className="mt-3 text-[0.95rem] leading-relaxed text-ink-soft/80">{page.docsNote}</p>
             <ul className="mt-7 space-y-3.5">
@@ -248,7 +250,7 @@ export function ServicePage({ page }: { page: ServicePageData }) {
               ))}
             </ul>
           </Reveal>
-          <Reveal delay={120} className="flex flex-col bg-olive-night p-8 text-ivory sm:p-10">
+          <Reveal delay={120} className="flex flex-col border border-transparent bg-olive-night p-8 text-ivory card-lift card-lift-dark sm:p-10">
             <h2 className="text-2xl sm:text-3xl">Timeline &amp; cost</h2>
             {page.costs && page.costs.length > 0 && (
               <dl className="mt-7 divide-y divide-ivory/15 border-y border-ivory/15">
@@ -309,7 +311,7 @@ export function ServicePage({ page }: { page: ServicePageData }) {
                   <Reveal key={r.href} delay={i * 80} className="h-full">
                     <Link
                       href={r.href}
-                      className="group relative flex h-full flex-col border border-olive-deep/10 bg-white p-6 transition-colors duration-500 ease-luxe hover:border-champagne hover:shadow-[0_24px_48px_-30px_rgba(42,50,31,0.4)]"
+                      className="group relative flex h-full flex-col border border-olive-deep/10 bg-white p-6 card-lift"
                     >
                       <span className="flex size-10 items-center justify-center border border-olive-deep/10 text-olive transition-colors duration-500 group-hover:border-champagne group-hover:text-champagne-deep">
                         <Icon className="size-[1.15rem]" strokeWidth={1.5} aria-hidden />

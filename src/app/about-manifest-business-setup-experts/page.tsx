@@ -128,7 +128,7 @@ export default function AboutPage() {
           <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
             {values.map((v, i) => (
               <Reveal key={v.n} delay={(i % 3) * 90}>
-                <article className="h-full border border-olive-deep/10 bg-ivory p-7">
+                <article className="h-full border border-olive-deep/10 bg-ivory p-7 card-lift">
                   <span className="text-sm font-bold text-champagne-deep">{v.n}</span>
                   <h3 className="mt-3 text-xl leading-snug text-olive-deep">{v.t}</h3>
                   <p className="mt-2 text-[0.95rem] leading-relaxed text-ink-soft/85">{v.d}</p>
@@ -150,7 +150,7 @@ export default function AboutPage() {
           <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {team.map((member, i) => (
               <Reveal key={member.role} delay={(i % 4) * 90}>
-                <article className="h-full overflow-hidden bg-white">
+                <article className="h-full overflow-hidden border border-transparent bg-white card-lift">
                   <div className="relative aspect-square bg-[#dcddd2]">
                     {member.photo ? (
                       <Image

@@ -68,7 +68,7 @@ function ServiceCards({ items, cols }: { items: { t: string; href: string; d: st
         <Reveal key={s.href} delay={(i % 3) * 90} className="flex">
           <Link
             href={s.href}
-            className="card-luxe group flex w-full flex-col gap-3 p-7"
+            className="card-luxe card-lift group flex w-full flex-col gap-3 p-7"
           >
             <h3 className="text-xl leading-snug text-olive-deep">{s.t}</h3>
             <p className="flex-1 text-[0.95rem] leading-relaxed text-ink-soft/85">{s.d}</p>
@@ -120,10 +120,12 @@ export default function ServicesPage() {
           </Reveal>
           <ol className="mt-12 grid gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
             {steps.map((s, i) => (
-              <Reveal as="li" key={s.n} delay={i * 90} className="border-t-2 border-olive-deep pt-6">
-                <span className="text-4xl font-bold text-champagne">{s.n}</span>
-                <h3 className="mt-3 text-xl leading-snug text-olive-deep">{s.t}</h3>
-                <p className="mt-2 text-[0.95rem] leading-relaxed text-ink-soft/85">{s.d}</p>
+              <Reveal as="li" key={s.n} delay={i * 90}>
+                <div className="-mx-3 h-full border-t-2 border-olive-deep px-3 pt-6 pb-7 card-lift hover:bg-white">
+                  <span className="text-4xl font-bold text-champagne">{s.n}</span>
+                  <h3 className="mt-3 text-xl leading-snug text-olive-deep">{s.t}</h3>
+                  <p className="mt-2 text-[0.95rem] leading-relaxed text-ink-soft/85">{s.d}</p>
+                </div>
               </Reveal>
             ))}
           </ol>
