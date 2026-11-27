@@ -451,14 +451,23 @@ export default function HomePage() {
                 as="li"
                 key={item.title}
                 delay={i * 80}
-                className="flex gap-6 border-b border-olive-deep/15 py-6 first:pt-0"
+                className="border-b border-olive-deep/15 py-6 first:pt-0"
               >
-                <span className="min-w-8 text-[0.95rem] font-bold text-champagne-deep">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-                <div>
-                  <h3 className="text-xl text-olive-night">{item.title}</h3>
-                  <p className="mt-1.5 text-base leading-relaxed text-ink-soft/85">{item.text}</p>
+                {/* The nudge lives on an inner wrapper so it never fights Reveal's own transform. */}
+                <div className="group relative flex gap-6 transition-transform duration-500 ease-out hover:translate-x-2 motion-reduce:transition-none motion-reduce:hover:translate-x-0">
+                  <span
+                    aria-hidden
+                    className="absolute -left-4 inset-y-0 w-0.5 origin-top scale-y-0 bg-champagne transition-transform duration-500 ease-out group-hover:scale-y-100 motion-reduce:transition-none"
+                  />
+                  <span className="min-w-8 text-[0.95rem] font-bold text-champagne-deep transition-colors duration-500 group-hover:text-olive">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <div>
+                    <h3 className="text-xl text-olive-night transition-colors duration-500 group-hover:text-olive-rich">
+                      {item.title}
+                    </h3>
+                    <p className="mt-1.5 text-base leading-relaxed text-ink-soft/85">{item.text}</p>
+                  </div>
                 </div>
               </Reveal>
             ))}
