@@ -312,17 +312,10 @@ export default function HomePage() {
       {/* Services */}
       <section className="bg-olive-wash py-24 sm:py-28">
         <div className="container-luxe">
-          <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
-            <SectionHeading
-              eyebrow="Our services"
-              title="Everything you need to start and run a company in Dubai"
-            />
-            <Reveal>
-              <Link href="/services/" className="btn btn-olive">
-                View all services
-              </Link>
-            </Reveal>
-          </div>
+          <SectionHeading
+            eyebrow="Our services"
+            title="Everything you need to start and run a company in Dubai"
+          />
 
           <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {coreServices.map((service, i) => {
@@ -350,6 +343,11 @@ export default function HomePage() {
               );
             })}
           </div>
+          <Reveal className="mt-14 flex justify-center">
+            <Link href="/services/" className="btn btn-olive">
+              View all services
+            </Link>
+          </Reveal>
         </div>
       </section>
 
@@ -371,7 +369,7 @@ export default function HomePage() {
               </Reveal>
             ))}
           </ol>
-          <Reveal className="mt-14">
+          <Reveal className="mt-14 flex justify-center">
             <Link href="#form" className="btn btn-olive">
               Book free consultation <ArrowRight className="size-4" />
             </Link>
