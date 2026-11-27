@@ -393,8 +393,8 @@ export default function HomePage() {
           <div className="mt-14 grid gap-5 lg:grid-cols-3">
             {zones.map((zone, i) => (
               <Reveal key={zone.title} delay={i * 100} className="h-full">
-                <article className="flex h-full flex-col gap-4 bg-olive-deep p-8">
-                  <h3 className="text-2xl text-ivory">{zone.title}</h3>
+                <article className="group flex h-full flex-col gap-4 border border-ivory/5 bg-olive-deep p-8 transition-[translate,border-color,box-shadow,background-color] duration-500 ease-out hover:-translate-y-1.5 hover:border-champagne/60 hover:bg-[#313a24] hover:shadow-[0_2px_4px_rgba(0,0,0,0.2),0_24px_40px_-16px_rgba(0,0,0,0.6)] motion-reduce:transition-none motion-reduce:hover:translate-y-0">
+                  <h3 className="text-2xl text-ivory transition-colors duration-500 group-hover:text-champagne-light">{zone.title}</h3>
                   <p className="flex-1 text-base leading-relaxed">{zone.text}</p>
                   <p className="text-sm text-champagne">
                     <strong className="font-semibold">Best for:</strong> {zone.bestFor}
@@ -403,7 +403,8 @@ export default function HomePage() {
                     href={zone.href}
                     className="inline-flex items-center gap-2 text-[0.95rem] font-semibold text-champagne hover:text-champagne-light"
                   >
-                    Learn more <ArrowRight className="size-4" />
+                    Learn more{" "}
+                    <ArrowRight className="size-4 transition-transform duration-500 ease-out group-hover:translate-x-1 motion-reduce:transition-none motion-reduce:group-hover:translate-x-0" />
                   </Link>
                 </article>
               </Reveal>
