@@ -1,17 +1,18 @@
 import Link from "next/link";
 import { Logo } from "./Logo";
 import { socialLinks } from "./socialLinks";
+import { LangScope, T } from "./T";
 import { footerQuickLinks, footerServiceLinks, site } from "@/content/site";
 
 export function Footer() {
   return (
     <footer className="relative overflow-hidden bg-olive-night text-ivory">
-      <div className="container-luxe relative">
+      <LangScope className="container-luxe relative">
         <div className="grid gap-12 pt-20 pb-16 sm:grid-cols-2 lg:grid-cols-12 lg:gap-8 lg:pt-24">
           <div className="lg:col-span-4">
             <Logo className="h-12" />
             <p className="mt-6 max-w-xs text-[0.95rem] leading-relaxed text-ivory/75">
-              Business setup in Dubai, handled end to end.
+              <T>Business setup in Dubai, handled end to end.</T>
             </p>
           </div>
 
@@ -19,16 +20,18 @@ export function Footer() {
           <FooterColumn title="Our services" links={footerServiceLinks} className="lg:col-span-3" />
 
           <div className="lg:col-span-3">
-            <h3 className="font-sans text-sm font-semibold text-ivory">Contact</h3>
+            <h3 className="font-sans text-sm font-semibold text-ivory">
+              <T>Contact</T>
+            </h3>
             <ul className="mt-5 space-y-3 text-[0.95rem] text-ivory/75">
               <li>
                 <a href={site.phoneHref} className="hover:text-champagne">
-                  {site.phoneDisplay}
+                  <bdi dir="ltr">{site.phoneDisplay}</bdi>
                 </a>
               </li>
               <li>
                 <a href={`mailto:${site.email}`} className="hover:text-champagne">
-                  {site.email}
+                  <bdi dir="ltr">{site.email}</bdi>
                 </a>
               </li>
               <li>
@@ -36,7 +39,7 @@ export function Footer() {
                   {site.addressLines.map((line, i) => (
                     <span key={line}>
                       {i > 0 && <br />}
-                      {line}
+                      <T>{line}</T>
                     </span>
                   ))}
                 </address>
@@ -46,7 +49,9 @@ export function Footer() {
         </div>
 
         <div className="flex flex-col gap-3 border-t border-ivory/15 py-8 text-[0.8rem] text-ivory/60 sm:flex-row sm:items-center sm:justify-between">
-          <p>© 2026 {site.name}. All rights reserved.</p>
+          <p>
+            © 2026 <bdi>{site.name}</bdi>. <T>All rights reserved.</T>
+          </p>
           <ul className="flex items-center gap-3" aria-label="Social media">
             {socialLinks.map(({ label, href, Icon }) => (
               <li key={label}>
@@ -64,7 +69,7 @@ export function Footer() {
             ))}
           </ul>
         </div>
-      </div>
+      </LangScope>
     </footer>
   );
 }
@@ -80,12 +85,14 @@ function FooterColumn({
 }) {
   return (
     <div className={className}>
-      <h3 className="font-sans text-sm font-semibold text-ivory">{title}</h3>
+      <h3 className="font-sans text-sm font-semibold text-ivory">
+        <T>{title}</T>
+      </h3>
       <ul className="mt-5 space-y-3 text-[0.95rem] text-ivory/75">
         {links.map((link) => (
           <li key={link.label}>
             <Link href={link.href} className="hover:text-champagne">
-              {link.label}
+              <T>{link.label}</T>
             </Link>
           </li>
         ))}

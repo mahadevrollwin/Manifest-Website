@@ -17,6 +17,7 @@ import {
 import { HeroVideo } from "@/components/HeroVideo";
 import { Reveal } from "@/components/Reveal";
 import { SectionHeading } from "@/components/SectionHeading";
+import { LangScope, T } from "@/components/T";
 import { Counter } from "@/components/Counter";
 import { Accordion } from "@/components/Accordion";
 import { ConsultationForm } from "@/components/ConsultationForm";
@@ -197,26 +198,33 @@ export default function HomePage() {
   return (
     <>
       {/* Hero */}
-      <section className="relative isolate flex min-h-[100svh] flex-col overflow-hidden bg-olive-night text-ivory">
+      <LangScope
+        as="section"
+        className="relative isolate flex min-h-[100svh] flex-col overflow-hidden bg-olive-night text-ivory"
+      >
         <HeroVideo />
         <div className="absolute inset-0 bg-[url('/images/hero-poster.jpg')] bg-cover bg-center opacity-0 motion-reduce:opacity-100" />
         <div className="absolute inset-0 bg-olive-deep/15 mix-blend-multiply" />
-        <div className="absolute inset-0 bg-gradient-to-r from-olive-night/90 via-olive-night/55 to-olive-night/5" />
+        <div className="absolute inset-0 bg-gradient-to-r from-olive-night/90 via-olive-night/55 to-olive-night/5 rtl:bg-gradient-to-l" />
         <div className="absolute inset-0 bg-gradient-to-t from-olive-night via-olive-night/10 to-olive-night/30" />
 
         <div className="container-luxe relative flex flex-1 flex-col justify-center pt-36 pb-20">
-          <p className="eyebrow eyebrow-light animate-fade-up">Business setup in Dubai</p>
+          <p className="eyebrow eyebrow-light animate-fade-up">
+            <T>Business setup in Dubai</T>
+          </p>
           <h1 className="mt-6 max-w-3xl animate-fade-up text-[clamp(2.4rem,6vw,4rem)] leading-[1.05] [animation-delay:150ms]">
-            Your Dubai company, <br />
-            set up properly from day one
+            <T>Your Dubai company,</T> <br />
+            <T>set up properly from day one</T>
           </h1>
           <p className="mt-7 max-w-xl animate-fade-up text-lg leading-relaxed text-ivory/85 [animation-delay:300ms] sm:text-xl">
-            Mainland, free zone or offshore. We help you choose the right licence, then handle the paperwork, visas and
-            bank account so you can start trading sooner.
+            <T>
+              Mainland, free zone or offshore. We help you choose the right licence, then handle the paperwork, visas
+              and bank account so you can start trading sooner.
+            </T>
           </p>
           <div className="mt-9 flex animate-fade-up flex-wrap gap-3 [animation-delay:450ms]">
             <Link href="#form" className="btn btn-champagne">
-              Book free consultation <ArrowRight className="size-4" />
+              <T>Book free consultation</T> <ArrowRight className="size-4 rtl:-scale-x-100" />
             </Link>
             <a
               href={whatsappLink(whatsappMessages.general)}
@@ -224,19 +232,19 @@ export default function HomePage() {
               rel="noopener noreferrer"
               className="btn btn-ghost-light"
             >
-              <WhatsappIcon className="size-4" /> Chat on WhatsApp
+              <WhatsappIcon className="size-4" /> <T>Chat on WhatsApp</T>
             </a>
           </div>
           <ul className="mt-14 grid max-w-4xl animate-fade-up gap-x-8 gap-y-4 [animation-delay:600ms] sm:grid-cols-2 lg:grid-cols-4">
             {heroPoints.map((point) => (
               <li key={point} className="flex items-start gap-2.5 text-[0.95rem] leading-snug text-ivory/85">
                 <Check className="mt-0.5 size-4 shrink-0 text-champagne" strokeWidth={2.2} />
-                {point}
+                <T>{point}</T>
               </li>
             ))}
           </ul>
         </div>
-      </section>
+      </LangScope>
 
       {/* Proof strip */}
       <section className="border-b border-olive-deep/10 bg-white">

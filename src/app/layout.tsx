@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Plus_Jakarta_Sans } from "next/font/google";
+import { Noto_Sans_Arabic, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/Header";
 import { HideOnAssistant } from "@/components/HideOnAssistant";
@@ -12,6 +12,15 @@ const jakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
   display: "swap",
+});
+
+// Used for Arabic text only. Not preloaded, so English visitors never download it.
+const notoArabic = Noto_Sans_Arabic({
+  variable: "--font-arabic",
+  subsets: ["arabic"],
+  weight: ["400", "500", "600", "700"],
+  display: "swap",
+  preload: false,
 });
 
 export const metadata: Metadata = {
@@ -55,7 +64,7 @@ const organizationJsonLd = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${jakarta.variable} antialiased`}>
+    <html lang="en" className={`${jakarta.variable} ${notoArabic.variable} antialiased`}>
       <body className="min-h-svh">
         <a
           href="#main"

@@ -4,14 +4,17 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState, useSyncExternalStore } from "react";
 import { ArrowUpRight, ChevronDown, Mail, Menu, MessageCircle, Phone, X } from "lucide-react";
+import { LanguageSwitcher } from "./LanguageSwitcher";
 import { Logo } from "./Logo";
 import { socialLinks } from "./socialLinks";
+import { useLang } from "./useLang";
 import { mainNav, site } from "@/content/site";
 
 const ASSISTANT_HREF = "/ai-assistant/";
 
 /** Opens the Manifest AI assistant in a new tab. */
 function TalkToUs({ className = "" }: { className?: string }) {
+  const { tr } = useLang();
   return (
     <a
       href={ASSISTANT_HREF}
@@ -20,8 +23,8 @@ function TalkToUs({ className = "" }: { className?: string }) {
       className={`items-center gap-2 border border-current/30 px-3 py-2.5 text-[0.85rem] font-semibold whitespace-nowrap transition-colors max-[369px]:size-11 max-[369px]:justify-center max-[369px]:p-0 sm:px-4 hover:border-champagne hover:text-champagne focus-visible:border-champagne focus-visible:text-champagne sm:text-[0.88rem] ${className}`}
     >
       <MessageCircle className="size-4 text-champagne" aria-hidden />
-      <span className="max-[369px]:sr-only">Chat With Us</span>
-      <span className="sr-only"> (opens the AI assistant in a new tab)</span>
+      <span className="max-[369px]:sr-only">{tr("Chat With Us")}</span>
+      <span className="sr-only"> {tr("(opens the AI assistant in a new tab)")}</span>
     </a>
   );
 }
@@ -33,6 +36,7 @@ function subscribeToScroll(callback: () => void) {
 
 export function Header() {
   const pathname = usePathname();
+  const { lang, dir, tr } = useLang();
   const [open, setOpen] = useState(false);
   const [expanded, setExpanded] = useState<string | null>(null);
   const scrolled = useSyncExternalStore(
@@ -58,6 +62,8 @@ export function Header() {
 
   return (
     <header
+      lang={lang === "ar" ? "ar" : undefined}
+      dir={dir}
       className={`fixed inset-x-0 top-0 z-50 transition-all duration-700 ease-luxe ${
         solid
           ? "bg-ivory/85 text-olive-deep shadow-[0_10px_40px_-25px_rgba(42,50,31,0.45)] backdrop-blur-xl"
@@ -71,15 +77,15 @@ export function Header() {
           solid ? "h-0 opacity-0" : "h-9 opacity-100 sm:h-10"
         }`}
       >
-        <div className="container-luxe flex h-full items-center justify-between gap-4 text-[0.78rem] sm:text-[0.82rem]">
-          <ul className="flex min-w-0 items-center gap-4 sm:gap-6" aria-label="Contact">
+        <div className="container-luxe flex h-full items-center justify-between gap-2 text-[0.78rem] min-[340px]:gap-4 sm:text-[0.82rem]">
+          <ul className="flex min-w-0 items-center gap-4 sm:gap-6" aria-label={tr("Contact")}>
             <li>
               <a
                 href={site.phoneHref}
                 className="inline-flex items-center gap-2 whitespace-nowrap transition-colors hover:text-champagne focus-visible:text-champagne"
               >
-                <Phone className="size-3.5 text-champagne" aria-hidden />
-                {site.phoneDisplay}
+                <Phone className="size-3.5 text-champagne max-[339px]:hidden" aria-hidden />
+                <bdi dir="ltr">{site.phoneDisplay}</bdi>
               </a>
             </li>
             <li className="hidden min-w-0 sm:block">
@@ -92,22 +98,26 @@ export function Header() {
               </a>
             </li>
           </ul>
-          <ul className="flex items-center gap-1" aria-label="Social media">
-            {socialLinks.map(({ label, href, Icon }) => (
-              <li key={label}>
-                <a
-                  href={href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={`Manifest on ${label}`}
-                  title={label}
-                  className="flex size-7 items-center justify-center text-ivory/75 transition-colors hover:text-champagne focus-visible:text-champagne"
-                >
-                  <Icon className="size-[0.95rem]" />
-                </a>
-              </li>
-            ))}
-          </ul>
+          <div className="flex shrink-0 items-center gap-2 sm:gap-3">
+            <LanguageSwitcher />
+            <span className="h-4 w-px bg-ivory/20 max-[339px]:hidden" aria-hidden />
+            <ul className="flex items-center sm:gap-1" aria-label={tr("Social media")}>
+              {socialLinks.map(({ label, href, Icon }) => (
+                <li key={label}>
+                  <a
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`Manifest on ${label}`}
+                    title={label}
+                    className="flex size-6 items-center justify-center text-ivory/75 transition-colors hover:text-champagne focus-visible:text-champagne max-[339px]:size-[1.35rem] sm:size-7"
+                  >
+                    <Icon className="size-[0.95rem]" />
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </div>
 
@@ -119,7 +129,7 @@ export function Header() {
       >
         <Logo />
 
-        <nav aria-label="Primary" className="hidden items-center gap-1 xl:flex">
+        <nav aria-label={tr("Primary")} className="hidden items-center gap-1 xl:flex">
           {mainNav.map((item) =>
             item.children ? (
               <div key={item.label} className="group relative">
@@ -129,7 +139,7 @@ export function Header() {
                     isActive(item.href, item.children) ? "text-champagne" : "hover:text-champagne"
                   }`}
                 >
-                  {item.label}
+                  {tr(item.label)}
                   <ChevronDown className="size-3 transition-transform duration-500 group-hover:rotate-180 group-focus-within:rotate-180" />
                 </Link>
                 <div className="invisible absolute top-full left-1/2 w-[22rem] -translate-x-1/2 translate-y-3 pt-3 opacity-0 transition-all duration-500 ease-luxe group-focus-within:visible group-focus-within:translate-y-0 group-focus-within:opacity-100 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100">
@@ -141,14 +151,14 @@ export function Header() {
                         className="group/item flex items-start justify-between gap-4 px-4 py-3.5 transition-colors hover:bg-olive-wash"
                       >
                         <span>
-                          <span className="block text-base leading-tight font-semibold">{child.label}</span>
+                          <span className="block text-base leading-tight font-semibold">{tr(child.label)}</span>
                           {child.description && (
                             <span className="mt-1 block text-xs leading-relaxed text-ink-soft/70">
-                              {child.description}
+                              {tr(child.description)}
                             </span>
                           )}
                         </span>
-                        <ArrowUpRight className="mt-1 size-4 shrink-0 text-champagne-deep opacity-0 transition-all duration-500 group-hover/item:opacity-100" />
+                        <ArrowUpRight className="mt-1 size-4 shrink-0 rtl:-scale-x-100 text-champagne-deep opacity-0 transition-all duration-500 group-hover/item:opacity-100" />
                       </Link>
                     ))}
                   </div>
@@ -162,7 +172,7 @@ export function Header() {
                   isActive(item.href) ? "text-champagne" : "hover:text-champagne"
                 }`}
               >
-                {item.label}
+                {tr(item.label)}
               </Link>
             ),
           )}
@@ -170,7 +180,7 @@ export function Header() {
 
         <div className="flex shrink-0 items-center gap-2 sm:gap-3">
           <Link href="/contact-us/" className="btn btn-champagne hidden !px-5 !py-3 md:inline-flex">
-            Book free consultation
+            {tr("Book free consultation")}
           </Link>
           {/* Desktop / laptop: right after "Book free consultation" */}
           <TalkToUs className="hidden xl:inline-flex" />
@@ -181,7 +191,7 @@ export function Header() {
             onClick={() => setOpen((v) => !v)}
             aria-expanded={open}
             aria-controls="mobile-menu"
-            aria-label={open ? "Close menu" : "Open menu"}
+            aria-label={open ? tr("Close menu") : tr("Open menu")}
             className="relative z-10 flex size-11 items-center justify-center border border-current/25 xl:hidden"
           >
             {open ? <X className="size-5" /> : <Menu className="size-5" />}
@@ -196,7 +206,7 @@ export function Header() {
         }`}
       >
         <div className="container-luxe flex h-full flex-col overflow-y-auto pt-36 pb-10">
-          <nav aria-label="Mobile" className="flex-1">
+          <nav aria-label={tr("Mobile")} className="flex-1">
             <ul className="divide-y divide-ivory/10 border-y border-ivory/10">
               {mainNav.map((item) => (
                 <li key={item.label}>
@@ -206,9 +216,9 @@ export function Header() {
                         type="button"
                         onClick={() => setExpanded(expanded === item.label ? null : item.label)}
                         aria-expanded={expanded === item.label}
-                        className="flex w-full items-center justify-between py-5 text-left font-display text-2xl font-semibold"
+                        className="flex w-full items-center justify-between py-5 text-start font-display text-2xl font-semibold"
                       >
-                        {item.label}
+                        {tr(item.label)}
                         <ChevronDown
                           className={`size-5 text-champagne transition-transform duration-500 ${
                             expanded === item.label ? "rotate-180" : ""
@@ -226,10 +236,10 @@ export function Header() {
                               <Link
                                 href={child.href}
                                 onClick={() => setOpen(false)}
-                                className="flex items-center justify-between py-2.5 pl-4 text-base text-ivory/75 hover:text-champagne"
+                                className="flex items-center justify-between py-2.5 ps-4 text-base text-ivory/75 hover:text-champagne"
                               >
-                                {child.label}
-                                <ArrowUpRight className="size-4" />
+                                {tr(child.label)}
+                                <ArrowUpRight className="size-4 rtl:-scale-x-100" />
                               </Link>
                             </li>
                           ))}
@@ -242,7 +252,7 @@ export function Header() {
                       onClick={() => setOpen(false)}
                       className="block py-5 font-display text-2xl font-semibold hover:text-champagne"
                     >
-                      {item.label}
+                      {tr(item.label)}
                     </Link>
                   )}
                 </li>
@@ -251,10 +261,12 @@ export function Header() {
           </nav>
           <div className="mt-10 space-y-5">
             <Link href="/contact-us/" onClick={() => setOpen(false)} className="btn btn-champagne w-full">
-              Book free consultation
+              {tr("Book free consultation")}
             </Link>
             <div className="flex flex-col gap-2 text-sm text-ivory/70">
-              <a href={site.phoneHref}>{site.phoneDisplay}</a>
+              <a href={site.phoneHref}>
+                <bdi dir="ltr">{site.phoneDisplay}</bdi>
+              </a>
               <a href={`mailto:${site.email}`}>{site.email}</a>
             </div>
           </div>
